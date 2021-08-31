@@ -8,6 +8,7 @@ public class CprApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CprApplication.class, args);
+        System.out.println("全体目光向我看齐");
     }
 
 }
