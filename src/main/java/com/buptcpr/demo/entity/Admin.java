@@ -1,4 +1,4 @@
-package com.buptcpr.pojo;
+package com.buptcpr.demo.entity;
 
 import lombok.Data;
 
