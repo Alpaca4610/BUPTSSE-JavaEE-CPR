@@ -13,9 +13,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Student {
 
-    //账号信息
-    @NotBlank
-    private String username;
+    //账号密码
     @NotBlank
     private String passwd;
 
@@ -31,6 +29,6 @@ public class Student {
     @NotEmpty
     private int score;
     @NotEmpty
-    private int rank;
+    private int myrank;
 
 }
