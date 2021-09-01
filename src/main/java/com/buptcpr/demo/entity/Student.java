@@ -12,23 +12,24 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 public class Student {
-
     //账号密码
-    @NotBlank
+    @NotBlank(message = "密码不可为空")
     private String passwd;
 
     //用户信息
     @NotBlank
     private String name;
-    @NotBlank
+    @NotBlank(message = "用户不可为空")
     @Id
-    @GeneratedValue
     private String studentID;
     @NotBlank
     private String classID;
-    @NotEmpty
+
     private int score;
-    @NotEmpty
+
     private int myrank;
 
+    public interface Login{}
+
+    public interface Update{}
 }

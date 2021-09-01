@@ -1,11 +1,14 @@
 package com.buptcpr.demo.entity;
 
 import lombok.Data;
+import org.aspectj.weaver.ast.Not;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity // This tells Hibernate to make a table out of this class
@@ -14,8 +17,11 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String email;
 
     public Integer getId() {
