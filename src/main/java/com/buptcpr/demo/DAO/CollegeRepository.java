@@ -1,7 +1,12 @@
 package com.buptcpr.demo.DAO;
 
+import com.buptcpr.demo.entity.College;
 import com.buptcpr.demo.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CollegeRepository extends JpaRepository<Student, String> {
+import java.util.List;
+
+public interface CollegeRepository extends JpaRepository<College, Integer> {
+    List<College> findByCrankLessThan(int srank);
+    List<College> findByCrankGreaterThan(int srank);
 }
