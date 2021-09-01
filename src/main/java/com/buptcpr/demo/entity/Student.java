@@ -10,11 +10,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Entity
 public class Student {
 
     //账号信息
     @NotBlank
-    @Id
     private String username;
     @NotBlank
     private String passwd;
@@ -23,6 +23,8 @@ public class Student {
     @NotBlank
     private String name;
     @NotBlank
+    @Id
+    @GeneratedValue
     private String studentID;
     @NotBlank
     private String classID;

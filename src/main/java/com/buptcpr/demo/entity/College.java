@@ -2,13 +2,18 @@ package com.buptcpr.demo.entity;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 //todo 添加验证约束
 @Data
-public class college {
+@Entity
+public class College {
 
-
+    @Id
+    @GeneratedValue
     private int collegeID;//大学ID
 
     @NotBlank(message = "大学名称不能为空")
