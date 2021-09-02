@@ -42,12 +42,5 @@ public class UserController {
         return "success!";
     }
 
-    //查询所有
-    @RequestMapping("/getAll")
-    public Iterable<User> getAll(){
-        //查询所有的用户数据
-        return userService.findAll();
-    }
-
 
 }

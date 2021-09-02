@@ -21,7 +21,6 @@ public class Teacher {
     private String name;
     @NotBlank
     @Id
-    @GeneratedValue
     private String teacherID;
     @NotBlank
     private String classID;

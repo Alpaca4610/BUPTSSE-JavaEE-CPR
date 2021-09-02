@@ -2,10 +2,8 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.entity.College;
-import com.buptcpr.demo.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
