@@ -1,21 +1,29 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.DAO.TeacherRepository;
+import com.buptcpr.demo.entity.Student;
+import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.StatisticsService;
 import com.buptcpr.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
 
+@CrossOrigin
+@Controller
+@RequestMapping(path="/teacher")
 public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
     @Autowired
     private StatisticsService statisticsService;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
-    @PostMapping(path="/teacher_sign_up")
+    @PostMapping(path="/login")
     public @ResponseBody
     String teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
         if(teacherService.signUp(name, id ,passwd)) {
@@ -25,7 +33,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(path="/teacher_sign_in")
+    @GetMapping(path="/register")
     public @ResponseBody String teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
         if(teacherService.signIn(id, passwd)) {
             return "login successfully";
@@ -47,5 +55,24 @@ public class TeacherController {
     @GetMapping(path = "/get_1_Rate")
     public @ResponseBody float get1Rate(@RequestParam String id){
         return statisticsService.get1Rate(id);
+    }
+
+
+    @PostMapping(path="/delete")
+    public @ResponseBody String teacherDelete(@RequestParam String id)
+    {
+        return teacherService.delete(id);
+    }
+
+    @PostMapping(path="/update")
+    public @ResponseBody String studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
+    {
+        return teacherService.update(id,name,passwd,classID);
+    }
+
+    @GetMapping("/all")
+    public @ResponseBody
+    List<Teacher> getteacher() {
+        return teacherRepository.findAll();
     }
 }

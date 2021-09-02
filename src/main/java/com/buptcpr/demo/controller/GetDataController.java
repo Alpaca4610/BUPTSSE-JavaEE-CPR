@@ -4,11 +4,13 @@ import com.buptcpr.demo.DAO.*;
 import com.buptcpr.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@CrossOrigin
 @Controller
 public class GetDataController {
     @Autowired
@@ -38,21 +40,4 @@ public class GetDataController {
         return sheetRepository.findAll();
     }
 
-    @GetMapping("/getCollege")
-    public @ResponseBody
-    List<College> getcollege() {
-        return collegeRepository.findAll();
-    }
-
-    @GetMapping("/getStudent")
-    public @ResponseBody
-    List<Student> getstudent() {
-        return studentRepository.findAll();
-    }
-
-    @GetMapping("/getTeacher")
-    public @ResponseBody
-    List<Teacher> getteacher() {
-        return teacherRepository.findAll();
-    }
 }
