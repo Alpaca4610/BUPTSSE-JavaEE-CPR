@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-
+@RequestMapping(path="/teacher")
 public class TeacherController {
 
     @Autowired
@@ -15,7 +15,7 @@ public class TeacherController {
     @Autowired
     private StatisticsService statisticsService;
 
-    @PostMapping(path="/teacher_sign_up")
+    @PostMapping(path="/login")
     public @ResponseBody
     String teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
         if(teacherService.signUp(name, id ,passwd)) {
@@ -25,7 +25,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(path="/teacher_sign_in")
+    @GetMapping(path="/register")
     public @ResponseBody String teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
         if(teacherService.signIn(id, passwd)) {
             return "login successfully";

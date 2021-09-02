@@ -3,6 +3,7 @@ package com.buptcpr.demo.service;
 import com.buptcpr.demo.DAO.ClassRepository;
 import com.buptcpr.demo.DAO.TeacherRepository;
 import com.buptcpr.demo.entity.Class;
+import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class TeacherService {
 
     public String createClass(String id){
         Optional<Class> byClassId = classRepository.findById(id);
-        if(byClassId==null){
+        if(!byClassId.isPresent()){
             //创建班级
             Class c=new Class();
             c.setClassID(id);
@@ -50,6 +51,32 @@ public class TeacherService {
         }else{
             //已存在
             return "class_exists";
+        }
+    }
+
+    public String delete(String id){//删
+        Teacher teacher = teacherRepository.findByTeacherID(id);
+        if(teacher == null){
+            return "id_not_exits";
+        }else{
+            teacherRepository.deleteById(id);
+            return "success";
+        }
+    }
+
+    public String update(String id, String name, String passwd,String classID){//改
+        Teacher teacher =teacherRepository.findByTeacherID(id);
+        if(teacher == null){
+            return "fail_id_not_exits";
+        }else{
+            teacher = new Teacher();
+            teacher.setTeacherID(id);
+            teacher.setName(name);
+            teacher.setPasswd(md5Util.encode(passwd));
+            teacher.setClassID(classID);
+
+            teacherRepository.save(teacher);
+            return "Saved";
         }
     }
 }

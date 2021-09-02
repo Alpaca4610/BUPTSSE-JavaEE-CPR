@@ -44,11 +44,6 @@ public class GetDataController {
         return collegeRepository.findAll();
     }
 
-    @GetMapping("/getStudent")
-    public @ResponseBody
-    List<Student> getstudent() {
-        return studentRepository.findAll();
-    }
 
     @GetMapping("/getTeacher")
     public @ResponseBody

@@ -1,7 +1,6 @@
 //package com.buptcpr.demo.controller;
 //
 //import com.buptcpr.demo.entity.College;
-//import com.buptcpr.demo.service.CollegeService;
 //import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Pageable;
@@ -18,8 +17,6 @@
 //
 //    @Resource
 //    private CollegeService collegeService;
-//
-//
 //
 //    @RequestMapping("/save")
 //    public String save(){
@@ -46,11 +43,11 @@
 //    }
 //
 //    //删除
-//    @RequestMapping("/delete")
-//    public String delete(){
-//        collegeService.delete(1);
-//        return "success!";
-//    }
+////    @RequestMapping("/delete")
+////    public String delete(){
+////        collegeService.delete(1);
+////        return "success!";
+////    }
 //
 //    //查询所有
 //    @RequestMapping("/getAll")

@@ -16,9 +16,6 @@ public class WishSheet {
     @Id
     private String studentID;//学号
 
-    @NotBlank
-    private String sheetID;
-
     private String wishA;//志愿A
 
     private String wishB;//志愿B
