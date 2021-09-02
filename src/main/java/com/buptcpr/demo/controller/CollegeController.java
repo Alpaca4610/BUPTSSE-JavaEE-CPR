@@ -24,8 +24,8 @@ public class CollegeController {
     private CollegeRepository collegeRepository;
 
     @PostMapping ("/add")//增
-    public @ResponseBody String save(@RequestParam String name,@RequestParam int score,@RequestParam int tier,@RequestParam int rank,@RequestParam String kind){
-       collegeService.add(name,score,tier,rank,kind);
+    public @ResponseBody String save(@RequestParam String id,@RequestParam int score,@RequestParam int tier,@RequestParam int rank,@RequestParam String kind){
+       collegeService.add(id,score,tier,rank,kind);
         return "saved";
     }
 
@@ -36,7 +36,7 @@ public class CollegeController {
     }
 
     @PostMapping("/update")
-    public @ResponseBody String update(int id,String name, String kind,int tier,int score,int rank){
+    public @ResponseBody String update(String id,String name, String kind,int tier,int score,int rank){
         //修改的对象必须是持久化对象，所以先从数据库查询id为1的对象开始修改
         return collegeService.update(id,name,kind,tier,score,rank);
     }

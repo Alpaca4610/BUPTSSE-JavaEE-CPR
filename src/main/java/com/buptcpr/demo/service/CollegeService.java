@@ -32,11 +32,11 @@ public class CollegeService {
 
     //delete
     @Transactional
-    public void delete(String name){//删
-        collegeRepository.deleteById(name);
+    public void delete(String id){//删
+        collegeRepository.deleteByCollegeID(id);
     }
 
-    public String update(int id,String name, String kind,int tier,int score,int rank){
+    public String update(String id,String name, String kind,int tier,int score,int rank){
         College college = collegeRepository.findByName(name);
         if(college == null){
             return "fail_id_not_exits";
