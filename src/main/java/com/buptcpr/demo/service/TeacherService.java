@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 public class TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private MD5Util md5Util;
 
     public Boolean SignUp(String name, String id, String passwd){
         Teacher byTeacherID = teacherRepository.findByTeacherID(id);
@@ -16,19 +18,12 @@ public class TeacherService {
             Teacher teacher = new Teacher();
             teacher.setName(name);
             teacher.setTeacherID(id);
-            teacher.setPasswd(passwd);
+            teacher.setPasswd(md5Util.encode(passwd));
             teacherRepository.save(teacher);
             return true;
         }else{
             return false;
         }
-    }
-
-    public Boolean SignIn(String id, String passwd){
-        Teacher byTeacherID = teacherRepository.findByTeacherID(id);
-        if(byTeacherID==null){
-            return false;
-        }else return passwd.equals(byTeacherID.getPasswd());
     }
 
 }
