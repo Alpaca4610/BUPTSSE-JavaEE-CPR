@@ -31,7 +31,7 @@ public class StudentService {
 
     // 学生注册
     public String register(String studentID, String name, String passwd){
-        Student student = studentRepository.findBystudentID(studentID);
+        Student student = (Student) studentRepository.findBystudentID(studentID);
         if(student != null){
             return "fail_id_exits";
         }else{
