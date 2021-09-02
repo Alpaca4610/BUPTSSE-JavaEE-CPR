@@ -36,14 +36,18 @@ public class CollegeService {
         collegeRepository.deleteById(name);
     }
 
-    public String update(String name, String passwd,String classID,int score,int rank){
+    public String update(int id,String name, String kind,int tier,int score,int rank){
         College college = collegeRepository.findByName(name);
         if(college == null){
             return "fail_id_not_exits";
         }else{
             college = new College();
-
-
+            college.setCollegeID(id);
+            college.setCrank(rank);
+            college.setName(name);
+            college.setKind(kind);
+            college.setTier(tier);
+            college.setScore(score);
             collegeRepository.save(college);
             return "Saved";
         }
