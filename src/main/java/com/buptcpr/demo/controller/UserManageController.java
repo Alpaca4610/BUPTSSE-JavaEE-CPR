@@ -2,7 +2,6 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.UserRepository;
 import com.buptcpr.demo.entity.User;
-import com.buptcpr.demo.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,11 +11,9 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 @RestController // This means that this class is a Controller
-@RequestMapping(path="/User") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/UserManage") // This means URL's start with /demo (after Application path)
 public class UserManageController {
 
-    @Resource
-    private UserService userService;
     @Resource
     private UserRepository userRepository;
 
@@ -28,7 +25,7 @@ public class UserManageController {
         user.setEmail(email);
 
         //保存数据
-        userRepository.save(user);;
+        userRepository.save(user);
         return "saved";
     }
 

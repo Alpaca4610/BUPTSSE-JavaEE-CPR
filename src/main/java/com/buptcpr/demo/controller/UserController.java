@@ -31,7 +31,7 @@ public class UserController {
         user.setEmail(email);
 
         //保存数据
-        userRepository.save(user);;
+        userRepository.save(user);
         return "saved";
     }
 
@@ -50,8 +50,6 @@ public class UserController {
             System.out.println(users);
             return "修改成功！";
         }
-
-
     }
 
     //删除
