@@ -11,18 +11,16 @@ import javax.validation.constraints.NotBlank;
 public class Teacher {
 
     //账号信息
-    @NotBlank
-    private String username;
+
+    @Id
+    private String teacherID;
     @NotBlank
     private String passwd;
 
     //用户信息
     @NotBlank
     private String name;
-    @NotBlank
-    @Id
-    @GeneratedValue
-    private String teacherID;
+
     @NotBlank
     private String classID;
 

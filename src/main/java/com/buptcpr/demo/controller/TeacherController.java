@@ -1,6 +1,6 @@
 package com.buptcpr.demo.controller;
 
-import com.buptcpr.demo.DAO.TeacherRepository;
+import com.buptcpr.demo.service.StatisticsService;
 import com.buptcpr.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +12,13 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private StatisticsService statisticsService;
 
     @PostMapping(path="/teacher_sign_up")
     public @ResponseBody
     String teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
-        if(teacherService.SignUp(name, id ,passwd)) {
+        if(teacherService.signUp(name, id ,passwd)) {
             return "Saved";
         }else{
             return "id exists";
@@ -25,10 +27,25 @@ public class TeacherController {
 
     @GetMapping(path="/teacher_sign_in")
     public @ResponseBody String teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
-        if(teacherService.SignIn(id, passwd)) {
+        if(teacherService.signIn(id, passwd)) {
             return "login successfully";
         }else{
             return "id/passwd incorrect";
         }
+    }
+
+    @GetMapping(path = "/create_class")
+    public @ResponseBody String createClass(@RequestParam String id){
+        String result = teacherService.createClass(id);
+        if(result.equals("saved")){
+            return "saved";
+        }else{
+            return "class_exists";
+        }
+    }
+
+    @GetMapping(path = "/get_1_Rate")
+    public @ResponseBody float get1Rate(@RequestParam String id){
+        return statisticsService.get1Rate(id);
     }
 }
