@@ -81,33 +81,68 @@ public class SheetService {
     }
 
     public String update(String id, String id1, String id2, String id3) {
-        WishSheet wishSheetbyId = sheetRepository.findbyId(id);
+
         College byCollegeID1 = collegeRepository.findByCollegeID(id1);
         College byCollegeID2 = collegeRepository.findByCollegeID(id2);
         College byCollegeID3 = collegeRepository.findByCollegeID(id3);
-        if(wishSheetbyId==null){
-            return "not_exists";
-        }else{
-            String old_id1=wishSheetbyId.getWishA();
-            String old_id2=wishSheetbyId.getWishB();
-            String old_id3=wishSheetbyId.getWishC();
-            if(old_id1.equals(id1)){
+        byCollegeID1.setCount(byCollegeID1.getCount()+1);
+        byCollegeID2.setCount(byCollegeID2.getCount()+1);
+        byCollegeID3.setCount(byCollegeID3.getCount()+1);
 
-            }else{
+        College college1 = new College(
+                byCollegeID1.getCollegeID(),byCollegeID1.getName(),byCollegeID1.getCrank()
+                ,byCollegeID1.getTier(), byCollegeID1.getKind(),byCollegeID1.getScore(), byCollegeID1.getCount());
+        College college2 = new College(
+                byCollegeID2.getCollegeID(),byCollegeID2.getName(),byCollegeID2.getCrank()
+                ,byCollegeID2.getTier(), byCollegeID2.getKind(),byCollegeID2.getScore(),byCollegeID2.getCount());
+        College college3 = new College(
+                byCollegeID3.getCollegeID(),byCollegeID3.getName(),byCollegeID3.getCrank()
+                ,byCollegeID3.getTier(), byCollegeID3.getKind(),byCollegeID3.getScore(),byCollegeID3.getCount());
 
-            }
-            if(old_id2.equals(id2)){
+        collegeRepository.deleteByCollegeID(id1);
+        collegeRepository.deleteByCollegeID(id2);
+        collegeRepository.deleteByCollegeID(id3);
 
-            }else{
+        collegeRepository.save(college1);
+        collegeRepository.save(college2);
+        collegeRepository.save(college3);
 
-            }
-            if(old_id3.equals(id3)){
 
-            }else{
 
-            }
+        WishSheet oldSheet=sheetRepository.findbyId(id);
+        String oldID1=oldSheet.getWishA();
+        String oldID2=oldSheet.getWishB();
+        String oldID3=oldSheet.getWishC();
 
-            WishSheet wishSheet = new WishSheet();
+
+        College oldCollegeID1 = collegeRepository.findByCollegeID(oldID1);
+        College oldCollegeID2 = collegeRepository.findByCollegeID(oldID2);
+        College oldCollegeID3 = collegeRepository.findByCollegeID(oldID3);
+        byCollegeID1.setCount(oldCollegeID1.getCount()-1);
+        byCollegeID2.setCount(oldCollegeID2.getCount()-1);
+        byCollegeID3.setCount(oldCollegeID3.getCount()-1);
+
+        College oldCollege1 = new College(
+                oldCollegeID1.getCollegeID(),oldCollegeID1.getName(),oldCollegeID1.getCrank()
+                ,oldCollegeID1.getTier(), oldCollegeID1.getKind(),oldCollegeID1.getScore(), oldCollegeID1.getCount());
+        College oldCollege2 = new College(
+                oldCollegeID2.getCollegeID(),oldCollegeID2.getName(),oldCollegeID2.getCrank()
+                ,oldCollegeID2.getTier(), oldCollegeID2.getKind(),oldCollegeID2.getScore(),oldCollegeID2.getCount());
+        College oldCollege3 = new College(
+                oldCollegeID3.getCollegeID(),oldCollegeID3.getName(),oldCollegeID3.getCrank()
+                ,oldCollegeID3.getTier(), oldCollegeID3.getKind(),oldCollegeID3.getScore(),oldCollegeID3.getCount());
+
+        collegeRepository.deleteByCollegeID(oldID1);
+        collegeRepository.deleteByCollegeID(oldID2);
+        collegeRepository.deleteByCollegeID(oldID3);
+
+        collegeRepository.save(oldCollege1);
+        collegeRepository.save(oldCollege2);
+        collegeRepository.save(oldCollege3);
+
+
+
+        WishSheet wishSheet = new WishSheet();
             wishSheet.setStudentID(id);
             wishSheet.setStudentID(id1);
             wishSheet.setStudentID(id2);
@@ -115,6 +150,5 @@ public class SheetService {
             sheetRepository.deleteById(id);
             sheetRepository.save(wishSheet);
             return "saved";
-        }
     }
 }
