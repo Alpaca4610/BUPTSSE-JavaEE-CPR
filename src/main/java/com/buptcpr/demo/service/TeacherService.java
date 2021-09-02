@@ -26,5 +26,12 @@ public class TeacherService {
         }
     }
 
+    public Boolean SignIn(String id, String passwd){
+        Teacher byTeacherID = teacherRepository.findByTeacherID(id);
+        if(byTeacherID==null){
+            return false;
+        }else return md5Util.encode(passwd).equals(byTeacherID.getPasswd());
+    }
+
 }
 
