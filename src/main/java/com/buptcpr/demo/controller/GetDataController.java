@@ -45,9 +45,4 @@ public class GetDataController {
     }
 
 
-    @GetMapping("/getTeacher")
-    public @ResponseBody
-    List<Teacher> getteacher() {
-        return teacherRepository.findAll();
-    }
 }

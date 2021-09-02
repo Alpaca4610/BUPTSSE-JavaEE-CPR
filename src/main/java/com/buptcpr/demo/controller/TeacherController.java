@@ -1,10 +1,15 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.DAO.TeacherRepository;
+import com.buptcpr.demo.entity.Student;
+import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.StatisticsService;
 import com.buptcpr.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(path="/teacher")
@@ -14,6 +19,8 @@ public class TeacherController {
     private TeacherService teacherService;
     @Autowired
     private StatisticsService statisticsService;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @PostMapping(path="/login")
     public @ResponseBody
@@ -47,5 +54,24 @@ public class TeacherController {
     @GetMapping(path = "/get_1_Rate")
     public @ResponseBody float get1Rate(@RequestParam String id){
         return statisticsService.get1Rate(id);
+    }
+
+
+    @PostMapping(path="/delete")
+    public @ResponseBody String teacherDelete(@RequestParam String id)
+    {
+        return teacherService.delete(id);
+    }
+
+    @PostMapping(path="/update")
+    public @ResponseBody String studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
+    {
+        return teacherService.update(id,name,passwd,classID);
+    }
+
+    @GetMapping("/all")
+    public @ResponseBody
+    List<Teacher> getteacher() {
+        return teacherRepository.findAll();
     }
 }
