@@ -1,39 +1,41 @@
-//package com.buptcpr.demo.controller;
-//
-//import com.buptcpr.demo.entity.College;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Pageable;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.web.bind.annotation.*;
-//
-//import javax.annotation.Resource;
-//import java.util.List;
-//
-//
-//@RestController // This means that this class is a Controller
-//@RequestMapping(path="/college") // This means URL's start with /demo (after Application path)
-//public class CollegeController {
-//
-//    @Resource
-//    private CollegeService collegeService;
-//
-//    @RequestMapping("/save")
-//    public String save(){
-//        //实例化一个对象，添加值
-//        College college = new College();
-//        college.setScore(620);
-//        college.setName("东北财经");
-//        college.setTier(525);
-//        college.setCrank(157);
-//        college.setKind("财经");
-//
-//        //保存数据
-//       collegeService.save(college);
-//        return "saved";
-//    }
-//
-//    //修改
+package com.buptcpr.demo.controller;
+
+import com.buptcpr.demo.DAO.CollegeRepository;
+import com.buptcpr.demo.entity.College;
+import com.buptcpr.demo.service.CollegeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@CrossOrigin
+@RestController // This means that this class is a Controller
+@RequestMapping(path="/college") // This means URL's start with /demo (after Application path)
+public class CollegeController {
+
+    @Resource
+    private CollegeService collegeService;
+    @Autowired
+    private CollegeRepository collegeRepository;
+
+    @PostMapping ("/add")//增
+    public @ResponseBody String save(@RequestParam String name,@RequestParam int score,@RequestParam int tier,@RequestParam int rank,@RequestParam String kind){
+       collegeService.add(name,score,tier,rank,kind);
+        return "saved";
+    }
+
+    @PostMapping("/delete")//删
+    public @ResponseBody String delete(@RequestParam String name){
+        collegeService.delete(name);
+        return "success!";
+    }
+
+    //改
 //    @RequestMapping("/update")
 //    public String update(){
 //        //修改的对象必须是持久化对象，所以先从数据库查询id为1的对象开始修改
@@ -41,21 +43,12 @@
 //        collegeService.update(college);
 //        return "修改成功！";
 //    }
-//
-//    //删除
-////    @RequestMapping("/delete")
-////    public String delete(){
-////        collegeService.delete(1);
-////        return "success!";
-////    }
-//
-//    //查询所有
-//    @RequestMapping("/getAll")
-//    public Iterable<College> getAll(){
-//        //查询所有的用户数据
-//        return collegeService.findAll();
-//    }
-//
+
+
+    @GetMapping("/all")
+    public List<College> findAll(){
+        return collegeRepository.findAll();
+    }
 //    @RequestMapping("/sort")
 //    public Iterable<College> sortCollege(){
 //        //指定参数对象：根据id，进行降序查询
@@ -63,8 +56,8 @@
 //        Iterable<College> collegeData = collegeService.findAllSort(sort);
 //        return collegeData;
 //    }
-//
-//    //分页排序查询
+
+    //分页排序查询
 //    @RequestMapping("/pager")
 //    public List<College> sortPagerCollege(int pageIndex){
 //        //指定排序参数对象：根据id，进行降序查询
@@ -87,6 +80,5 @@
 //        System.out.println("查询当前页面的集合："+colleges);
 //        return colleges;
 //    }
-//
-//
-//}
+
+}
