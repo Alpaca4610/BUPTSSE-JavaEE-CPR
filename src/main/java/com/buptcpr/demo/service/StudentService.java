@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class StudentService {
     @Resource
     private StudentRepository studentRepository;
+    @Autowired
+    private MD5Util md5Util;
 
 //    // 学生登陆
 //    public Student login(String studentID, String passwd){
@@ -29,21 +31,17 @@ public class StudentService {
 
     // 学生注册
     public String register(String studentID, String name, String passwd){
-        Student student = studentRepository.findBystudentID(studentID).get(0);
+        Student student = studentRepository.findBystudentID(studentID);
         if(student != null){
-            return "注册失败, 账户中已有该学生的信息";
+            return "fail_id_exits";
         }else{
             student = new Student();
             student.setStudentID(studentID);
             student.setName(name);
-            student.setPasswd(passwd);
+            student.setPasswd(md5Util.encode(passwd));
             System.out.println("studentID: " + studentID);
             studentRepository.save(student);
             return "Saved";
         }
-
     }
-
-
-
 }
