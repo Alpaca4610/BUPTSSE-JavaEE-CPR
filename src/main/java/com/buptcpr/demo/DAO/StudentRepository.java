@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, String> {
-    public List<Student> findBystudentID(String id);
-    public Integer countAllByClassID(String id);
-    @Query(value = "select sum(Student.score) from Student")
+    List<Student> findByStudentID(String id);
+    Integer countAllByClassID(String id);
+    @Query(nativeQuery = true,value = "select sum(Student.score) from Student")
     Integer findByClassID(String id);
 }

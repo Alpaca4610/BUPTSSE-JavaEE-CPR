@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SheetRepository extends JpaRepository<WishSheet, String>{
+    List<WishSheet> findByWishAOrWishBOrWishC(String wishA, String wishB, String wishC);
 }
 

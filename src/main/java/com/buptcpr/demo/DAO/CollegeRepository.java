@@ -8,4 +8,5 @@ import java.util.List;
 public interface CollegeRepository extends JpaRepository<College, String> {
     List<College> findByCrankLessThan(int srank);
     List<College> findByCrankGreaterThan(int srank);
+    College findByName(String name);
 }

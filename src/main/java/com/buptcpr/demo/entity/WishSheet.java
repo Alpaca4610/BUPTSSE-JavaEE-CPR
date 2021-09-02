@@ -13,15 +13,15 @@ import javax.validation.constraints.NotBlank;
 public class WishSheet {
 
     @NotBlank(message = "学号不能为空")
+    @Id
     private String studentID;//学号
 
     @NotBlank
-    @Id
     private String sheetID;
 
-    private int wishA;//志愿A
+    private String wishA;//志愿A
 
-    private int wishB;//志愿B
+    private String wishB;//志愿B
 
-    private int wishC;//志愿C
+    private String wishC;//志愿C
 }

@@ -23,7 +23,7 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public String login(@RequestParam String id, @RequestParam String passwd) {
-        Student users = (Student) studentRepository.findBystudentID(id);
+        Student users = (Student) studentRepository.findByStudentID(id);
         // 如果数据库中未查到该账号:
         if (users==null) {
             return "该用户不存在";

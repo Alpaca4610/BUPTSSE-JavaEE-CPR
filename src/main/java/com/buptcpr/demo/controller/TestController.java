@@ -19,12 +19,13 @@ public class TestController {
         private TestRepository testRepository;
 
         @PostMapping(path="/add") // Map ONLY POST Requests
-        public @ResponseBody String addNewUser (@RequestParam String name
+        public @ResponseBody String addNewUser (@RequestParam int id ,@RequestParam String name
                 , @RequestParam String email) {
             // @ResponseBody means the returned String is the response, not a view name
             // @RequestParam means it is a parameter from the GET or POST request
 
             User n = new User();
+            n.setId(id);
             n.setName(name);
             n.setEmail(email);
             testRepository.save(n);
