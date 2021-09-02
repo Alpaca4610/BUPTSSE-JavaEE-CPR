@@ -26,14 +26,10 @@ public class StudentController {
 //        }
 //    }
 
-
     @PostMapping(path="/register")
-    public @ResponseBody String studentRegister(@RequestParam String studentID,
+    public @ResponseBody String studentRegister(@RequestParam String id,
                                                 @RequestParam String name,
                                                 @RequestParam String passwd){
-        return studentService.register(studentID,name, passwd);
-//        return ret;
+        return studentService.register(id,name, passwd);
     }
-
-
 }
