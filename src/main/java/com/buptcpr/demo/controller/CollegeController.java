@@ -35,14 +35,11 @@ public class CollegeController {
         return "success!";
     }
 
-    //改
-//    @RequestMapping("/update")
-//    public String update(){
-//        //修改的对象必须是持久化对象，所以先从数据库查询id为1的对象开始修改
-//        College college = collegeService.getById(1);
-//        collegeService.update(college);
-//        return "修改成功！";
-//    }
+    @PostMapping("/update")
+    public @ResponseBody String update(int id,String name, String kind,int tier,int score,int rank){
+        //修改的对象必须是持久化对象，所以先从数据库查询id为1的对象开始修改
+        return collegeService.update(id,name,kind,tier,score,rank);
+    }
 
 
     @GetMapping("/all")
