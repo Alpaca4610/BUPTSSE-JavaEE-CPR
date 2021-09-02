@@ -1,22 +1,19 @@
 package com.buptcpr.demo.controller;
 
-import com.buptcpr.demo.DAO.StudentRepository;
 import com.buptcpr.demo.DAO.UserRepository;
-import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.User;
 import com.buptcpr.demo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Optional;
-
 
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/User") // This means URL's start with /demo (after Application path)
-public class UserController {
+public class UserManageController {
 
     @Resource
     private UserService userService;
