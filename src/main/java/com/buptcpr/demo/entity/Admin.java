@@ -13,17 +13,14 @@ import javax.validation.constraints.NotBlank;
 public class Admin {
 
     //账号信息
-    @NotBlank
-    private String username;
+    @Id
+    private String adminID;
     @NotBlank
     private String passwd;
 
     //用户信息
     @NotBlank
     private String name;
-    @NotBlank
-    @Id
-    @GeneratedValue
-    private String adminID;
+
 
 }
