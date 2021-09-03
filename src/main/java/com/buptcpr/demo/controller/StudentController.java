@@ -26,8 +26,8 @@ public class StudentController {
     // 登录
     @PostMapping("/login")
     @ResponseBody
-    public Result<Student> login(String name, String password) {
-        Student res = studentService.login(name,password);
+    public Result<Student> login(String id, String password) {
+        Student res = studentService.login(id,password);
         if(res!=null){
             return Result.success(res);
         }else{
