@@ -19,7 +19,7 @@ public class TeacherService {
     @Autowired
     private ClassRepository classRepository;
 
-    public Boolean signUp(String name, String id, String passwd){
+    public int signUp(String name, String id, String passwd){
         Teacher byTeacherID = teacherRepository.findByTeacherID(id);
         if(byTeacherID==null){
             Teacher teacher = new Teacher();
@@ -27,9 +27,9 @@ public class TeacherService {
             teacher.setTeacherID(id);
             teacher.setPasswd(md5Util.encode(passwd));
             teacherRepository.save(teacher);
-            return true;
+            return 0;
         }else{
-            return false;
+            return 1;
         }
     }
 
@@ -42,7 +42,7 @@ public class TeacherService {
 
     public String createClass(String id){
         Optional<Class> byClassId = classRepository.findById(id);
-        if(!byClassId.isPresent()){
+        if(byClassId.isEmpty()){
             //创建班级
             Class c=new Class();
             c.setClassID(id);
@@ -54,20 +54,20 @@ public class TeacherService {
         }
     }
 
-    public String delete(String id){//删
+    public int delete(String id){//删
         Teacher teacher = teacherRepository.findByTeacherID(id);
         if(teacher == null){
-            return "id_not_exits";
+            return 1;
         }else{
             teacherRepository.deleteById(id);
-            return "success";
+            return 0;
         }
     }
 
-    public String update(String id, String name, String passwd,String classID){//改
+    public int update(String id, String name, String passwd,String classID){//改
         Teacher teacher =teacherRepository.findByTeacherID(id);
         if(teacher == null){
-            return "fail_id_not_exits";
+            return 1;
         }else{
             teacher = new Teacher();
             teacher.setTeacherID(id);
@@ -76,7 +76,7 @@ public class TeacherService {
             teacher.setClassID(classID);
 
             teacherRepository.save(teacher);
-            return "Saved";
+            return 0;
         }
     }
 }
