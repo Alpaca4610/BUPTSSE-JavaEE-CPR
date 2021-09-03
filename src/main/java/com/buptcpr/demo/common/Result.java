@@ -50,4 +50,10 @@ public class Result<T> {
         result.setMsg("成功");
         return result;
     }
+    public static Result success() {
+        Result result = new Result<>();
+        result.setCode("0");
+        result.setMsg("成功");
+        return result;
+    }
 }
