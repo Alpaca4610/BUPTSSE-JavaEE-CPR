@@ -26,7 +26,7 @@ public class StudentController {
     // 登录
     @PostMapping("/login")
     @ResponseBody
-    public Result login(String name, String password) {
+    public Result<Student> login(String name, String password) {
         Student res = studentService.login(name,password);
         if(res!=null){
             return Result.success(res);
@@ -36,7 +36,7 @@ public class StudentController {
     }
 
     // 学生注册
-    @PostMapping(path="/register")//增
+    @PostMapping(path="/register")
     @ResponseBody
     public Result<Student> studentRegister(@RequestParam String id,
                                                 @RequestParam String name,

@@ -27,7 +27,8 @@ public class CollegeService {
         college.setTier(tier);
         college.setCrank(rank);
         college.setKind(kind);
-        return collegeRepository.save(college);
+        collegeRepository.save(college);
+        return college;
     }
 
     //delete
@@ -36,10 +37,10 @@ public class CollegeService {
         collegeRepository.deleteByCollegeID(id);
     }
 
-    public String update(String id,String name, String kind,int tier,int score,int rank){
+    public int update(String id,String name, String kind,int tier,int score,int rank){
         College college = collegeRepository.findByName(name);
         if(college == null){
-            return "fail_id_not_exits";
+            return 1;
         }else{
             college = new College();
             college.setCollegeID(id);
@@ -49,7 +50,7 @@ public class CollegeService {
             college.setTier(tier);
             college.setScore(score);
             collegeRepository.save(college);
-            return "Saved";
+            return 0;
         }
     }
 
