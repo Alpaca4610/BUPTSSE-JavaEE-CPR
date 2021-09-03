@@ -51,12 +51,20 @@ public class CollegeController {
         }
     }
 
-
     // 查找所有大学
     @GetMapping("/all")
     @ResponseBody
     public Result<List<College>> findAll(){
         return Result.success(collegeRepository.findAll());
+    }
+
+    @GetMapping("/clearCount")
+    @ResponseBody
+    public Result clearCount(){
+        if (collegeRepository.findAll().isEmpty())
+            return Result.error("1","数据库为空");
+        collegeRepository.clearCount();
+        return Result.success(null);
     }
 
 }

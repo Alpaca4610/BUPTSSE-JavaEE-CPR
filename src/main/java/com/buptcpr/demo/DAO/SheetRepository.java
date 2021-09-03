@@ -17,6 +17,9 @@ public interface SheetRepository extends JpaRepository<WishSheet, String>{
     @Query(nativeQuery = true,value = "select s.studentid,classid,s.name from student s join wish_sheet w on (s.studentid = w.studentid) where wisha = :name or wishb = :name1 or wishc = :name2")
     List<Map> getDetail(@Param("name") String name, @Param("name1") String name1, @Param("name2") String name2);
 
+    @Query(nativeQuery = true,value = "delete from wish_sheet")
+    void deleteAll();
+
     WishSheet findByStudentID(String id);
     Optional<WishSheet> findById(String id);
 

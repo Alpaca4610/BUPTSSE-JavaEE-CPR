@@ -30,7 +30,7 @@ public class PictureController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Result.success();
+        return Result.success(null);
 
     }
     //update picture
@@ -42,7 +42,7 @@ public class PictureController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Result.success();
+        return Result.success(null);
 
     }
 
@@ -57,9 +57,7 @@ public class PictureController {
     //read
     @RequestMapping(value = "/image",method = RequestMethod.GET)
     public @ResponseBody byte[] GetImage(@RequestParam String pictureName)throws IOException{
-        byte[] bytes = pictureService.getImage(pictureName);
-        return bytes;
-
+        return pictureService.getImage(pictureName);
     }
 
 
