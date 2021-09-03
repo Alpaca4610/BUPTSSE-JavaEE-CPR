@@ -9,7 +9,7 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, String> {
     List<Student> findByStudentID(String id);
     Integer countAllByClassID(String id);
-    @Query(nativeQuery = true,value = "select sum(Student.score) from Student")
+    @Query(nativeQuery = true,value = "select sum(student.score) from student")
     Integer findByClassID(String id);
     Student findByStudentIDAndAndPasswd(String studentID,String password);
 
