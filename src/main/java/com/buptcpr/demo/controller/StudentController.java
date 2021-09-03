@@ -56,6 +56,7 @@ public class StudentController {
         return studentService.update(id,name,passwd,classID,score,rank);
     }
 
+    @CrossOrigin
     @GetMapping("/all")
     public @ResponseBody
     List<Student> getstudent() {
