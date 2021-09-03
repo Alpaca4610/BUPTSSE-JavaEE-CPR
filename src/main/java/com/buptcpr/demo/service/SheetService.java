@@ -16,7 +16,7 @@ public class SheetService {
     private CollegeRepository collegeRepository;
 
     public String add(String id, String id1, String id2, String id3){
-        WishSheet wishSheetbyId = sheetRepository.findbyId(id);
+        WishSheet wishSheetbyId = sheetRepository.findByStudentID(id);
         if(wishSheetbyId==null){
             WishSheet wishSheet = new WishSheet();
             wishSheet.setStudentID(id);
@@ -49,7 +49,7 @@ public class SheetService {
     }
 
     public String delete(String id) {
-        WishSheet wishSheet = sheetRepository.findbyId(id);
+        WishSheet wishSheet = sheetRepository.findByStudentID(id);
         if(wishSheet==null){
             return "not_exists";
         }else{
@@ -109,7 +109,7 @@ public class SheetService {
 
 
 
-        WishSheet oldSheet=sheetRepository.findbyId(id);
+        WishSheet oldSheet=sheetRepository.findByStudentID(id);
         String oldID1=oldSheet.getWishA();
         String oldID2=oldSheet.getWishB();
         String oldID3=oldSheet.getWishC();
