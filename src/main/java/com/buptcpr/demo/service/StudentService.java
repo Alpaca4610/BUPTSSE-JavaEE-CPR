@@ -20,8 +20,7 @@ public class StudentService {
 
     // 学生登陆
     public Student login(String name,String password) {
-        Student res = studentRepository.findByStudentIDAndAndPasswd(name,password);
-        return res;
+        return studentRepository.findByStudentIDAndAndPasswd(name,md5Util.encode(password));
     }
 
     // 学生注册（增）

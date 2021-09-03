@@ -1,6 +1,7 @@
 package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.TeacherRepository;
+import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.StatisticsService;
@@ -14,6 +15,7 @@ import java.util.List;
 @CrossOrigin
 @Controller
 @RequestMapping(path="/teacher")
+@SuppressWarnings("unchecked")
 public class TeacherController {
 
     @Autowired
@@ -24,55 +26,66 @@ public class TeacherController {
     private TeacherRepository teacherRepository;
 
     @PostMapping(path="/login")
+    @SuppressWarnings("unchecked")
     public @ResponseBody
-    String teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
-        if(teacherService.signUp(name, id ,passwd)) {
-            return "Saved";
+    Result<Object> teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
+        int i = teacherService.signUp(name, id, passwd);
+        if(i==1) {
+            return Result.error("1","用户名或密码错误");
         }else{
-            return "id exists";
+            return Result.success(null);
         }
     }
 
     @GetMapping(path="/register")
-    public @ResponseBody String teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
+    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
         if(teacherService.signIn(id, passwd)) {
-            return "login successfully";
+            return Result.success(null);
         }else{
-            return "id/passwd incorrect";
+            return Result.error("1","教师已注册");
         }
     }
 
     @GetMapping(path = "/create_class")
-    public @ResponseBody String createClass(@RequestParam String id){
+    public @ResponseBody Result<Teacher> createClass(@RequestParam String id){
         String result = teacherService.createClass(id);
         if(result.equals("saved")){
-            return "saved";
+            return Result.success(null);
         }else{
-            return "class_exists";
+            return Result.error("1","class_exists");
         }
     }
 
     @GetMapping(path = "/get_1_Rate")
-    public @ResponseBody float get1Rate(@RequestParam String id){
-        return statisticsService.get1Rate(id);
+    public @ResponseBody Result<Float> get1Rate(@RequestParam String id){
+        return Result.success(statisticsService.get1Rate(id));
     }
 
 
     @PostMapping(path="/delete")
-    public @ResponseBody String teacherDelete(@RequestParam String id)
-    {
-        return teacherService.delete(id);
+    public @ResponseBody Result<String> teacherDelete(@RequestParam String id) {
+        int delete = teacherService.delete(id);
+        if(delete==1){
+            return Result.error("1","用户名不存在");
+        }else{
+            return Result.success(null);
+        }
     }
 
     @PostMapping(path="/update")
-    public @ResponseBody String studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
+    public @ResponseBody Result<Teacher> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
     {
-        return teacherService.update(id,name,passwd,classID);
+        int update = teacherService.update(id, name, passwd, classID);
+        if(update==1){
+            return Result.error("1","用户名不存在");
+        }else {
+            return Result.success(null);
+        }
     }
 
     @GetMapping("/all")
     public @ResponseBody
-    List<Teacher> getteacher() {
-        return teacherRepository.findAll();
+    Result<List<Teacher>> getteacher() {
+        return Result.success(teacherRepository.findAll());
     }
 }
