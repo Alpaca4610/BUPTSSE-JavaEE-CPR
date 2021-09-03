@@ -11,5 +11,6 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     Integer countAllByClassID(String id);
     @Query(nativeQuery = true,value = "select sum(Student.score) from Student")
     Integer findByClassID(String id);
+    Student findByStudentIDAndAndPasswd(String studentID,String password);
 
 }
