@@ -20,13 +20,14 @@ public class CollegeService {
 
     //增
     @Transactional
-    public College add(String name,int score,int tier,int rank,String kind){
+    public College add(String id,String name,int score,int tier,int rank,String kind){
         College college = new College();
         college.setScore(score);
         college.setName(name);
         college.setTier(tier);
         college.setCrank(rank);
         college.setKind(kind);
+        college.setCollegeID(id);
         collegeRepository.save(college);
         return college;
     }

@@ -15,8 +15,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @CrossOrigin
-@RestController // This means that this class is a Controller
-@RequestMapping(path="/college") // This means URL's start with /demo (after Application path)
+@RestController
+@RequestMapping(path="/college")
 public class CollegeController {
 
     @Resource
@@ -26,8 +26,8 @@ public class CollegeController {
 
     @PostMapping ("/add")//增
     @ResponseBody
-    public Result<College> save(@RequestParam String id, @RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind){
-        College college = collegeService.add(id,score,tier,rank,kind);
+    public Result<College> save(@RequestParam String id,@RequestParam String name ,@RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind){
+        College college = collegeService.add(id,name,score,tier,rank,kind);
         return Result.success(college);
     }
 
