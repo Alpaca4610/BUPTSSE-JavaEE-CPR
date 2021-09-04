@@ -28,9 +28,9 @@ public class TeacherController {
     @PostMapping(path="/login")
     @SuppressWarnings("unchecked")
     public @ResponseBody
-    Result<Object> teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
-        int i = teacherService.signUp(name, id, passwd);
-        if(i==1) {
+    Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String passwd) {
+        boolean i = teacherService.signIn(id, passwd);
+        if(!i) {
             return Result.error("1","用户名或密码错误");
         }else{
             return Result.success(null);
