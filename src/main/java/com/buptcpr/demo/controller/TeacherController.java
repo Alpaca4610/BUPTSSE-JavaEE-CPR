@@ -38,8 +38,8 @@ public class TeacherController {
     }
 
     @GetMapping(path="/register")
-    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
-        if(teacherService.signIn(id, passwd)) {
+    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd,@RequestParam String name,@RequestParam String classid) {
+        if(teacherService.signUp(name,id,passwd,classid)) {
             return Result.success(null);
         }else{
             return Result.error("1","教师已注册");

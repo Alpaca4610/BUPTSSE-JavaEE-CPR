@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Entity
 public class Admin {
-
     //账号信息
     @Id
     private String adminID;
@@ -21,6 +20,4 @@ public class Admin {
     //用户信息
     @NotBlank
     private String name;
-
-
 }
