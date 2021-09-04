@@ -59,6 +59,4 @@ public class PictureController {
     public @ResponseBody byte[] GetImage(@RequestParam String pictureName)throws IOException{
         return pictureService.getImage(pictureName);
     }
-
-
 }
