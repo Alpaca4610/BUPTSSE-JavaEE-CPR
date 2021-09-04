@@ -25,24 +25,24 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
-    @PostMapping(path="/login")
+    @PostMapping(path="/register")
     @SuppressWarnings("unchecked")
     public @ResponseBody
     Result<Object> adminSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
         int i = adminService.signUp(name, id, passwd);
         if(i==1) {
-            return Result.error("1","用户名或密码错误");
+            return Result.error("1","超级管理员已注册");
         }else{
             return Result.success(null);
         }
     }
 
-    @GetMapping(path="/register")
+    @PostMapping(path="/login")
     public @ResponseBody Result<Admin> adminSignIn(@RequestParam String id, @RequestParam String passwd) {
         if(adminService.signIn(id, passwd)) {
             return Result.success(null);
         }else{
-            return Result.error("1","教师已注册");
+            return Result.error("1","用户名或密码错误");
         }
     }
 
@@ -58,9 +58,9 @@ public class AdminController {
     }
 
     @PostMapping(path="/update")
-    public @ResponseBody Result<Admin> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
+    public @ResponseBody Result<Admin> adminUpdate(@RequestParam String id,@RequestParam String name, @RequestParam String passwd)
     {
-        int update = adminService.update(id, name, passwd, classID);
+        int update = adminService.update(id, name, passwd);
         if(update==1){
             return Result.error("1","用户名不存在");
         }else {

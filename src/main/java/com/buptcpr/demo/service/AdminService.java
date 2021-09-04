@@ -51,7 +51,7 @@ public class AdminService {
         }
     }
 
-    public int update(String id, String name, String passwd,String classID){//改
+    public int update(String id, String name, String passwd){//改
         Admin admin =adminRepository.findByadminID(id);
         if(admin == null){
             return 1;

@@ -26,7 +26,7 @@ public class WishSheetController {
         return sheetService.add(id,wishID1,wishID2,wishID3);
     }
 
-    @GetMapping(path="/delete")
+    @PostMapping(path="/delete")
     public @ResponseBody String deleteWishSheet(@RequestParam String id)
     {
         return sheetService.delete(id);
@@ -39,7 +39,7 @@ public class WishSheetController {
         return sheetService.update(id, id1, id2, id3);
     }
 
-    @GetMapping(path="deleteAll")//未测试
+    @GetMapping(path="/deleteAll")//未测试
     public Result deleteAll(){
         if(sheetRepository.findAll().isEmpty())
             return Result.error("1","数据库为空！");

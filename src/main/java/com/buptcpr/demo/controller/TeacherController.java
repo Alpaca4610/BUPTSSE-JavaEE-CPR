@@ -38,7 +38,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(path="/register")
+    @PostMapping(path="/register")
     public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd,@RequestParam String name,@RequestParam String classid) {
         if(teacherService.signUp(name,id,passwd,classid)) {
             return Result.success(null);
@@ -57,7 +57,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(path = "/get_1_Rate")
+    @PostMapping(path = "/get_1_Rate")
     public @ResponseBody Result<Float> get1Rate(@RequestParam String id){
         return Result.success(statisticsService.get1Rate(id));
     }
