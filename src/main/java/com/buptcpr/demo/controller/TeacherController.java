@@ -46,7 +46,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(path = "/create_class")
+    @PostMapping(path = "/create_class")
     public @ResponseBody Result<Teacher> createClass(@RequestParam String id){
         String result = teacherService.createClass(id);
         if(result.equals("saved")){
