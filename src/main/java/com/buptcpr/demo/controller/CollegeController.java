@@ -33,8 +33,8 @@ public class CollegeController {
 
     @PostMapping("/delete")//删
     @ResponseBody
-    public Result<College> delete(@RequestParam String name){
-        collegeService.delete(name);
+    public Result<College> delete(@RequestParam String id){
+        collegeService.delete(id);
         return Result.success(null);
     }
 

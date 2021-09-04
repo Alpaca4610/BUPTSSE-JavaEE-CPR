@@ -26,7 +26,7 @@ public class WishSheetController {
         return sheetService.add(id,wishID1,wishID2,wishID3);
     }
 
-    @PostMapping(path="/delete")
+    @GetMapping(path="/delete")
     public @ResponseBody String deleteWishSheet(@RequestParam String id)
     {
         return sheetService.delete(id);
