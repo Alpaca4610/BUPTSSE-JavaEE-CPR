@@ -16,8 +16,9 @@ import java.util.List;
 @Controller
 @RequestMapping(path="/teacher")
 @SuppressWarnings("unchecked")
-public class TeacherController {
 
+
+public class TeacherController {
     @Autowired
     private TeacherService teacherService;
     @Autowired
