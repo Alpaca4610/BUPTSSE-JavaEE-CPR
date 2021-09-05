@@ -16,6 +16,7 @@ import java.util.Map;
 
 @CrossOrigin
 @Controller
+@RequestMapping("/balance")
 public class GetBalanceController {
         @Autowired
         CollegeRepository collegeRepository;
@@ -38,12 +39,12 @@ public class GetBalanceController {
 
         @PostMapping("/getDetail")
         public @ResponseBody
-        Result<List<Map>> getBalanceDetail(@RequestParam String cName) {
-            College temp = collegeRepository.findByName(cName);
+        Result<List<Map>> getBalanceDetail(@RequestParam String name) {
+            College temp = collegeRepository.findByName(name);
             if (temp == null) {
                 return Result.error("1","找不到该大学！");
             }
-            return  Result.success(sheetRepository.getDetail(cName, cName, cName));
+            return  Result.success(sheetRepository.getDetail(name, name, name));
         }
 
         @GetMapping("/getBrief")
