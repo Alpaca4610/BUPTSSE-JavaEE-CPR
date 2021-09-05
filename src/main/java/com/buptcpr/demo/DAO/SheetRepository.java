@@ -5,6 +5,7 @@ import com.buptcpr.demo.entity.WishSheet;
 import com.buptcpr.demo.service.SheetService;
 import org.apache.tomcat.websocket.WsContainerProvider;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -17,6 +18,7 @@ public interface SheetRepository extends JpaRepository<WishSheet, String>{
     @Query(nativeQuery = true,value = "select s.studentid,classid,s.name from student s join wish_sheet w on (s.studentid = w.studentid) where wisha = :name or wishb = :name1 or wishc = :name2")
     List<Map> getDetail(@Param("name") String name, @Param("name1") String name1, @Param("name2") String name2);
 
+    @Modifying
     @Query(nativeQuery = true,value = "delete from wish_sheet")
     void deleteAll();
 

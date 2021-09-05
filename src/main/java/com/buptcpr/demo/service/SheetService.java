@@ -2,6 +2,7 @@ package com.buptcpr.demo.service;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.SheetRepository;
+import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.College;
 import com.buptcpr.demo.entity.WishSheet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,18 @@ public class SheetService {
     @Autowired
     private CollegeRepository collegeRepository;
 
-    public String add(String id, String id1, String id2, String id3){
+    public Result add(String id, String id1, String id2, String id3){
         WishSheet wishSheetbyId = sheetRepository.findByStudentID(id);
         if(wishSheetbyId==null){
+            if(collegeRepository.findByCollegeID(id1)==null){
+                return Result.error("1","A志愿的大学不存在！");
+            }
+            if(collegeRepository.findByCollegeID(id2)==null){
+                return Result.error("1","B志愿的大学不存在！");
+            }
+            if(collegeRepository.findByCollegeID(id3)==null){
+                return Result.error("1","C志愿的大学不存在！");
+            }
             WishSheet wishSheet = new WishSheet();
             wishSheet.setStudentID(id);
             wishSheet.setWishA(id1);
@@ -42,9 +52,9 @@ public class SheetService {
             collegeRepository.save(college2);
             collegeRepository.save(college3);
             sheetRepository.save(wishSheet);
-            return "saved";
+            return Result.success(null);
         }else{
-            return "sheet_exists";
+            return Result.error("1","该学生已经填报过了！");
         }
     }
 
