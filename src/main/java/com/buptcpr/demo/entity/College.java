@@ -14,8 +14,7 @@ import javax.validation.constraints.NotBlank;
 public class College {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int collegeID;//大学ID
+    private String collegeID;//大学ID
 
     @NotBlank(message = "大学名称不能为空")
     private String name;//大学名称
@@ -28,23 +27,26 @@ public class College {
 
     private int score;//投档线
 
+    private int count;//统计选择人数
+
     public College() {
     }
 
-    public College(int collegeID, String name, int crank, int tier, String kind, int score) {
+    public College(String collegeID, String name, int crank, int tier, String kind, int score, int count) {
         this.collegeID = collegeID;
         this.name = name;
         this.crank = crank;
         this.tier = tier;
         this.kind = kind;
         this.score = score;
+        this.count = 0;
     }
 
-    public int getCollegeID() {
+    public String getCollegeID() {
         return collegeID;
     }
 
-    public void setCollegeID(int collegeID) {
+    public void setCollegeID(String collegeID) {
         this.collegeID = collegeID;
     }
 
