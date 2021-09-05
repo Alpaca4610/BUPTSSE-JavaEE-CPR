@@ -28,9 +28,9 @@ public class TeacherService {
             teacher.setPasswd(md5Util.encode(passwd));
             teacher.setClassID(classid);
             teacherRepository.save(teacher);
-            return false;
-        }else{
             return true;
+        }else{
+            return false;
         }
     }
 
