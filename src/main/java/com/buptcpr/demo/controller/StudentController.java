@@ -53,8 +53,11 @@ public class StudentController {
     // 删除学生: 肯定会成功, 因为只能删除已有的,在界面上显示的学生
     @PostMapping(path="/delete")
     @ResponseBody
-    public Result<Student> studentDelete(@RequestParam String id)
+    public Result studentDelete(@RequestParam String id)
     {
+        if(studentRepository.findByStudentID(id) == null){
+            return  Result.error("1","学生不存在！");
+        }
         studentService.delete(id);
         return Result.success(null);
     }
