@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @CrossOrigin
@@ -58,6 +59,7 @@ public class CollegeController {
         return Result.success(collegeRepository.findAll());
     }
 
+    @Transactional
     @GetMapping("/clearCount")
     @ResponseBody
     public Result clearCount(){
