@@ -57,4 +57,11 @@ public class WishSheetController {
         return Result.success(null);
     }
 
+    @GetMapping("/all")
+    public @ResponseBody Result getall(){
+        if(sheetRepository.findAll().isEmpty()){
+            return Result.error("1","数据库为空！");
+        }
+        return Result.success(sheetRepository.getAll());
+    }
 }

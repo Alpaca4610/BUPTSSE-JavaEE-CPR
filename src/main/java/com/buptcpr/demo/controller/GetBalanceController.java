@@ -39,12 +39,12 @@ public class GetBalanceController {
 
         @PostMapping("/getDetail")
         public @ResponseBody
-        Result<List<Map>> getBalanceDetail(@RequestParam String name) {
-            College temp = collegeRepository.findByName(name);
+        Result<List<Map>> getBalanceDetail(@RequestParam String id) {
+            College temp = collegeRepository.findByCollegeID(id);
             if (temp == null) {
                 return Result.error("1","找不到该大学！");
             }
-            return  Result.success(sheetRepository.getDetail(name, name, name));
+            return  Result.success(sheetRepository.getDetail(id, id, id));
         }
 
         @GetMapping("/getBrief")

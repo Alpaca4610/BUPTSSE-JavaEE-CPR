@@ -22,6 +22,16 @@ public interface SheetRepository extends JpaRepository<WishSheet, String>{
     @Query(nativeQuery = true,value = "delete from wish_sheet")
     void deleteAll();
 
+    @Query(nativeQuery = true,value = "select mainid,wisha,name1,wishb,name2,wishc,name3 from\n" +
+            "((SELECT w.studentid as mainid,w.wisha,c.name as name1 FROM wish_sheet w,college c where w.wisha=c.collegeid)t1 \n" +
+            " join\n" +
+            "(select studentid,wishb,c.name as name2 FROM wish_sheet w,college c where w.wishb=c.collegeid)t2\n" +
+            "on t1.mainid = t2.studentid)\n" +
+            "join\n" +
+            "(select studentid,wishc,c.name as name3 FROM wish_sheet w,college c where w.wishc=c.collegeid)t3\n" +
+            "on t2.studentid = t3.studentid;")
+    List<Map> getAll();
+
     WishSheet findByStudentID(String id);
     Optional<WishSheet> findById(String id);
 
