@@ -23,4 +23,5 @@ public interface CollegeRepository extends JpaRepository<College, String> {
     College findByCollegeID(String id);
 
     void deleteByCollegeID(String s);
+
 }
