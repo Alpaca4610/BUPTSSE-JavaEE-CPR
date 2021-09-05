@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 //todo 添加验证约束
-@Data
+
 @Entity
 public class College {
 
@@ -88,6 +88,14 @@ public class College {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
 

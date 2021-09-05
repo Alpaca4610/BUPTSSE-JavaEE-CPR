@@ -35,13 +35,13 @@ public class WishSheetController {
     }
 
     @PostMapping(path="/delete")
-    public @ResponseBody String deleteWishSheet(@RequestParam String id)
+    public @ResponseBody Result deleteWishSheet(@RequestParam String id)
     {
         return sheetService.delete(id);
     }
 
     @PostMapping(path="/update")
-    public @ResponseBody String updateWishSheet(@RequestParam String id,
+    public @ResponseBody Result updateWishSheet(@RequestParam String id,
     @RequestParam String id1, @RequestParam String id2,@RequestParam String id3)
     {
         return sheetService.update(id, id1, id2, id3);
