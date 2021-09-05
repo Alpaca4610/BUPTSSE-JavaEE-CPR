@@ -78,6 +78,16 @@ public class SheetService {
 
     public Result update(String id, String id1, String id2, String id3) {
 
+        if(collegeRepository.findByCollegeID(id1)==null){
+            return Result.error("1","A志愿的大学不存在！");
+        }
+        if(collegeRepository.findByCollegeID(id2)==null){
+            return Result.error("1","B志愿的大学不存在！");
+        }
+        if(collegeRepository.findByCollegeID(id3)==null){
+            return Result.error("1","C志愿的大学不存在！");
+        }
+
         College byCollegeID1 = collegeRepository.findByCollegeID(id1);
         College byCollegeID2 = collegeRepository.findByCollegeID(id2);
         College byCollegeID3 = collegeRepository.findByCollegeID(id3);
