@@ -19,17 +19,18 @@ public class TeacherService {
     @Autowired
     private ClassRepository classRepository;
 
-    public int signUp(String name, String id, String passwd){
+    public boolean signUp(String name, String id, String passwd,String classid){
         Teacher byTeacherID = teacherRepository.findByTeacherID(id);
         if(byTeacherID==null){
             Teacher teacher = new Teacher();
             teacher.setName(name);
             teacher.setTeacherID(id);
             teacher.setPasswd(md5Util.encode(passwd));
+            teacher.setClassID(classid);
             teacherRepository.save(teacher);
-            return 0;
+            return false;
         }else{
-            return 1;
+            return true;
         }
     }
 

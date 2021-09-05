@@ -15,6 +15,9 @@ public interface CollegeRepository extends JpaRepository<College, String> {
     @Query(nativeQuery = true,value = "select name,count from college")
     List<Map> getAllCollegeName();
 
+    @Query(nativeQuery = true,value = "update college set count = 0")
+    void clearCount();
+
     College findByName(String name);
 
     College findByCollegeID(String id);

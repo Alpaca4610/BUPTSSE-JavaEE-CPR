@@ -16,8 +16,9 @@ import java.util.List;
 @Controller
 @RequestMapping(path="/teacher")
 @SuppressWarnings("unchecked")
-public class TeacherController {
 
+
+public class TeacherController {
     @Autowired
     private TeacherService teacherService;
     @Autowired
@@ -28,25 +29,25 @@ public class TeacherController {
     @PostMapping(path="/login")
     @SuppressWarnings("unchecked")
     public @ResponseBody
-    Result<Object> teacherSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
-        int i = teacherService.signUp(name, id, passwd);
-        if(i==1) {
+    Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String passwd) {
+        boolean i = teacherService.signIn(id, passwd);
+        if(!i) {
             return Result.error("1","用户名或密码错误");
         }else{
             return Result.success(null);
         }
     }
 
-    @GetMapping(path="/register")
-    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd) {
-        if(teacherService.signIn(id, passwd)) {
+    @PostMapping(path="/register")
+    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd,@RequestParam String name,@RequestParam String classid) {
+        if(teacherService.signUp(name,id,passwd,classid)) {
             return Result.success(null);
         }else{
             return Result.error("1","教师已注册");
         }
     }
 
-    @GetMapping(path = "/create_class")
+    @PostMapping(path = "/create_class")
     public @ResponseBody Result<Teacher> createClass(@RequestParam String id){
         String result = teacherService.createClass(id);
         if(result.equals("saved")){
@@ -56,7 +57,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(path = "/get_1_Rate")
+    @PostMapping(path = "/get_1_Rate")
     public @ResponseBody Result<Float> get1Rate(@RequestParam String id){
         return Result.success(statisticsService.get1Rate(id));
     }

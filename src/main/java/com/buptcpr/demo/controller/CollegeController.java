@@ -15,8 +15,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @CrossOrigin
-@RestController // This means that this class is a Controller
-@RequestMapping(path="/college") // This means URL's start with /demo (after Application path)
+@RestController
+@RequestMapping(path="/college")
 public class CollegeController {
 
     @Resource
@@ -26,15 +26,15 @@ public class CollegeController {
 
     @PostMapping ("/add")//增
     @ResponseBody
-    public Result<College> save(@RequestParam String id, @RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind){
-        College college = collegeService.add(id,score,tier,rank,kind);
+    public Result<College> save(@RequestParam String id,@RequestParam String name ,@RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind){
+        College college = collegeService.add(id,name,score,tier,rank,kind);
         return Result.success(college);
     }
 
     @PostMapping("/delete")//删
     @ResponseBody
-    public Result<College> delete(@RequestParam String name){
-        collegeService.delete(name);
+    public Result<College> delete(@RequestParam String id){
+        collegeService.delete(id);
         return Result.success(null);
     }
 
@@ -51,12 +51,20 @@ public class CollegeController {
         }
     }
 
-
     // 查找所有大学
     @GetMapping("/all")
     @ResponseBody
     public Result<List<College>> findAll(){
         return Result.success(collegeRepository.findAll());
+    }
+
+    @GetMapping("/clearCount")
+    @ResponseBody
+    public Result clearCount(){
+        if (collegeRepository.findAll().isEmpty())
+            return Result.error("1","数据库为空");
+        collegeRepository.clearCount();
+        return Result.success(null);
     }
 
 }

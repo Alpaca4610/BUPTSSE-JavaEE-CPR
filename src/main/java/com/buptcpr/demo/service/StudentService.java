@@ -25,7 +25,7 @@ public class StudentService {
 
     // 学生注册（增）
     public int register(String studentID, String name, String passwd, String classID){
-        Student student = (Student) studentRepository.findByStudentID(studentID);
+        Student student = studentRepository.findByStudentID(studentID);
         if(student != null){ //学生已注册
             return 1;
         }else{ //学生未注册
