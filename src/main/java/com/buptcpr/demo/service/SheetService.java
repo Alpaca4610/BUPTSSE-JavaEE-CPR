@@ -36,9 +36,9 @@ public class SheetService {
             College byCollegeID1 = collegeRepository.findByCollegeID(id1);
             College byCollegeID2 = collegeRepository.findByCollegeID(id2);
             College byCollegeID3 = collegeRepository.findByCollegeID(id3);
-            byCollegeID1.setCount(byCollegeID1.getCount()+1);
-            byCollegeID2.setCount(byCollegeID2.getCount()+1);
-            byCollegeID3.setCount(byCollegeID3.getCount()+1);
+            byCollegeID1.setCountSelected(byCollegeID1.getCountSelected()+1);
+            byCollegeID2.setCountSelected(byCollegeID2.getCountSelected()+1);
+            byCollegeID3.setCountSelected(byCollegeID3.getCountSelected()+1);
 
             collegeRepository.save(byCollegeID1);
             collegeRepository.save(byCollegeID2);
@@ -63,9 +63,9 @@ public class SheetService {
             College byCollegeID2 = collegeRepository.findByCollegeID(id2);
             College byCollegeID3 = collegeRepository.findByCollegeID(id3);
 
-            byCollegeID1.setCount(byCollegeID1.getCount()-1);
-            byCollegeID2.setCount(byCollegeID2.getCount()-1);
-            byCollegeID3.setCount(byCollegeID3.getCount()-1);
+            byCollegeID1.setCountSelected(byCollegeID1.getCountSelected()-1);
+            byCollegeID2.setCountSelected(byCollegeID2.getCountSelected()-1);
+            byCollegeID3.setCountSelected(byCollegeID3.getCountSelected()-1);
 
             collegeRepository.save(byCollegeID1);
             collegeRepository.save(byCollegeID2);
@@ -91,9 +91,9 @@ public class SheetService {
         College byCollegeID1 = collegeRepository.findByCollegeID(id1);
         College byCollegeID2 = collegeRepository.findByCollegeID(id2);
         College byCollegeID3 = collegeRepository.findByCollegeID(id3);
-        byCollegeID1.setCount(byCollegeID1.getCount()+1);
-        byCollegeID2.setCount(byCollegeID2.getCount()+1);
-        byCollegeID3.setCount(byCollegeID3.getCount()+1);
+        byCollegeID1.setCountSelected(byCollegeID1.getCountSelected()+1);
+        byCollegeID2.setCountSelected(byCollegeID2.getCountSelected()+1);
+        byCollegeID3.setCountSelected(byCollegeID3.getCountSelected()+1);
 
         collegeRepository.save(byCollegeID1);
         collegeRepository.save(byCollegeID2);
@@ -110,9 +110,9 @@ public class SheetService {
         College oldCollegeID2 = collegeRepository.findByCollegeID(oldID2);
         College oldCollegeID3 = collegeRepository.findByCollegeID(oldID3);
 
-        oldCollegeID1.setCount(oldCollegeID1.getCount()-1);
-        oldCollegeID2.setCount(oldCollegeID2.getCount()-1);
-        oldCollegeID3.setCount(oldCollegeID3.getCount()-1);
+        oldCollegeID1.setCountSelected(oldCollegeID1.getCountSelected()-1);
+        oldCollegeID2.setCountSelected(oldCollegeID2.getCountSelected()-1);
+        oldCollegeID3.setCountSelected(oldCollegeID3.getCountSelected()-1);
 
         collegeRepository.save(oldCollegeID1);
         collegeRepository.save(oldCollegeID2);

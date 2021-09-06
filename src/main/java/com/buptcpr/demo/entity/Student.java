@@ -24,7 +24,9 @@ public class Student {
 
     private int score;
 
-    private int myrank;
+    private int myRank;
+
+    private String myCollege;
 
     public interface Login{}
 

@@ -33,7 +33,6 @@ public interface SheetRepository extends JpaRepository<WishSheet, String>{
     List<Map> getAll();
 
     WishSheet findByStudentID(String id);
-    Optional<WishSheet> findById(String id);
 
 }
 

@@ -55,7 +55,7 @@ public class StudentService {
             student.setStudentID(studentID);
             student.setName(name);
             student.setPasswd(md5Util.encode(passwd));
-            student.setMyrank(rank);
+            student.setMyRank(rank);
             student.setScore(score);
             student.setClassID(classID);
 
