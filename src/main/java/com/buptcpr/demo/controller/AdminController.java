@@ -29,8 +29,8 @@ public class AdminController {
     @PostMapping(path="/register")
     @SuppressWarnings("unchecked")
     public @ResponseBody
-    Result<Object> adminSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String passwd) {
-        int i = adminService.signUp(name, id, passwd);
+    Result<Object> adminSignUp (@RequestParam String name, @RequestParam String id, @RequestParam String password) {
+        int i = adminService.signUp(name, id, password);
         if(i==1) {
             return Result.error("1","超级管理员已注册");
         }else{
@@ -39,8 +39,8 @@ public class AdminController {
     }
 
     @PostMapping(path="/login")
-    public @ResponseBody Result<Admin> adminSignIn(@RequestParam String id, @RequestParam String passwd) {
-        if(adminService.signIn(id, passwd)) {
+    public @ResponseBody Result<Admin> adminSignIn(@RequestParam String id, @RequestParam String password) {
+        if(adminService.signIn(id, password)) {
             return Result.success(null);
         }else{
             return Result.error("1","用户名或密码错误");
@@ -59,9 +59,9 @@ public class AdminController {
     }
 
     @PostMapping(path="/update")
-    public @ResponseBody Result<Admin> adminUpdate(@RequestParam String id,@RequestParam String name, @RequestParam String passwd)
+    public @ResponseBody Result<Admin> adminUpdate(@RequestParam String id,@RequestParam String name, @RequestParam String password)
     {
-        int update = adminService.update(id, name, passwd);
+        int update = adminService.update(id, name, password);
         if(update==1){
             return Result.error("1","用户名不存在");
         }else {
