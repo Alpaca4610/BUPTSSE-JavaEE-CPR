@@ -25,11 +25,12 @@ public class TeacherController {
     @Autowired
     private TeacherRepository teacherRepository;
 
+
     @PostMapping(path="/login")
     @SuppressWarnings("unchecked")
     public @ResponseBody
-    Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String passwd) {
-        boolean i = teacherService.signIn(id, passwd);
+    Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String password) {
+        boolean i = teacherService.signIn(id, password);
         if(!i) {
             return Result.error("1","用户名或密码错误");
         }else{
@@ -56,6 +57,7 @@ public class TeacherController {
         }
     }
 
+    //
     @PostMapping(path = "/get_1_Rate")
     public @ResponseBody Result<Double> get1Rate(@RequestParam String id, @RequestParam int rank1Score){
         return Result.success(statisticsService.get1Rate(id, rank1Score));

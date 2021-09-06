@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// 拦截器
+// 拦截器模板
 public class Interceptor implements HandlerInterceptor {
 
 //    @Override
