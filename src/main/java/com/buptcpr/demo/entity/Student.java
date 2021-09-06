@@ -24,6 +24,14 @@ public class Student {
 
     private int score;
 
+    private int chinese;
+
+    private int math;
+
+    private int english;
+
+    private int science;
+
     private int myRank;
 
     private String myCollege;

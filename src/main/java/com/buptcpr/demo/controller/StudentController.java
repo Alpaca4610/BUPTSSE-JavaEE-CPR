@@ -95,5 +95,19 @@ public class StudentController {
         return Result.success(ret);
     }
 
+    @PostMapping("/setScore")
+    @ResponseBody
+    public Result<String> setScore(
+            @RequestParam String studentID, @RequestParam int chinese,
+            @RequestParam int math, @RequestParam int english, @RequestParam int science){
+        Student byStudentID = studentRepository.findByStudentID(studentID);
+        byStudentID.setChinese(chinese);
+        byStudentID.setEnglish(english);
+        byStudentID.setMath(math);
+        byStudentID.setScience(science);
+        byStudentID.setScore(chinese+english+math+science);
+        studentRepository.save(byStudentID);
+        return Result.success("成绩上传成功");
+    }
 
 }
