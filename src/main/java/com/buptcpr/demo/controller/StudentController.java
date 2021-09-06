@@ -1,5 +1,6 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
@@ -21,8 +22,7 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private MD5Util md5Util;
-
+    private CollegeRepository collegeRepository;
     // 登录
     @PostMapping("/login")
     @ResponseBody
@@ -78,8 +78,10 @@ public class StudentController {
     // 查找所有学生信息
     @GetMapping("/all")
     @ResponseBody
-    public Result<List<Student>> getstudent() {
+    public Result<List<Student>> getStudent() {
         List<Student> ret = studentRepository.findAll();
         return Result.success(ret);
     }
+
+
 }

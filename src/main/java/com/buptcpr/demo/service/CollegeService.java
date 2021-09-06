@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -53,6 +55,11 @@ public class CollegeService {
             collegeRepository.save(college);
             return 0;
         }
+
+    }
+
+    public List<Map> getIntervalList(int min, int max){
+        return collegeRepository.getIntervalList(min, max);
     }
 
 //    //查询
