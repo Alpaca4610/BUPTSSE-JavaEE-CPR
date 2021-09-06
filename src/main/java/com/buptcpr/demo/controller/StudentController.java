@@ -2,7 +2,7 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
-import com.buptcpr.demo.common.Jwt;
+//import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.service.MD5Util;
@@ -24,13 +24,15 @@ public class StudentController {
     private StudentRepository studentRepository;
     @Autowired
     private CollegeRepository collegeRepository;
+    @Autowired
+    MD5Util md5Util;
+
     // 登录
     @PostMapping("/login")
     @ResponseBody
     public Result<String> login(String id, String password) {
         Student res = studentService.login(id,password);
         if(res!=null){
-
             return Result.success(null);
         }else{
             return Result.error("-1","登陆失败");
@@ -42,9 +44,9 @@ public class StudentController {
     @ResponseBody
     public Result<Student> studentRegister(@RequestParam String id,
                                                 @RequestParam String name,
-                                                @RequestParam String passwd,
+                                                @RequestParam String password,
                                                 @RequestParam String classid){
-        int ret = studentService.register(id,name,passwd,classid);
+        int ret = studentService.register(id,name,password,classid);
         if(ret == 1){ //学生已注册, 注册失败
             return Result.error("1","学生已注册, 注册失败");
         }else{
@@ -67,9 +69,9 @@ public class StudentController {
     // 更新学生信息
     @PostMapping(path="/update")
     @ResponseBody
-    public Result<Student> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID,@RequestParam int score,@RequestParam int rank)
+    public Result<Student> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String password,@RequestParam String classID,@RequestParam int score,@RequestParam int rank)
     {
-        int ret = studentService.update(id,name,passwd,classID,score,rank);
+        int ret = studentService.update(id,name,password,classID,score,rank);
         if(ret == 1){ // 失败, 找不到这个人
             return Result.error("1","找不到该学生");
         }else{
@@ -79,9 +81,9 @@ public class StudentController {
 
     @PostMapping(path="/insert")
     @ResponseBody
-    public Result<Student> studentInsert(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID,@RequestParam int score)
+    public Result<Student> studentInsert(@RequestParam String id,@RequestParam String name, @RequestParam String password,@RequestParam String classID,@RequestParam int score)
     {
-        int ret = studentService.insert(id,name,passwd,classID,score);
+        int ret = studentService.insert(id,name,password,classID,score);
         if(ret == 1){ // 失败, 找不到这个人
             return Result.error("1","该学生已存在");
         }else{
