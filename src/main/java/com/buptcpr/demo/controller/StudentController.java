@@ -2,6 +2,7 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
+import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.service.MD5Util;
@@ -26,10 +27,11 @@ public class StudentController {
     // 登录
     @PostMapping("/login")
     @ResponseBody
-    public Result<Student> login(String id, String password) {
+    public Result<String> login(String id, String password) {
         Student res = studentService.login(id,password);
         if(res!=null){
-            return Result.success(res);
+
+            return Result.success(null);
         }else{
             return Result.error("-1","登陆失败");
         }
