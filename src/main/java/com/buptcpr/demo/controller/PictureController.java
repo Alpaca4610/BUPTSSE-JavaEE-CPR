@@ -24,7 +24,6 @@ public class PictureController {
     //savePicture
     @RequestMapping(value = "/savePic", method = RequestMethod.POST)
     public Result queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String pictureName){
-
         try {
             pictureService.savePhoto(file, pictureName);
         } catch (Exception e) {

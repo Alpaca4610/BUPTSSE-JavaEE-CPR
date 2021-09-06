@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -67,6 +68,13 @@ public class CollegeController {
             return Result.error("1","数据库为空");
         collegeRepository.clearCount();
         return Result.success(null);
+    }
+
+    //查找区间分数内所有大学
+    @PostMapping("/get-interval-list")
+    @ResponseBody
+    public Result<List<Map>> getIntervalList(@RequestParam int min, @RequestParam int max){
+        return Result.success(collegeService.getIntervalList(min, max));
     }
 
 }

@@ -24,19 +24,6 @@ public class GetBalanceController {
         @Autowired
         SheetRepository sheetRepository;
 
-//        @PostMapping("/getbalance")
-//        public @ResponseBody
-//        Result getbalance(@RequestParam String cName) {
-//            College temp = collegeRepository.findByName(cName);
-//            if (temp == null)
-//                return response;
-//            List<WishSheet> temp1 = sheetRepository.findByWishAOrWishBOrWishC(cName, cName, cName);
-//            if (temp1.isEmpty())
-//                response.setStatus(1);
-//            System.out.println(temp1);
-//            return null;
-//        }
-
         @PostMapping("/getDetail")
         public @ResponseBody
         Result<List<Map>> getBalanceDetail(@RequestParam String id) {

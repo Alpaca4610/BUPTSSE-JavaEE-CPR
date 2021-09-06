@@ -1,6 +1,8 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
+import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.service.MD5Util;
@@ -21,15 +23,15 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private MD5Util md5Util;
-
+    private CollegeRepository collegeRepository;
     // 登录
     @PostMapping("/login")
     @ResponseBody
-    public Result<Student> login(String id, String password) {
+    public Result<String> login(String id, String password) {
         Student res = studentService.login(id,password);
         if(res!=null){
-            return Result.success(res);
+
+            return Result.success(null);
         }else{
             return Result.error("-1","登陆失败");
         }
@@ -90,8 +92,24 @@ public class StudentController {
     // 查找所有学生信息
     @GetMapping("/all")
     @ResponseBody
-    public Result<List<Student>> getstudent() {
+    public Result<List<Student>> getStudent() {
         List<Student> ret = studentRepository.findAll();
         return Result.success(ret);
     }
+
+    @PostMapping("/setScore")
+    @ResponseBody
+    public Result<String> setScore(
+            @RequestParam String studentID, @RequestParam int chinese,
+            @RequestParam int math, @RequestParam int english, @RequestParam int science){
+        Student byStudentID = studentRepository.findByStudentID(studentID);
+        byStudentID.setChinese(chinese);
+        byStudentID.setEnglish(english);
+        byStudentID.setMath(math);
+        byStudentID.setScience(science);
+        byStudentID.setScore(chinese+english+math+science);
+        studentRepository.save(byStudentID);
+        return Result.success("成绩上传成功");
+    }
+
 }

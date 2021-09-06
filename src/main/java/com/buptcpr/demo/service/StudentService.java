@@ -64,6 +64,7 @@ public class StudentService {
         }
     }
 
+    // 插入学生
     public int insert(String studentID, String name, String passwd,String classID,int score){
         Student student = (Student) studentRepository.findByStudentID(studentID);
         if(student != null){

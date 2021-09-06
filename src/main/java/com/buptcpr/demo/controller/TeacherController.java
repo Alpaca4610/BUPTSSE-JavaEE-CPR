@@ -25,11 +25,12 @@ public class TeacherController {
     @Autowired
     private TeacherRepository teacherRepository;
 
+
     @PostMapping(path="/login")
     @SuppressWarnings("unchecked")
     public @ResponseBody
-    Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String passwd) {
-        boolean i = teacherService.signIn(id, passwd);
+    Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String password) {
+        boolean i = teacherService.signIn(id, password);
         if(!i) {
             return Result.error("1","用户名或密码错误");
         }else{
@@ -38,8 +39,8 @@ public class TeacherController {
     }
 
     @PostMapping(path="/register")
-    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd,@RequestParam String name,@RequestParam String classid) {
-        if(teacherService.signUp(name,id,passwd,classid)) {
+    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String password,@RequestParam String name,@RequestParam String classid) {
+        if(teacherService.signUp(name,id,password,classid)) {
             return Result.success(null);
         }else{
             return Result.error("1","教师已注册");
@@ -56,6 +57,7 @@ public class TeacherController {
         }
     }
 
+    //
     @PostMapping(path = "/get_1_Rate")
     public @ResponseBody Result<Double> get1Rate(@RequestParam String id, @RequestParam int rank1Score){
         return Result.success(statisticsService.get1Rate(id, rank1Score));
@@ -73,9 +75,9 @@ public class TeacherController {
     }
 
     @PostMapping(path="/update")
-    public @ResponseBody Result<Teacher> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
+    public @ResponseBody Result<Teacher> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String password,@RequestParam String classID)
     {
-        int update = teacherService.update(id, name, passwd, classID);
+        int update = teacherService.update(id, name, password, classID);
         if(update==1){
             return Result.error("1","用户名不存在");
         }else {

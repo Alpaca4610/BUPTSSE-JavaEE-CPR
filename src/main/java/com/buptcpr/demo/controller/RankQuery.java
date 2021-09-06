@@ -26,10 +26,6 @@ public class RankQuery {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
-    /*
-
-     */
-
     @RequestMapping(value="/AvailableSchools",method={RequestMethod.POST, RequestMethod.GET})
     public List<Map<String,Object>> Adapter(HttpServletRequest request, HttpSession session) {
         Integer Score=Integer.parseInt(request.getParameter("scores"));
