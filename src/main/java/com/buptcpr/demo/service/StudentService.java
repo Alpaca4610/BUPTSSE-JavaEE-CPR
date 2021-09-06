@@ -63,4 +63,22 @@ public class StudentService {
             return 0;
         }
     }
+
+    public int insert(String studentID, String name, String passwd,String classID,int score){
+        Student student = (Student) studentRepository.findByStudentID(studentID);
+        if(student != null){
+            return 1;
+        }else{
+            student = new Student();
+            student.setStudentID(studentID);
+            student.setName(name);
+            student.setPasswd(md5Util.encode(passwd));
+
+            student.setScore(score);
+            student.setClassID(classID);
+
+            studentRepository.save(student);
+            return 0;
+        }
+    }
 }

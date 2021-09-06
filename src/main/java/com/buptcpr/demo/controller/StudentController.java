@@ -75,6 +75,18 @@ public class StudentController {
         }
     }
 
+    @PostMapping(path="/insert")
+    @ResponseBody
+    public Result<Student> studentInsert(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID,@RequestParam int score)
+    {
+        int ret = studentService.insert(id,name,passwd,classID,score);
+        if(ret == 1){ // 失败, 找不到这个人
+            return Result.error("1","该学生已存在");
+        }else{
+            return Result.success(null);
+        }
+    }
+
     // 查找所有学生信息
     @GetMapping("/all")
     @ResponseBody
