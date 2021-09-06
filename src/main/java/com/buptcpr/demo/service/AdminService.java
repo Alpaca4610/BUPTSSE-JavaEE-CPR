@@ -1,14 +1,15 @@
 package com.buptcpr.demo.service;
 
 
-import com.buptcpr.demo.DAO.ClassRepository;
-import com.buptcpr.demo.DAO.AdminRepository;
+import com.buptcpr.demo.DAO.*;
+import com.buptcpr.demo.common.Result;
+import com.buptcpr.demo.entity.*;
 import com.buptcpr.demo.entity.Class;
-import com.buptcpr.demo.entity.Student;
-import com.buptcpr.demo.entity.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,7 +19,12 @@ public class AdminService {
     @Autowired
     private MD5Util md5Util;
     @Autowired
-    private ClassRepository classRepository;
+    private StudentRepository studentRepository;
+    @Autowired
+    private SheetRepository sheetRepository;
+    @Autowired
+    private CollegeRepository collegeRepository;
+    
 
     public int signUp(String name, String id, String passwd){
         Admin byAdminID = adminRepository.findByadminID(id);
@@ -64,6 +70,34 @@ public class AdminService {
             adminRepository.save(admin);
             return 0;
         }
+    }
+
+    public Result<String> ranking(){
+        List<Student> studentList = studentRepository.findAll(Sort.by("score").descending());
+        
+        for(Student student:studentList){
+            WishSheet sheet = sheetRepository.findByStudentID(student.getStudentID());
+            College college1 = collegeRepository.findByCollegeID(sheet.getWishA());
+            College college2 = collegeRepository.findByCollegeID(sheet.getWishB());
+            College college3 = collegeRepository.findByCollegeID(sheet.getWishC());
+            if(college1.getHeadCount()>0){
+                college1.setHeadCount(college1.getHeadCount()-1);
+                collegeRepository.save(college1);
+                student.setMyCollege(college1.getCollegeID());
+
+            }else if(college2.getHeadCount()>0){
+                college2.setHeadCount(college2.getHeadCount()-1);
+                collegeRepository.save(college2);
+                student.setMyCollege(college2.getCollegeID());
+
+            }else if(college3.getHeadCount()>0){
+                college3.setHeadCount(college3.getHeadCount()-1);
+                collegeRepository.save(college3);
+                student.setMyCollege(college3.getCollegeID());
+
+            }
+        }
+        return Result.success("志愿结果统计完毕");
     }
 }
 

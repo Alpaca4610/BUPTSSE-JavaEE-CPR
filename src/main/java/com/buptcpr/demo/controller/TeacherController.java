@@ -2,7 +2,6 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.TeacherRepository;
 import com.buptcpr.demo.common.Result;
-import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.StatisticsService;
 import com.buptcpr.demo.service.TeacherService;
@@ -58,8 +57,8 @@ public class TeacherController {
     }
 
     @PostMapping(path = "/get_1_Rate")
-    public @ResponseBody Result<Float> get1Rate(@RequestParam String id){
-        return Result.success(statisticsService.get1Rate(id));
+    public @ResponseBody Result<Double> get1Rate(@RequestParam String id, @RequestParam int rank1Score){
+        return Result.success(statisticsService.get1Rate(id, rank1Score));
     }
 
 

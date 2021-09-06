@@ -53,8 +53,11 @@ public class StudentController {
     // 删除学生: 肯定会成功, 因为只能删除已有的,在界面上显示的学生
     @PostMapping(path="/delete")
     @ResponseBody
-    public Result<Student> studentDelete(@RequestParam String id)
+    public Result studentDelete(@RequestParam String id)
     {
+        if(studentRepository.findByStudentID(id) == null){
+            return  Result.error("1","学生不存在！");
+        }
         studentService.delete(id);
         return Result.success(null);
     }
@@ -67,6 +70,18 @@ public class StudentController {
         int ret = studentService.update(id,name,passwd,classID,score,rank);
         if(ret == 1){ // 失败, 找不到这个人
             return Result.error("1","找不到该学生");
+        }else{
+            return Result.success(null);
+        }
+    }
+
+    @PostMapping(path="/insert")
+    @ResponseBody
+    public Result<Student> studentInsert(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID,@RequestParam int score)
+    {
+        int ret = studentService.insert(id,name,passwd,classID,score);
+        if(ret == 1){ // 失败, 找不到这个人
+            return Result.error("1","该学生已存在");
         }else{
             return Result.success(null);
         }

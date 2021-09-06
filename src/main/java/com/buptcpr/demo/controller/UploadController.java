@@ -1,5 +1,6 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,25 +13,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * @Description
- * @Author sgl
- * @Date 2018-05-15 14:04
- * @Modified Golden-2019211981
- */
 @Controller
 public class UploadController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
     @GetMapping("/upload")
-    public String upload() {
-        return "upload";
+    public Result upload() {
+        return Result.success(null);
     }
 
     @PostMapping("/upload")
-    public @ResponseBody String upload(@RequestParam("file") MultipartFile file) throws Exception {
+    public @ResponseBody Result upload(@RequestParam("file") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
-            return "上传失败，请选择文件";
+            return Result.error("1","上传失败，请选择文件");
         }
 
         String fileName = file.getOriginalFilename();
@@ -50,11 +45,11 @@ public class UploadController {
 
         try {
             file.transferTo(dest);
-            return "上传成功";
+            return Result.success(null);
         } catch (IOException e) {
             LOGGER.error(e.toString(), e);
         }
-        return "上传失败！";
+        return Result.error("1","上传失败");
     }
 
     private int NameDetect(String s) {

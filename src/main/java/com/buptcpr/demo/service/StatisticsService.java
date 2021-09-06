@@ -1,9 +1,7 @@
 package com.buptcpr.demo.service;
 
 import com.buptcpr.demo.DAO.StudentRepository;
-import com.buptcpr.demo.DAO.TeacherRepository;
-import com.buptcpr.demo.entity.WishSheet;
-import lombok.Data;
+import com.buptcpr.demo.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +14,19 @@ public class StatisticsService {
 //    @Autowired
 //    private TeacherRepository teacherRepository;
 
-    public float get1Rate(String id){
+    public double get1Rate(String id, Integer rank1Score){
+        Integer count = 0;
+        Double rate;
 
-        Integer totalStudent = studentRepository.countAllByClassID(id);
-        Integer totalScore = studentRepository.findByClassID(id);
-        return Float.parseFloat(totalScore.toString())/Float.parseFloat(totalStudent.toString());
+        List<Student> studentList = studentRepository.findAllByClassID(id);
+        for(Student student : studentList){
+            if(student.getScore()>=rank1Score){
+                count++;
+            }
+        }
+
+        rate = Double.parseDouble(count.toString())/Double.parseDouble(String.valueOf(studentList.size()));
+        return rate;
     }
 
 }

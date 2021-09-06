@@ -1,15 +1,11 @@
 package com.buptcpr.demo.entity;
 
-import lombok.Data;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 //todo 添加验证约束
-@Data
+
 @Entity
 public class College {
 
@@ -27,7 +23,9 @@ public class College {
 
     private int score;//投档线
 
-    private int count;//统计选择人数
+    private int countSelected;//统计选择人数
+
+    private int headCount;//统计录取人数
 
     public College() {
     }
@@ -39,7 +37,7 @@ public class College {
         this.tier = tier;
         this.kind = kind;
         this.score = score;
-        this.count = 0;
+        this.countSelected = 0;
     }
 
     public String getCollegeID() {
@@ -89,5 +87,17 @@ public class College {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public int getCountSelected() {
+        return countSelected;
+    }
+
+    public void setCountSelected(int countSelected) {
+        this.countSelected = countSelected;
+    }
+
+    public void setHeadCount(int countAdmitted) { this.headCount = countAdmitted; }
+
+    public int getHeadCount() { return headCount; }
 }
 

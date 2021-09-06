@@ -39,7 +39,7 @@ public class CollegeService {
     }
 
     public int update(String id,String name, String kind,int tier,int score,int rank){
-        College college = collegeRepository.findByName(name);
+        College college = collegeRepository.findByCollegeID(id);
         if(college == null){
             return 1;
         }else{
