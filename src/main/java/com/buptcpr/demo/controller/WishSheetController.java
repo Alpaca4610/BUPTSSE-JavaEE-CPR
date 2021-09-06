@@ -48,7 +48,7 @@ public class WishSheetController {
     }
 
     @Transactional
-    @GetMapping(path="/deleteAll")//未测试
+    @GetMapping(path="/deleteAll")
     public @ResponseBody Result deleteAll(){
         if(sheetRepository.findAll().isEmpty())
             return Result.error("1","数据库为空！");

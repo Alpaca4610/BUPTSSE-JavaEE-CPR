@@ -22,7 +22,7 @@ public class PictureController {
     private MD5Util md5Util;
 
     //savePicture
-    @RequestMapping(value = "/savePic", method = RequestMethod.GET)
+    @RequestMapping(value = "/savePic", method = RequestMethod.POST)
     public Result queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String pictureName){
 
         try {
@@ -34,7 +34,7 @@ public class PictureController {
 
     }
     //update picture
-    @RequestMapping(value = "/updatePic", method = RequestMethod.GET)
+    @RequestMapping(value = "/updatePic", method = RequestMethod.POST)
     public Result updatePic(@RequestParam MultipartFile file , @RequestParam String pictureName){
 
         try {
@@ -55,7 +55,7 @@ public class PictureController {
 
 
     //read
-    @RequestMapping(value = "/image",method = RequestMethod.GET)
+    @RequestMapping(value = "/image",method = RequestMethod.POST)
     public @ResponseBody byte[] GetImage(@RequestParam String pictureName)throws IOException{
         return pictureService.getImage(pictureName);
     }
