@@ -39,8 +39,8 @@ public class TeacherController {
     }
 
     @PostMapping(path="/register")
-    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String passwd,@RequestParam String name,@RequestParam String classid) {
-        if(teacherService.signUp(name,id,passwd,classid)) {
+    public @ResponseBody Result<Teacher> teacherSignIn(@RequestParam String id, @RequestParam String password,@RequestParam String name,@RequestParam String classid) {
+        if(teacherService.signUp(name,id,password,classid)) {
             return Result.success(null);
         }else{
             return Result.error("1","教师已注册");
@@ -75,9 +75,9 @@ public class TeacherController {
     }
 
     @PostMapping(path="/update")
-    public @ResponseBody Result<Teacher> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String passwd,@RequestParam String classID)
+    public @ResponseBody Result<Teacher> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String password,@RequestParam String classID)
     {
-        int update = teacherService.update(id, name, passwd, classID);
+        int update = teacherService.update(id, name, password, classID);
         if(update==1){
             return Result.error("1","用户名不存在");
         }else {
