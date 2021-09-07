@@ -8,9 +8,7 @@ import java.util.Map;
 
 public class SchoolRecApi {
     List<Map<String,Object>> listResult;
-
-
-
+    
     public static List<Map<String,Object>> ListRes(JdbcTemplate j,String sql)
     {
         return j.queryForList(sql);
@@ -41,7 +39,6 @@ public class SchoolRecApi {
             }
             Result[count]=temp;
             count++;
-
         }
         return Result;
     }
