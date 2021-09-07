@@ -3,6 +3,8 @@ package com.buptcpr.demo.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+import java.util.Map;
 
 
 public class QueryAPI {
@@ -21,7 +23,8 @@ public class QueryAPI {
         }
         String s=String.format(SQLBody,ReqiredDomains.substring(0,ReqiredDomains.length()-1),tablename);
         java.util.List<java.util.Map<String,Object>> res=j.queryForList(s);
-        return res;
+        List<Map<String, Object>> res1 = res;
+        return res1;
     }
     public java.util.List<java.util.Map<String,Object>> Result(String tname,String[] domains,String[] domainrange,String[] DomainRnageValue)
     {
