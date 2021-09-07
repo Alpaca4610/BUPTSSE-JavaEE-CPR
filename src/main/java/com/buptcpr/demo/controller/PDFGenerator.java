@@ -1,7 +1,7 @@
-package com.buptcpr.demo.service;
+package com.buptcpr.demo.controller;
+
 
 import com.buptcpr.demo.common.Result;
-import com.buptcpr.demo.controller.RankQuery;
 import com.itextpdf.text.*;
 import com.itextpdf.text.log.Logger;
 import com.itextpdf.text.log.LoggerFactory;
@@ -11,7 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.HashMap;
 
 @ResponseBody
@@ -42,10 +44,45 @@ public class PDFGenerator {
     }
 
     @GetMapping("/pdftest")
-    public @ResponseBody String pdfgenerate() throws Exception {
+    public @ResponseBody String pdfgenerate(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String d="id.name.score.rank";
         String v="114514.李田所.120.114514";
-        FillBody(d.split("\\.",0),v.split("\\.",0),"test");
+        String FileName="Report";
+        FillBody(d.split("\\.",0),v.split("\\.",0),FileName);
+        response.setContentType("application/force-download");// 设置强制下载不打开
+        response.addHeader("Content-Disposition", "attachment;fileName=" + (FileName+".PDF"));// 设置文件名
+        byte[] buffer = new byte[1024];
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        File file=new File(this.getClass().getResource("/").getPath()+String.format("%s.pdf", FileName));
+        try {
+            fis = new FileInputStream(file);
+            bis = new BufferedInputStream(fis);
+            OutputStream os = response.getOutputStream();
+            int i = bis.read(buffer);
+            while (i != -1) {
+                os.write(buffer, 0, i);
+                i = bis.read(buffer);
+            }
+            return "下载成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return "1";
     }
 
@@ -107,17 +144,36 @@ public class PDFGenerator {
                 png.setAbsolutePosition(0,0);
                 doc.add(png);
             }
-            String RecSchoo="";
-            RecSchoo= RankQuery.SchoolRecommand(j1,Integer.parseInt(values[2]));
-            Paragraph RecommendSchool=new Paragraph(RecSchoo
-                    ,FontFactory.getFont("C:/WINDOWS/Fonts/simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK));
 
-            doc.add(RecommendSchool);
+
+            t=new PdfPTable(1);
+
+            RecommendSchool(new RankQuery().SchoolRecommand(j1,Integer.parseInt(values[2])),pcb);
             doc.close();
         }
         catch (Exception e){e.printStackTrace();}
     }
 
+    private PdfPTable RecommendSchool(String[] results,PdfContentByte pcb)
+    {
+        PdfPTable Container=new PdfPTable(1);
+        int CellHeight=20;
+        PdfPCell cell;
+        cell=new PdfPCell(new Paragraph("推荐学校名单:",
+                FontFactory.getFont("C:/WINDOWS/Fonts/simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK)));
+        Container.addCell(cell);
+        for(String s:results)
+        {
+            Paragraph p=new Paragraph(s,
+                    FontFactory.getFont("C:/WINDOWS/Fonts/simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK));
+            p.setAlignment(Element.ALIGN_CENTER);
+            cell=new PdfPCell(p);
+            Container.addCell(cell);
+        }
+        Container.setTotalWidth(500);
+        Container.writeSelectedRows(0,30, 50,650,pcb);
+        return Container;
+    }
 
 }
 

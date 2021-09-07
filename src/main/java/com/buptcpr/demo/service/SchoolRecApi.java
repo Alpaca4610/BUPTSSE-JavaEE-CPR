@@ -11,18 +11,30 @@ public class SchoolRecApi {
     {
         return j.queryForList(sql);
     }
-    public static String StrRes(List<Map<String,Object>> res)
+    public static String[] StrRes(List<Map<String,Object>> res)
     {
+        String[] Result = new String[res.size()];
         String temp="";
         Integer count=0;
         for(Map<String,Object> map:res) {
-            temp = temp+"条目"+count.toString()+":";
+            if(count!=0||count!=1||count!=6)
+                temp="条目"+count.toString()+":";
+            else if(count==0)
+                temp="你的分数";
+            else if( count==1)
+                temp="冲刺高分学校名单";
+            else if(count==6)
+                temp="大概率录取名单";
             for (String s : map.keySet()) {
-                temp = temp + s + ":" + map.get(s);
+                if(count==0)
+                    temp = temp + s + "分" + map.get(s)+"排名";
+                else
+                    temp = temp + s + ":" + map.get(s);
             }
+            Result[count]=temp;
             count++;
-            temp=temp+'\n';
+
         }
-        return temp;
+        return Result;
     }
 }

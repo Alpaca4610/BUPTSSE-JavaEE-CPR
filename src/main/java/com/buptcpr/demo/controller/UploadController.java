@@ -1,10 +1,15 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,23 +21,28 @@ import java.io.IOException;
  * @Date 2018-05-15 14:04
  * @Modified Golden-2019211981
  */
-
-@CrossOrigin
 @Controller
 public class UploadController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
+    String directory=this.getClass().getResource("/").getPath() + "/Excel/";
+
+    String TypeLogDir="%s_value_type";
+
     @Autowired
-    ExcelToDB excelToDB;
+    JdbcTemplate j;
+
     @GetMapping("/upload")
     public String upload() {
         return "upload";
     }
 
     @PostMapping("/upload")
-    public @ResponseBody String upload(@RequestParam("file") MultipartFile file) throws Exception {
+    public @ResponseBody
+    Result<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
+
         if (file.isEmpty()) {
-            return "上传失败，请选择文件";
+            return Result.success();
         }
 
         String fileName = file.getOriginalFilename();
@@ -43,6 +53,7 @@ public class UploadController {
         if(!dest.exists()){//如果文件夹不存在
             dest.mkdir();//创建文件夹
         }
+
         dest = new File(this.getClass().getResource("/").getPath()+"/Excel/" +strconcater(fileName,addcopy));
 
         /*
@@ -50,15 +61,31 @@ public class UploadController {
          */
         dest.createNewFile();
 
-
         try {
             file.transferTo(dest);
-            excelToDB.SaveToDB(fileName);
-            return "上传成功";
+
+            File dir=new File(directory);
+            if(!dir.exists())
+                return Result.error("1",String.format("文件夹%s不存在",dir.getAbsolutePath()));
+
+            String[] child= dir.list();
+
+            for(int i=0;i<child.length;i++) {
+                //System.out.print(child[i]);
+                try {
+                    new ExcelToDB().SaveToDB(j,child[i]);
+                }
+                catch(ExportFailException e)
+                {
+                    return Result.error("1",e.toString());
+                }
+            }
+
+            return Result.success();
         } catch (IOException e) {
             LOGGER.error(e.toString(), e);
         }
-        return "上传失败！";
+        return Result.error("1","qwq");
     }
 
     private int NameDetect(String s) {

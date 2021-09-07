@@ -1,7 +1,6 @@
 package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.common.Result;
-import com.buptcpr.demo.controller.UploadController;
 import com.buptcpr.demo.service.SchoolRecApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +39,7 @@ public class RankQuery {
         Integer Score = Integer.parseInt(request.getParameter("scores"));
         String Upper5School = "select collegeid,name,crank,score from college order by (crank-%d) asc limit 0,5;";
         String select = "select collegeid,name,crank,score from college order by (%d-crank) desc limit 0,20;";
-        List<Map<String, Object>> MyRank = j1.queryForList(String.format("select * from test where score>=%d", Score));
+        List<Map<String, Object>> MyRank = j1.queryForList(String.format("select * from iiyokoiyo where totscore>=%d", Score));
         ;
         int UserRank = 0;
         for (Map<String, Object> map : MyRank)
@@ -49,7 +48,7 @@ public class RankQuery {
             }
         Map<String, Object> mr =new HashMap<>();
         try {
-            mr = j1.queryForMap(String.format("select * from test where score=%d", Score));
+            mr = j1.queryForMap(String.format("select * from iiyokoiyo where totscore=%d", Score));
         } catch (EmptyResultDataAccessException e) {
         UserRank++;
         }
@@ -66,7 +65,7 @@ public class RankQuery {
         return new Result().success(list);
     }
 
-    public static String SchoolRecommand(JdbcTemplate j,int Score) {
+    public static String[] SchoolRecommand(JdbcTemplate j,int Score) {
         String Upper5School = "select collegeid,name,crank,score from college order by (crank-%d) asc limit 0,5;";
         String select = "select collegeid,name,crank,score from college order by (%d-crank) desc limit 0,20;";
         List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from iiyokoiyo where totscore>=%d", Score));
@@ -78,7 +77,7 @@ public class RankQuery {
             }
         Map<String, Object> mr =new HashMap<>();
         try {
-            mr = j.queryForMap(String.format("select * from test where score=%d", Score));
+            mr = j.queryForMap(String.format("select * from iiyokoiyo where totscore=%d", Score));
         } catch (EmptyResultDataAccessException e) {
             UserRank++;
         }
