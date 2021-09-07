@@ -1,7 +1,6 @@
 package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.common.Result;
-import com.buptcpr.demo.controller.UploadController;
 import com.buptcpr.demo.service.SchoolRecApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +37,8 @@ public class RankQuery {
     @RequestMapping(value="/AvailableSchools",method={RequestMethod.POST, RequestMethod.GET})
     public Result<List<Map<String, Object>>> Adapter(HttpServletRequest request, HttpSession session) {
         Integer Score = Integer.parseInt(request.getParameter("scores"));
-        String Upper5School = "select collegeid,name,crank,score from college order by (crank-%d) asc limit 0,5;";
-        String select = "select collegeid,name,crank,score from college order by (%d-crank) desc limit 0,20;";
+        String Upper5School = "select name,crank,score from college order by (crank-%d) asc limit 0,5;";
+        String select = "select name,crank,score from college order by (%d-crank) desc limit 5,20;";
         List<Map<String, Object>> MyRank = j1.queryForList(String.format("select * from test where score>=%d", Score));
         ;
         int UserRank = 0;
@@ -66,26 +65,28 @@ public class RankQuery {
         return new Result().success(list);
     }
 
-    public static String SchoolRecommand(JdbcTemplate j,int Score) {
-        String Upper5School = "select collegeid,name,crank,score from college order by (crank-%d) asc limit 0,5;";
-        String select = "select collegeid,name,crank,score from college order by (%d-crank) desc limit 0,20;";
-        List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from iiyokoiyo where totscore>=%d", Score));
+    public static String[] SchoolRecommand(JdbcTemplate j,int Score) {
+        String Upper5School = "select name,crank,score from college order by (crank-%d) asc limit 0,5;";
+        String select = "select name,crank,score from college order by (%d-crank) desc limit 5,20;";
+        List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from test where score>=%d", Score));
         ;
         int UserRank = 0;
         for (Map<String, Object> map : MyRank)
             for (String s : map.keySet()) {
                 UserRank = Integer.parseInt(map.get(s).toString());
             }
+
         Map<String, Object> mr =new HashMap<>();
         try {
-            mr = j.queryForMap(String.format("select * from iiyokoiyo where totscore=%d", Score));
+            mr = j.queryForMap(String.format("select * from test where score=%d", Score));
         } catch (EmptyResultDataAccessException e) {
             UserRank++;
         }
         Integer s=Score;
+        mr.clear();
         mr.put(s.toString(),UserRank);
-        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j,String.format(Upper5School,Score));
-        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j,String.format(select,Score));
+        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j,String.format(Upper5School,UserRank));
+        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j,String.format(select,UserRank));
 
         List<Map<String,Object>> list=new ArrayList<>();
         list.add(mr);

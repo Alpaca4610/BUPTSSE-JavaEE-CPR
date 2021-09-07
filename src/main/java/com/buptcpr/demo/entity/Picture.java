@@ -11,44 +11,34 @@ import javax.persistence.Id;
 @Entity
 public class Picture {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer pictureID;
+    private String pictureID;
 
-    private byte[] picture;
-
-    private String pictureName;
+    private String url;
 
 
-    public Integer getPictureID() {
+    public String getPictureID() {
         return pictureID;
     }
 
-    public void setPictureID(Integer pictureID) {
+    public void setPictureID(String pictureID) {
         this.pictureID = pictureID;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getPictureName() {
-        return pictureName;
-    }
 
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
+    public Picture(String pictureID, String url) {
+        this.pictureID = pictureID;
+        this.url = url;
+
     }
 
     public Picture() {
-    }
-
-    public Picture(Integer pictureID, byte[] picture, String pictureName) {
-        this.pictureID = pictureID;
-        this.picture = picture;
-        this.pictureName = pictureName;
     }
 }

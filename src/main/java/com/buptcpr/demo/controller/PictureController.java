@@ -8,54 +8,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @CrossOrigin
 @RestController
 @RequestMapping(path="/picture")
 public class PictureController {
     @Autowired
-    private PictureService pictureService;
+    private PictureService pictureService1;
     @Autowired
-    private PictureRepository pictureRepository;
+    private PictureRepository pictureRepository1;
     @Autowired
     private MD5Util md5Util;
 
-    //savePicture
-    @RequestMapping(value = "/savePic", method = RequestMethod.POST)
-    public Result queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String pictureName){
-        try {
-            pictureService.savePhoto(file, pictureName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Result.success(null);
-
-    }
-    //update picture
-    @RequestMapping(value = "/updatePic", method = RequestMethod.POST)
-    public Result updatePic(@RequestParam MultipartFile file , @RequestParam String pictureName){
-
-        try {
-            pictureService.update(file, pictureName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Result.success(null);
-
+    //存储图片到本地文件夹/images/ 并将url存入数据库
+    //输入的pictureID就是图片的名字
+    @RequestMapping(value = "/savePic", method = RequestMethod.GET)
+    public String queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String pictureID){
+        //String filename = pictureService1.fileUpload(file, Name);
+        return pictureService1.savePhoto(file, pictureID);
+        // return new CommonResult(200,"上传成功",filename);
     }
 
-    //delete picture
+    //通过id获取图片url
+    @RequestMapping(value = "/getPic",method = RequestMethod.GET)
+    public @ResponseBody String GetImage(@RequestParam String  pictureID){
+        return pictureService1.getImage(pictureID);
+    }
+
+    //根据id 修改图片信息
+    //pictureID是图片名字
+    @RequestMapping(value = "/updatePic", method = RequestMethod.GET)
+    public Result updatePic(@RequestParam MultipartFile file , @RequestParam String pictureID){
+            pictureService1.update(file, pictureID);
+
+        return Result.success(null);
+    }
+
+    //根据id从数据库删除图片url信息
+    //pictureID是图片名字
     @RequestMapping(path="/deletePic")
-    public @ResponseBody String pictureDelete(@RequestParam String pictureName)
+    public @ResponseBody String pictureDelete(@RequestParam String pictureID)
     {
-        return pictureService.delete(pictureName);
-    }
-
-
-    //read
-    @RequestMapping(value = "/image",method = RequestMethod.POST)
-    public @ResponseBody byte[] GetImage(@RequestParam String pictureName)throws IOException{
-        return pictureService.getImage(pictureName);
+        return pictureService1.delete(pictureID);
     }
 }

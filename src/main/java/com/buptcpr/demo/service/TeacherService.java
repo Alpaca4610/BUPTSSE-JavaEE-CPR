@@ -19,13 +19,13 @@ public class TeacherService {
     @Autowired
     private ClassRepository classRepository;
 
-    public boolean signUp(String name, String id, String passwd,String classid){
+    public boolean signUp(String name, String id, String password,String classid){
         Teacher byTeacherID = teacherRepository.findByTeacherID(id);
         if(byTeacherID==null){
             Teacher teacher = new Teacher();
             teacher.setName(name);
             teacher.setTeacherID(id);
-            teacher.setPasswd(md5Util.encode(passwd));
+            teacher.setPasswd(md5Util.encode(password));
             teacher.setClassID(classid);
             teacherRepository.save(teacher);
             return true;
@@ -34,11 +34,11 @@ public class TeacherService {
         }
     }
 
-    public Boolean signIn(String id, String passwd){
+    public Boolean signIn(String id, String password){
         Teacher byTeacherID = teacherRepository.findByTeacherID(id);
         if(byTeacherID==null){
             return false;
-        }else return md5Util.encode(passwd).equals(byTeacherID.getPasswd());
+        }else return md5Util.encode(password).equals(byTeacherID.getPasswd());
     }
 
     public String createClass(String id){
@@ -65,7 +65,7 @@ public class TeacherService {
         }
     }
 
-    public int update(String id, String name, String passwd,String classID){//改
+    public int update(String id, String name, String password,String classID){//改
         Teacher teacher =teacherRepository.findByTeacherID(id);
         if(teacher == null){
             return 1;
@@ -73,7 +73,7 @@ public class TeacherService {
             teacher = new Teacher();
             teacher.setTeacherID(id);
             teacher.setName(name);
-            teacher.setPasswd(md5Util.encode(passwd));
+            teacher.setPasswd(md5Util.encode(password));
             teacher.setClassID(classID);
 
             teacherRepository.save(teacher);
