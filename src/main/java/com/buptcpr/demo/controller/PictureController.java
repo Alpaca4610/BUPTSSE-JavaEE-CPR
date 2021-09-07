@@ -20,12 +20,13 @@ public class PictureController {
     private MD5Util md5Util;
 
     //存储图片到本地文件夹/images/ 并将url存入数据库
-    @RequestMapping(value = "/savePic", method = RequestMethod.GET)
+    @RequestMapping(value = "/savePic", method = RequestMethod.POST)
     public String queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String Name){
         //String filename = pictureService1.fileUpload(file, Name);
         return pictureService1.savePhoto(file, Name);
         // return new CommonResult(200,"上传成功",filename);
     }
+
 
     //通过id获取图片url
     @RequestMapping(value = "/getPic",method = RequestMethod.GET)

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -81,9 +82,5 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/all")
-    public @ResponseBody
-    Result<List<Teacher>> getteacher() {
-        return Result.success(teacherRepository.findAll());
-    }
+
 }

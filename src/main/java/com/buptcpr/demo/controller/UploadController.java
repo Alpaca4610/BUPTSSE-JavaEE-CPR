@@ -2,6 +2,7 @@ package com.buptcpr.demo.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,8 @@ import java.io.IOException;
 public class UploadController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
+    @Autowired
+    ExcelToDB excelToDB;
     @GetMapping("/upload")
     public String upload() {
         return "upload";
@@ -47,8 +50,10 @@ public class UploadController {
          */
         dest.createNewFile();
 
+
         try {
             file.transferTo(dest);
+            excelToDB.SaveToDB(fileName);
             return "上传成功";
         } catch (IOException e) {
             LOGGER.error(e.toString(), e);
