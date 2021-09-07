@@ -1,5 +1,6 @@
 package com.buptcpr.demo.service;
 
+import com.buptcpr.demo.DAO.QueryAPI;
 import com.buptcpr.demo.common.exception.ValueNotMatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

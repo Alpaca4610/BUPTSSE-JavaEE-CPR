@@ -1,8 +1,8 @@
 package com.buptcpr.demo.controller;
 
 
+import com.buptcpr.demo.DAO.QueryAPI;
 import com.buptcpr.demo.common.Result;
-import com.itextpdf.text.*;
 import com.itextpdf.text.log.Logger;
 import com.itextpdf.text.log.LoggerFactory;
 import com.itextpdf.text.pdf.*;
@@ -11,10 +11,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import com.itextpdf.text.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @ResponseBody
 @CrossOrigin
@@ -28,19 +34,75 @@ public class PDFGenerator {
     PDFGenerator()
     {
         mapping=new HashMap<>();
-        mapping.put("id","学号");
+        mapping.put("studentid","学号");
         mapping.put("name","姓名");
         mapping.put("score","分数");
-        mapping.put("rank","排名");
+        mapping.put("my_rank","排名");
+        mapping.put("crank","学校排名");
+        mapping.put("score","投档线");
+    }
+
+    @Autowired
+    JdbcTemplate j;
+    @GetMapping("/pdfgenerate")
+    public Result pdfownload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Integer id=Integer.parseInt(request.getParameter("id"));
+        String FileName=request.getParameter("Filename");
+        String[] Domains={"studentid","name","score","my_rank"};
+        String[] DomainRange={"studentid"};
+        String[] DRV={id.toString()};
+        java.util.List<java.util.Map<String,Object>> res=new QueryAPI(j).Result("student",Domains,DomainRange,DRV);
+        FillBody(Domains, Decompose(res) ,FileName);
+
+        response.setContentType("application/force-download");// 设置强制下载不打开
+        response.addHeader("Content-Disposition", "attachment;fileName=" + (FileName+".PDF"));// 设置文件名
+        byte[] buffer = new byte[1024];
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        File file=new File(this.getClass().getResource("/").getPath()+String.format("%s.pdf", FileName));
+        try {
+            fis = new FileInputStream(file);
+            bis = new BufferedInputStream(fis);
+            OutputStream os = response.getOutputStream();
+            int i = bis.read(buffer);
+            while (i != -1) {
+                os.write(buffer, 0, i);
+                i = bis.read(buffer);
+            }
+            return Result.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return Result.success(null);
 
     }
 
 
-    @PostMapping("/pdfgenerate")
-    public @ResponseBody Result pdfownload(@RequestParam Info info) throws Exception {
-        FillBody(info.Domains.split("\\.",0),info.Values.split("\\.",0),info.FileName);
-        return Result.success(null);
-
+    private String[] Decompose(List<Map<String, Object>> res) {
+        String[] values = new String[4];
+        int count=0;
+        for(java.util.Map<String,Object> map:res) {
+            for (String s : map.keySet()) {
+                values[count]=map.get(s).toString();
+                count++;
+            }
+        }
+        return values;
     }
 
     @GetMapping("/pdftest")
@@ -120,16 +182,17 @@ public class PDFGenerator {
             for(int i=0;i<Doamins.length;i++)
             {
                 cell = new PdfPCell(new Paragraph(mapping.get(Doamins[i]),
-                        FontFactory.getFont("C:/WINDOWS/Fonts/simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK)));
+                        FontFactory.getFont("C:\\Windows\\Fonts\\simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK)));
                 cell.setFixedHeight(CellHeight);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 t.addCell(cell);
 
                 cell = new PdfPCell(new Paragraph(values[i],
-                        FontFactory.getFont("C:/WINDOWS/Fonts/simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK)));
+                        FontFactory.getFont("C:\\Windows\\Fonts\\simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK)));
                 cell.setFixedHeight(CellHeight);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 t.addCell(cell);
+                LOGGER.info(values[i]);
                 if(Doamins[i].equals("score")&&Integer.parseInt(values[i])<180) {
                     chongkainie = true;
                 }
@@ -138,7 +201,7 @@ public class PDFGenerator {
 
             if(chongkainie==true)
             {
-                Image png = Image.getInstance(this.getClass().getResource("/").getPath()+"imgs/chongkai.png");
+                Image png = Image.getInstance("src\\main\\resources\\static\\imgs\\"+"chongkai.png");
 
                 png.scaleToFit(300,300);
                 png.setAbsolutePosition(0,0);
@@ -175,12 +238,5 @@ public class PDFGenerator {
         return Container;
     }
 
-}
-
-class Info
-{
-    String FileName="TempPDF";
-    String Domains="None";
-    String Values="None";
 }
 
