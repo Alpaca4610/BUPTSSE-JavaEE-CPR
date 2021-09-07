@@ -3,6 +3,7 @@ package com.buptcpr.demo.controller;
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.College;
+import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -75,6 +76,11 @@ public class CollegeController {
     @ResponseBody
     public Result<List<Map>> getIntervalList(@RequestParam int min, @RequestParam int max){
         return Result.success(collegeService.getIntervalList(min, max));
+    }
+
+    @GetMapping("/brief")
+    public @ResponseBody Result<List<Map>> getbrief(){
+        return Result.success(collegeRepository.getbrief());
     }
 
 }

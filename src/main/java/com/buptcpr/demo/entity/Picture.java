@@ -14,10 +14,9 @@ public class Picture {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer pictureID;
 
-    private byte[] picture;
+    private String url;
 
-    private String pictureName;
-
+    private String Name;
 
     public Integer getPictureID() {
         return pictureID;
@@ -27,28 +26,28 @@ public class Picture {
         this.pictureID = pictureID;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getPictureName() {
-        return pictureName;
+    public String getName() {
+        return Name;
     }
 
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public Picture(Integer pictureID, String url, String name) {
+        this.pictureID = pictureID;
+        this.url = url;
+        Name = name;
     }
 
     public Picture() {
-    }
-
-    public Picture(Integer pictureID, byte[] picture, String pictureName) {
-        this.pictureID = pictureID;
-        this.picture = picture;
-        this.pictureName = pictureName;
     }
 }

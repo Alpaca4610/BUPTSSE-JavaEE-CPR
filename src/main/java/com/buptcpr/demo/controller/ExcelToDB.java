@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import java.util.Map;
 @Controller
 @ResponseBody
 @CrossOrigin
+@Service
 public class ExcelToDB {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -84,7 +86,7 @@ public class ExcelToDB {
         return "已成功保存";
     }
 
-    private void SaveToDB(String s) throws ExportFailException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+    public void SaveToDB(String s) throws ExportFailException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
 
        InputStream input = new FileInputStream(new File(directory+s));
         //Workbook workbook = WorkbookFactory.create(new File(directory+s));

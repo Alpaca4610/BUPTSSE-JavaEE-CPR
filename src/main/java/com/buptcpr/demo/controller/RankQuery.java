@@ -78,7 +78,7 @@ public class RankQuery {
             }
         Map<String, Object> mr =new HashMap<>();
         try {
-            mr = j.queryForMap(String.format("select * from iiyokoiyo where totscore=%d", Score));
+            mr = j.queryForMap(String.format("select * from test where score=%d", Score));
         } catch (EmptyResultDataAccessException e) {
             UserRank++;
         }
