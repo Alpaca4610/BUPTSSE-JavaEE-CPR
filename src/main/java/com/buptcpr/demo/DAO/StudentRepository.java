@@ -12,7 +12,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 //    @Query(nativeQuery = true,value = "select sum(student.score) from student")
 //    Integer findByClassID(String id);
     List<Student> findAllByClassID(String id);
-    Student findByStudentIDAndAndPasswd(String studentID,String password);
+    Student findByStudentIDAndAndPassword(String studentID,String password);
 
     List<Student> findAll();
 }

@@ -1,7 +1,9 @@
 package com.buptcpr.demo.controller;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -67,7 +69,7 @@ public class ExcelToDB {
         for(int i=0;i<child.length;i++) {
             //System.out.print(child[i]);
             try {
-                SaveToDB(child[i]);
+                SaveToDB(jdbcTemplate,child[i]);
             }
             catch(ExportFailException e)
             {
@@ -79,27 +81,39 @@ public class ExcelToDB {
         return "已成功保存";
     }
 
-    private void SaveToDB(String s) throws ExportFailException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
-        Workbook workbook = WorkbookFactory.create(new File(directory+s));
-        Sheet sheet = workbook.getSheetAt(0);
-        CreateTabel(directory,s.substring(0,s.indexOf('.')),sheet);
-        InsertIntoTable(directory,s.substring(0,s.indexOf('.')),sheet);
+    public void SaveToDB(JdbcTemplate j,String s) throws ExportFailException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+        //Workbook workbook = WorkbookFactory.create(new File(directory+s));
+        InputStream is=null;
+        is=new FileInputStream(new File(directory+s));
+        if((directory+s).indexOf(".xlsx")!=1)
+        {
+            XSSFWorkbook wb=new XSSFWorkbook(is);
+            Sheet sheet = wb.getSheetAt(0);
+            CreateTabel(j,directory,s.substring(0,s.indexOf('.')),sheet);
+            InsertIntoTable(j,directory,s.substring(0,s.indexOf('.')),sheet);
+        }else
+        {
+            HSSFWorkbook wb=new HSSFWorkbook(is);
+            Sheet sheet = wb.getSheetAt(0);
+            CreateTabel(j,directory,s.substring(0,s.indexOf('.')),sheet);
+            InsertIntoTable(j,directory,s.substring(0,s.indexOf('.')),sheet);
+        }
     }
 
-private void InsertIntoTable(String directory, String s, Sheet sheet) {
-    for (int i = 1; i <= sheet.getLastRowNum(); i++) {//跳过第一行，取得其他行数据
-        String values = "";
-        Row row = sheet.getRow(i);//取得第i行数据
-        String VTypes=ReadTypeAndConvertForm(s);
-        for (int j = 0; j < row.getLastCellNum(); j++) {
-            Cell cell = row.getCell(j);//取得第j列数据
-            cell.setCellType(1);
-            String value = cell.getStringCellValue();
-            values=values+ValuesModification(VTypes,j,value)+",";
+    private void InsertIntoTable(JdbcTemplate j1,String directory, String s, Sheet sheet) {
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {//跳过第一行，取得其他行数据
+            String values = "";
+            Row row = sheet.getRow(i);//取得第i行数据
+            String VTypes=ReadTypeAndConvertForm(s);
+            for (int j = 0; j < row.getLastCellNum(); j++) {
+                Cell cell = row.getCell(j);//取得第j列数据
+                cell.setCellType(1);
+                String value = cell.getStringCellValue();
+                values=values+ValuesModification(VTypes,j,value)+",";
+            }
+            j1.execute(String.format("insert into %s values (%s)", s, values.substring(0,values.length()-1)));
         }
-        this.jdbcTemplate.execute(String.format("insert into %s values (%s)", s, values.substring(0,values.length()-1)));
     }
-}
 
     private String ValuesModification(String vTypes, int j, String value) {
         if(vTypes.charAt(j)-'0'!=0)
@@ -140,7 +154,7 @@ private void InsertIntoTable(String directory, String s, Sheet sheet) {
         该记号遵循org.apache.poi中excel单元格类型标准
         便于型转换
      */
-    private void CreateTabel(String dir,String filename,Sheet st){
+    private void CreateTabel(JdbcTemplate j,String dir,String filename,Sheet st){
 
         Row fistRow=st.getRow(0);
 
@@ -159,10 +173,10 @@ private void InsertIntoTable(String directory, String s, Sheet sheet) {
             Body=Body+Disintergrate(domainName,filename);
         }
         try {
-            this.jdbcTemplate.execute(String.format("drop table %s;", filename));
+            j.execute(String.format("drop table %s;", filename));
         }catch(Exception e){}
 
-        this.jdbcTemplate.execute(String.format(execution,filename,Body.substring(0,Body.length()-1)));
+        j.execute(String.format(execution,filename,Body.substring(0,Body.length()-1)));
         SaveValueTypeLog(TypeLogDir,filename);
     }
 
@@ -174,10 +188,10 @@ private void InsertIntoTable(String directory, String s, Sheet sheet) {
             BufferedWriter out = new BufferedWriter(new FileWriter(f.getAbsoluteFile()));
             Iterator iter = TableValueTypeLog.entrySet().iterator();
             while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            out.write(entry.getKey().toString()+"!");
-            out.write(entry.getValue().toString()+".");
-            out.close();
+                Map.Entry entry = (Map.Entry) iter.next();
+                out.write(entry.getKey().toString()+"!");
+                out.write(entry.getValue().toString()+".");
+                out.close();
             }
         }
         catch (Exception e){}

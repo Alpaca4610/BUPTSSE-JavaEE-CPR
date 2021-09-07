@@ -2,6 +2,7 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.TeacherRepository;
 import com.buptcpr.demo.common.Result;
+import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.StatisticsService;
 import com.buptcpr.demo.service.TeacherService;
@@ -10,12 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
 @RequestMapping(path="/teacher")
-@SuppressWarnings("unchecked")
-
 
 public class TeacherController {
     @Autowired
@@ -27,7 +27,6 @@ public class TeacherController {
 
 
     @PostMapping(path="/login")
-    @SuppressWarnings("unchecked")
     public @ResponseBody
     Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String password) {
         boolean i = teacherService.signIn(id, password);
@@ -63,7 +62,6 @@ public class TeacherController {
         return Result.success(statisticsService.get1Rate(id, rank1Score));
     }
 
-
     @PostMapping(path="/delete")
     public @ResponseBody Result<String> teacherDelete(@RequestParam String id) {
         int delete = teacherService.delete(id);
@@ -86,8 +84,9 @@ public class TeacherController {
     }
 
     @GetMapping("/all")
-    public @ResponseBody
-    Result<List<Teacher>> getteacher() {
-        return Result.success(teacherRepository.findAll());
+    @ResponseBody
+    public Result<List<Teacher>> getStudent() {
+        List<Teacher> ret = teacherRepository.findAll();
+        return Result.success(ret);
     }
 }

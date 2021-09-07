@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -33,7 +34,7 @@ public class StudentController {
     public Result<String> login(String id, String password) {
         Student res = studentService.login(id,password);
         if(res!=null){
-            return Result.success(null);
+            return Result.success();
         }else{
             return Result.error("-1","登陆失败");
         }
@@ -114,4 +115,9 @@ public class StudentController {
         return Result.success("成绩上传成功");
     }
 
+    @PostMapping("/getScore")
+    @ResponseBody
+    public Result<List<Map<String, Integer>>> getTotalScore(@RequestParam String studentID){
+        return Result.success(studentService.getScore(studentID));
+    }
 }

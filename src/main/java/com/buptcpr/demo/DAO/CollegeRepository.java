@@ -17,8 +17,11 @@ public interface CollegeRepository extends JpaRepository<College, String> {
     List<College> findByCrankLessThan(int srank);
     List<College> findByCrankGreaterThan(int srank);
 
-    @Query(nativeQuery = true,value = "select name,count from college")
+    @Query(nativeQuery = true,value = "select name,count_selected from college")
     List<Map> getAllCollegeName();
+
+    @Query(nativeQuery = true,value = "select name collegeName,collegeid collegeID from college")
+    List<Map> getbrief();
 
     @Query(nativeQuery = true,value = "select CollegeID, score from college where score >= ?1 and score <= ?2")
     List<Map> getIntervalList(int min, int max);

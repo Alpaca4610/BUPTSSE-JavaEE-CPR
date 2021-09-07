@@ -15,7 +15,7 @@
 //        registrationBean.setFilter(new JwtFilter());
 //
 //        List<String> urlPatterns = new ArrayList<>();
-//        urlPatterns.add("/teacher/all");
+//        urlPatterns.add("/getRecommend");
 //        registrationBean.setUrlPatterns(urlPatterns);
 //        return registrationBean;
 //    }
