@@ -20,11 +20,11 @@ public class StudentService {
 
     // 学生登陆
     public Student login(String name,String password) {
-        return studentRepository.findByStudentIDAndAndPasswd(name,md5Util.encode(password));
+        return studentRepository.findByStudentIDAndAndPassword(name,md5Util.encode(password));
     }
 
     // 学生注册（增）
-    public int register(String studentID, String name, String passwd, String classID){
+    public int register(String studentID, String name, String password, String classID){
         Student student = studentRepository.findByStudentID(studentID);
         if(student != null){ //学生已注册
             return 1;
@@ -32,7 +32,7 @@ public class StudentService {
             student = new Student();
             student.setStudentID(studentID);
             student.setName(name);
-            student.setPasswd(md5Util.encode(passwd));
+            student.setPassword(md5Util.encode(password));
             student.setClassID(classID);
             System.out.println("studentID: " + studentID);
             studentRepository.save(student);
@@ -46,7 +46,7 @@ public class StudentService {
     }
 
     //修改学生信息
-    public int update(String studentID, String name, String passwd,String classID,int score,int rank){
+    public int update(String studentID, String name, String password,String classID,int score,int rank){
         Student student = (Student) studentRepository.findByStudentID(studentID);
         if(student == null){
             return 1;
@@ -54,7 +54,7 @@ public class StudentService {
             student = new Student();
             student.setStudentID(studentID);
             student.setName(name);
-            student.setPasswd(md5Util.encode(passwd));
+            student.setPassword(md5Util.encode(password));
             student.setMyRank(rank);
             student.setScore(score);
             student.setClassID(classID);
@@ -65,7 +65,7 @@ public class StudentService {
     }
 
     // 插入学生
-    public int insert(String studentID, String name, String passwd,String classID,int score){
+    public int insert(String studentID, String name, String password,String classID,int score){
         Student student = (Student) studentRepository.findByStudentID(studentID);
         if(student != null){
             return 1;
@@ -73,7 +73,7 @@ public class StudentService {
             student = new Student();
             student.setStudentID(studentID);
             student.setName(name);
-            student.setPasswd(md5Util.encode(passwd));
+            student.setPassword(md5Util.encode(password));
 
             student.setScore(score);
             student.setClassID(classID);

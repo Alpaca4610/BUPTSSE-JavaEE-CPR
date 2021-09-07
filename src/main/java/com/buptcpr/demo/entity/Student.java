@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Student {
     //账号密码
     @NotBlank(message = "密码不可为空")
-    private String passwd;
+    private String password;
 
     //用户信息
     @NotBlank
