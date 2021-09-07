@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CprApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(CprApplication.class, args);
     }
+
+
 }

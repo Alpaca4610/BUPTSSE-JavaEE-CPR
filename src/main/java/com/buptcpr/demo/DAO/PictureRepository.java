@@ -6,7 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PictureRepository extends JpaRepository<Picture, Integer> {
 
-    Object findByPictureName(String pictureName);
-
-
+    Object findBypictureID(Integer pictureID);
 }
