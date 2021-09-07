@@ -115,4 +115,9 @@ public class StudentController {
         return Result.success("成绩上传成功");
     }
 
+    @PostMapping("/getTotalScore")
+    @ResponseBody
+    public Result<Integer> getTotalScore(@RequestParam String studentID){
+        return Result.success(studentService.getTotalScore(studentID));
+    }
 }
