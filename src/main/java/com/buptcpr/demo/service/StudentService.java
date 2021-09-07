@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentService {
@@ -81,5 +84,23 @@ public class StudentService {
             studentRepository.save(student);
             return 0;
         }
+    }
+
+    public List<Map<String, Integer>> getScore(String id){
+        Student byStudentID = studentRepository.findByStudentID(id);
+        List<Map<String, Integer>> scoreList = null;
+        Map<String, Integer> chinese=new HashMap<String, Integer>();
+        Map<String, Integer> math=new HashMap<String, Integer>();
+        Map<String, Integer> english=new HashMap<String, Integer>();
+        Map<String, Integer> science=new HashMap<String, Integer>();
+        chinese.put("chinese", byStudentID.getChinese());
+        english.put("english", byStudentID.getEnglish());
+        math.put("math", byStudentID.getMath());
+        science.put("science", byStudentID.getScience());
+        scoreList.add(chinese);
+        scoreList.add(math);
+        scoreList.add(english);
+        scoreList.add(science);
+        return  scoreList;
     }
 }
