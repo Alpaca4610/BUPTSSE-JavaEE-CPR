@@ -2,6 +2,9 @@ package com.buptcpr.demo.controller;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ public class ExcelToDB {
 
     String TypeLogDir="%s_value_type";
     //模板
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExcelToDB.class);
     @RequestMapping("/printxlsx")
     public void way() throws IOException, InvalidFormatException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
         String dir = this.getClass().getResource("/").getPath() + "/Excel/" + "1.xlsx";
@@ -80,10 +85,16 @@ public class ExcelToDB {
     }
 
     private void SaveToDB(String s) throws ExportFailException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
-        Workbook workbook = WorkbookFactory.create(new File(directory+s));
-        Sheet sheet = workbook.getSheetAt(0);
-        CreateTabel(directory,s.substring(0,s.indexOf('.')),sheet);
-        InsertIntoTable(directory,s.substring(0,s.indexOf('.')),sheet);
+
+       InputStream input = new FileInputStream(new File(directory+s));
+        //Workbook workbook = WorkbookFactory.create(new File(directory+s));
+        if((directory+s).indexOf(".xlsx")!=-1) {
+            XSSFWorkbook wb = new XSSFWorkbook(input);
+            Sheet sheet = wb.getSheetAt(0);
+            CreateTabel(directory,s.substring(0,s.indexOf('.')),sheet);
+            InsertIntoTable(directory,s.substring(0,s.indexOf('.')),sheet);
+        }
+
     }
 
 private void InsertIntoTable(String directory, String s, Sheet sheet) {
@@ -161,7 +172,7 @@ private void InsertIntoTable(String directory, String s, Sheet sheet) {
         try {
             this.jdbcTemplate.execute(String.format("drop table %s;", filename));
         }catch(Exception e){}
-
+        LOGGER.info(String.format(execution,filename,Body.substring(0,Body.length()-1)));
         this.jdbcTemplate.execute(String.format(execution,filename,Body.substring(0,Body.length()-1)));
         SaveValueTypeLog(TypeLogDir,filename);
     }

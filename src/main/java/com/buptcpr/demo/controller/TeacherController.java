@@ -14,8 +14,6 @@ import java.util.List;
 @CrossOrigin
 @Controller
 @RequestMapping(path="/teacher")
-@SuppressWarnings("unchecked")
-
 
 public class TeacherController {
     @Autowired
@@ -27,7 +25,6 @@ public class TeacherController {
 
 
     @PostMapping(path="/login")
-    @SuppressWarnings("unchecked")
     public @ResponseBody
     Result<Object> teacherSignUp (@RequestParam String id, @RequestParam String password) {
         boolean i = teacherService.signIn(id, password);
