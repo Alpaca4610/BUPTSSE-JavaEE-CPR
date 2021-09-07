@@ -11,18 +11,16 @@ import javax.persistence.Id;
 @Entity
 public class Picture {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer pictureID;
+    private String pictureID;
 
     private String url;
 
-    private String Name;
 
-    public Integer getPictureID() {
+    public String getPictureID() {
         return pictureID;
     }
 
-    public void setPictureID(Integer pictureID) {
+    public void setPictureID(String pictureID) {
         this.pictureID = pictureID;
     }
 
@@ -34,18 +32,11 @@ public class Picture {
         this.url = url;
     }
 
-    public String getName() {
-        return Name;
-    }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public Picture(Integer pictureID, String url, String name) {
+    public Picture(String pictureID, String url) {
         this.pictureID = pictureID;
         this.url = url;
-        Name = name;
+
     }
 
     public Picture() {
