@@ -2,6 +2,7 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.TeacherRepository;
 import com.buptcpr.demo.common.Result;
+import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Teacher;
 import com.buptcpr.demo.service.StatisticsService;
 import com.buptcpr.demo.service.TeacherService;
@@ -82,5 +83,10 @@ public class TeacherController {
         }
     }
 
-
+    @GetMapping("/all")
+    @ResponseBody
+    public Result<List<Teacher>> getStudent() {
+        List<Teacher> ret = teacherRepository.findAll();
+        return Result.success(ret);
+    }
 }
