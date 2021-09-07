@@ -16,7 +16,7 @@ public class SchoolRecApi {
         String temp="";
         Integer count=0;
         for(Map<String,Object> map:res) {
-            temp=temp+"条目"+count.toString()+":";
+            temp = temp+"条目"+count.toString()+":";
             for (String s : map.keySet()) {
                 temp = temp + s + ":" + map.get(s);
             }
