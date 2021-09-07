@@ -4,7 +4,8 @@ package com.buptcpr.demo.DAO;
 import com.buptcpr.demo.entity.Picture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PictureRepository extends JpaRepository<Picture, Integer> {
+public interface PictureRepository extends JpaRepository<Picture, String> {
 
-    Object findBypictureID(Integer pictureID);
+
+    Object findBypictureID(String pictureID);
 }

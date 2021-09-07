@@ -19,17 +19,17 @@ public class PictureService {
     @Autowired
     private MD5Util md5Util;
 
-    public String savePhoto(MultipartFile file, String Name) {
+    public String savePhoto(MultipartFile file, String pictureID) {
         Picture picture = new Picture();
-        String filename = fileUpload(file, Name);
+        String filename = fileUpload(file, pictureID);
         picture.setUrl(filename);
-        picture.setName(Name);
-        System.out.println("pictureName: " + Name);
+        picture.setPictureID(pictureID);
+        System.out.println("pictureName: " + pictureID);
         pictureRepository1.save(picture);
         return "Saved";
     }
 
-    public String fileUpload(MultipartFile file, String Name) {
+    public String fileUpload(MultipartFile file, String pictureID) {
         if (file.isEmpty()) {
             return "空文件";
         }else {
@@ -56,7 +56,7 @@ public class PictureService {
         }
     }
 
-    public String getImage(Integer pictureID){
+    public String getImage(String pictureID){
         Picture picture = (Picture) pictureRepository1.findBypictureID(pictureID);
         if(picture == null){
             return "not_exists";
@@ -65,22 +65,21 @@ public class PictureService {
         return picture.getUrl();
     }
 
-    public String update( MultipartFile file, Integer pictureID, String Name){
+    public String update( MultipartFile file, String pictureID){
 
         Picture picture = (Picture) pictureRepository1.findBypictureID(pictureID);
 
         if(picture == null){
             return "fail_picture_not_exits";
         }else{
-            String filename = fileUpload(file,Name);
+            String filename = fileUpload(file,pictureID);
             picture.setUrl(filename);
-            picture.setName(Name);
             pictureRepository1.save(picture);
             return "updated";
         }
     }
 
-    public String delete(Integer pictureID){
+    public String delete(String pictureID){
         Picture picture = (Picture) pictureRepository1.findBypictureID(pictureID);
         if(picture == null){
             return "picture_not_exits";

@@ -82,4 +82,9 @@ public class StudentService {
             return 0;
         }
     }
+
+    public int getTotalScore(String id){
+        Student byStudentID = studentRepository.findByStudentID(id);
+        return byStudentID.getScore();
+    }
 }
