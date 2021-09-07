@@ -3,7 +3,6 @@ package com.buptcpr.demo.controller;
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
 //import com.buptcpr.demo.common.Jwt;
-import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.service.MD5Util;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -115,9 +115,9 @@ public class StudentController {
         return Result.success("成绩上传成功");
     }
 
-    @PostMapping("/getTotalScore")
+    @PostMapping("/getScore")
     @ResponseBody
-    public Result<Integer> getTotalScore(@RequestParam String studentID){
-        return Result.success(studentService.getTotalScore(studentID));
+    public Result<List<Map<String, Integer>>> getTotalScore(@RequestParam String studentID){
+        return Result.success(studentService.getScore(studentID));
     }
 }
