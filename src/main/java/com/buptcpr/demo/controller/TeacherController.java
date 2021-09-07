@@ -60,7 +60,6 @@ public class TeacherController {
         return Result.success(statisticsService.get1Rate(id, rank1Score));
     }
 
-
     @PostMapping(path="/delete")
     public @ResponseBody Result<String> teacherDelete(@RequestParam String id) {
         int delete = teacherService.delete(id);
