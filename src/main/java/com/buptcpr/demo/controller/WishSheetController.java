@@ -47,6 +47,16 @@ public class WishSheetController {
         return sheetService.update(id, id1, id2, id3);
     }
 
+    @PostMapping(path="/judge")
+    public @ResponseBody Result updateWishSheet(@RequestParam String id)
+    {
+        if(sheetRepository.findByStudentID(id) == null){
+            return Result.error("1","该学生未填报！");
+        }
+        else
+        return Result.success(sheetRepository.findByStudentID(id));
+    }
+
     @Transactional
     @GetMapping(path="/deleteAll")
     public @ResponseBody Result deleteAll(){
