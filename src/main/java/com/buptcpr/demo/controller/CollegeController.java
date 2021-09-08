@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +31,15 @@ public class CollegeController {
 
     @PostMapping ("/add")//增
     @ResponseBody
-    public Result<College> save(@RequestParam String id,@RequestParam String name ,@RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind){
-        College college = collegeService.add(id,name,score,tier,rank,kind);
+    public Result<College> save(@RequestParam String id,@RequestParam String name ,@RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind, @RequestParam int rank1, @RequestParam int rank2, @RequestParam int rank3, @RequestParam int rank4){
+        Integer[] list=new Integer[4];
+        list[0]=rank1;
+        list[0]=rank2;
+        list[0]=rank3;
+        list[0]=rank4;
+        College college = collegeService.add(id,name,score,tier,rank, collegeService.Avg(list),kind);
         return Result.success(college);
     }
-
     @PostMapping("/delete")//删
     @ResponseBody
     public Result<College> delete(@RequestParam String id){

@@ -17,6 +17,8 @@ public class College {
 
     private int crank;//投档线对应的排名
 
+    private int prank;//
+
     private int tier; //一本、二本、三本
 
     private String kind;//大学种类
@@ -99,5 +101,9 @@ public class College {
     public void setHeadCount(int countAdmitted) { this.headCount = countAdmitted; }
 
     public int getHeadCount() { return headCount; }
+
+    public int getPrank() { return prank; }
+
+    public void setPrank(int prank) { this.prank = prank; }
 }
 
