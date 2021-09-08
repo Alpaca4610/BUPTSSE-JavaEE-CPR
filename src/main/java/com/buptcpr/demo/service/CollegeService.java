@@ -58,8 +58,8 @@ public class CollegeService {
     }
 
     public Integer Avg(Integer[] ScoreSet) {
-        Integer highest=0;
-        Integer Lowest=Integer.MAX_VALUE;
+        int highest=0;
+        int Lowest=Integer.MAX_VALUE;
 
         for(Integer a:ScoreSet) {
                 if(highest<a)
@@ -67,8 +67,8 @@ public class CollegeService {
                 if(Lowest>a)
                     Lowest=a;
             }
-            Integer res=0;
-            Integer count=0;
+            int res=0;
+            int count=0;
             for(Integer a:ScoreSet) {
                 if(Math.abs(a-highest)>0.001&&Math.abs(a-Lowest)>0.001) {
                     res += a;
