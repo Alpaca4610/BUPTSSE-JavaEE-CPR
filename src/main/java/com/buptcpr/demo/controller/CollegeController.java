@@ -31,13 +31,13 @@ public class CollegeController {
 
     @PostMapping ("/add")//增
     @ResponseBody
-    public Result<College> save(@RequestParam String id,@RequestParam String name ,@RequestParam int score, @RequestParam int tier, @RequestParam int rank, @RequestParam String kind, @RequestParam int rank1, @RequestParam int rank2, @RequestParam int rank3, @RequestParam int rank4){
+    public Result<College> save(@RequestParam String id,@RequestParam String name ,@RequestParam int score, @RequestParam int tier, @RequestParam String kind, @RequestParam int rank1, @RequestParam int rank2, @RequestParam int rank3, @RequestParam int rank4){
         Integer[] list=new Integer[4];
         list[0]=rank1;
-        list[0]=rank2;
-        list[0]=rank3;
-        list[0]=rank4;
-        College college = collegeService.add(id,name,score,tier,rank, collegeService.Avg(list),kind);
+        list[1]=rank2;
+        list[2]=rank3;
+        list[3]=rank4;
+        College college = collegeService.add(id,name,score,tier,rank1, collegeService.Avg(list),kind);
         return Result.success(college);
     }
 
@@ -89,5 +89,4 @@ public class CollegeController {
     public @ResponseBody Result<List<Map>> getbrief(){
         return Result.success(collegeRepository.getbrief());
     }
-
 }
