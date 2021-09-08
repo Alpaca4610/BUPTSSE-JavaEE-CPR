@@ -17,7 +17,7 @@ public class CreateCommentaryTableInsertPrint {
             j.execute(CreateTable);
             j.execute(insExample);
         }
-        try{j.execute(String.format("insert into Commentary values(\"%s\",\"%s\",%d,%d)",strs0,strs1,i1,i2));}
+        try{j.execute(String.format("insert into commentary (Commenter, Body, Upvote, Downvote) values (\"%s\",\"%s\",%d,%d)",strs0,strs1,i1,i2));}
         catch (Exception e)
         {
             return false;
