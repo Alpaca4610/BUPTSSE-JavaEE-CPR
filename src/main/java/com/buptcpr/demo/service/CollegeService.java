@@ -2,18 +2,12 @@ package com.buptcpr.demo.service;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.entity.College;
-import com.buptcpr.demo.entity.Student;
-import com.buptcpr.demo.entity.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class CollegeService {

@@ -23,7 +23,12 @@ public class CommentaryAPI {
 
     @PostMapping("/commentins")
     public @ResponseBody
-    Result Insert(@RequestParam Comment c) throws Exception {
+    Result Insert(@RequestParam String Sender,@RequestParam String Body) throws Exception {
+        Comment c=new Comment();
+        c.Body=Body;
+        c.Sender=Sender;
+        c.Upvote="0";
+        c.Downvote="0";
         CreateCommentaryTableInsertPrint.Insert(j,c.Sender,c.Body,Integer.parseInt(c.Upvote),Integer.parseInt(c.Downvote));
         int MyId=0;
         Map<String,Object> temp=j.queryForMap("select id from Commentary order by id desc limit 0,1;");
@@ -69,7 +74,11 @@ public class CommentaryAPI {
     @GetMapping("/getcom")
     public Result<List<Map<String,Object>>> getCom()
     {
-        return Result.success(CreateCommentaryTableInsertPrint.Result(j));
+        List<Map<String,Object>> res=CreateCommentaryTableInsertPrint.Result(j);
+        if(res.size()>0)
+        return Result.success(res);
+        else
+            return Result.error("1","无留言");
     }
 
 }
