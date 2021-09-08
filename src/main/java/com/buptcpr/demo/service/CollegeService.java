@@ -22,7 +22,7 @@ public class CollegeService {
 
     //增
     @Transactional
-    public College add(String id,String name,int score,int tier,int rank,String kind){
+    public College add(String id,String name,int score,int tier,int rank, int prank, String kind){
         College college = new College();
         college.setScore(score);
         college.setName(name);
@@ -30,6 +30,7 @@ public class CollegeService {
         college.setCrank(rank);
         college.setKind(kind);
         college.setCollegeID(id);
+        college.setPrank(prank);
         collegeRepository.save(college);
         return college;
     }
@@ -61,6 +62,29 @@ public class CollegeService {
     public List<Map> getIntervalList(int min, int max){
         return collegeRepository.getIntervalList(min, max);
     }
+
+    public Integer Avg(Integer[] ScoreSet) {
+        Integer highest=0;
+        Integer Lowest=Integer.MAX_VALUE;
+
+        for(Integer a:ScoreSet) {
+                if(highest<a)
+                    highest=a;
+                if(Lowest>a)
+                    Lowest=a;
+            }
+            Integer res=0;
+            Integer count=0;
+            for(Integer a:ScoreSet) {
+                if(Math.abs(a-highest)>0.001&&Math.abs(a-Lowest)>0.001) {
+                    res += a;
+                    count++;
+                }
+            }
+            res=(res/count);
+            return res;
+        }
+
 
 //    //查询
 //    public College getById(Integer collegeId){
