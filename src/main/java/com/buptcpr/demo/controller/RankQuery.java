@@ -30,15 +30,12 @@ public class RankQuery {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
-    /*
-
-     */
 
     @RequestMapping(value="/AvailableSchools",method={RequestMethod.POST, RequestMethod.GET})
     public Result<List<Map<String, Object>>> Adapter(HttpServletRequest request, HttpSession session) {
         Integer Score = Integer.parseInt(request.getParameter("scores"));
-        String Upper5School = "select name,crank,score from college order by (crank-%d) asc limit 0,5;";
-        String select = "select name,crank,score from college order by (%d-crank) desc limit 5,20;";
+        String Upper5School = "select name,crank,score from college where (crank-%d)<=0 order by (crank-%d) desc limit 0,5;";
+        String select = "select name,crank,score from college where (%d-crank)<=0 order by (%d-crank) desc limit 0,20;";
         List<Map<String, Object>> MyRank = j1.queryForList(String.format("select * from test where score>=%d", Score));
         ;
         int UserRank = 0;
@@ -53,15 +50,15 @@ public class RankQuery {
         UserRank++;
         }
         mr.put(Score.toString(),UserRank);
-        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j1,String.format(Upper5School,Score));
-        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j1,String.format(select,Score));
+        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j1,String.format(Upper5School,UserRank,UserRank));
+        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j1,String.format(select,UserRank,UserRank));
 
         List<Map<String,Object>> list=new ArrayList<>();
         list.add(mr);
         list.addAll(UpperSchool);
         list.addAll(schools);
 
-        LOGGER.info(String.format(select,Score));
+        LOGGER.info(String.format(select,UserRank,UserRank));
         return new Result().success(list);
     }
 

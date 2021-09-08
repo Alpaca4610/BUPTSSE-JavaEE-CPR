@@ -26,13 +26,13 @@ public class AdminService {
     private CollegeRepository collegeRepository;
     
 
-    public int signUp(String name, String id, String passwd){
+    public int signUp(String name, String id, String password){
         Admin byAdminID = adminRepository.findByadminID(id);
         if(byAdminID==null){
             Admin admin = new Admin();
             admin.setName(name);
             admin.setAdminID(id);
-            admin.setPasswd(md5Util.encode(passwd));
+            admin.setPasswd(md5Util.encode(password));
             adminRepository.save(admin);
             return 0;
         }else{

@@ -2,18 +2,12 @@ package com.buptcpr.demo.service;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.entity.College;
-import com.buptcpr.demo.entity.Student;
-import com.buptcpr.demo.entity.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class CollegeService {
@@ -64,8 +58,8 @@ public class CollegeService {
     }
 
     public Integer Avg(Integer[] ScoreSet) {
-        Integer highest=0;
-        Integer Lowest=Integer.MAX_VALUE;
+        int highest=0;
+        int Lowest=Integer.MAX_VALUE;
 
         for(Integer a:ScoreSet) {
                 if(highest<a)
@@ -73,8 +67,8 @@ public class CollegeService {
                 if(Lowest>a)
                     Lowest=a;
             }
-            Integer res=0;
-            Integer count=0;
+            int res=0;
+            int count=0;
             for(Integer a:ScoreSet) {
                 if(Math.abs(a-highest)>0.001&&Math.abs(a-Lowest)>0.001) {
                     res += a;
