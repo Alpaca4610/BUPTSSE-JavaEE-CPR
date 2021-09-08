@@ -99,8 +99,6 @@ public class SheetService {
         collegeRepository.save(byCollegeID2);
         collegeRepository.save(byCollegeID3);
 
-
-
         WishSheet oldSheet=sheetRepository.findByStudentID(id);
         String oldID1=oldSheet.getWishA();
         String oldID2=oldSheet.getWishB();

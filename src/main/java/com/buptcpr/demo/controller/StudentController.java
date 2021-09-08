@@ -36,7 +36,7 @@ public class StudentController {
         if(res!=null){
             return Result.success();
         }else{
-            return Result.error("-1","登陆失败");
+            return Result.error("1","登陆失败");
         }
     }
 

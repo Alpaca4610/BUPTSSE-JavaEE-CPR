@@ -40,6 +40,7 @@ public class CollegeController {
         College college = collegeService.add(id,name,score,tier,rank, collegeService.Avg(list),kind);
         return Result.success(college);
     }
+
     @PostMapping("/delete")//删
     @ResponseBody
     public Result<College> delete(@RequestParam String id){

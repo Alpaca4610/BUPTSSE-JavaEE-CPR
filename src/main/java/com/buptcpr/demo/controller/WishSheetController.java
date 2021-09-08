@@ -25,6 +25,9 @@ public class WishSheetController {
     @Autowired
     CollegeRepository collegeRepository;
 
+    // 这个就是三个志愿那个地方
+    // studentId 是前端寸的
+    // wishID1, wishID2, wishID3 是三个大学的, 标签
     @PostMapping(path="/add")//增
     public @ResponseBody
     Result postWishSheet(@RequestParam String id,
@@ -42,9 +45,9 @@ public class WishSheetController {
 
     @PostMapping(path="/update")
     public @ResponseBody Result updateWishSheet(@RequestParam String id,
-    @RequestParam String id1, @RequestParam String id2,@RequestParam String id3)
+    @RequestParam String wishID1, @RequestParam String wishID2,@RequestParam String wishID3)
     {
-        return sheetService.update(id, id1, id2, id3);
+        return sheetService.update(id, wishID1, wishID2, wishID3);
     }
 
     @PostMapping(path="/judge")

@@ -26,6 +26,7 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
+
     @PostMapping(path="/register")
     @SuppressWarnings("unchecked")
     public @ResponseBody
