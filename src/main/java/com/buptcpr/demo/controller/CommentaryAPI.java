@@ -72,7 +72,7 @@ public class CommentaryAPI {
     }
 
     @GetMapping("/getcom")
-    public Result<List<Map<String,Object>>> getCom()
+    public Result getCom()
     {
         List<Map<String,Object>> res=CreateCommentaryTableInsertPrint.Result(j);
         if(res.size()>0)
