@@ -34,8 +34,8 @@ public class RankQuery {
     @RequestMapping(value="/AvailableSchools",method={RequestMethod.POST, RequestMethod.GET})
     public Result<List<Map<String, Object>>> Adapter(HttpServletRequest request, HttpSession session) {
         Integer Score = Integer.parseInt(request.getParameter("scores"));
-        String Upper5School = "select name,crank,score from college where (crank-%d)<=0 order by (crank-%d) desc limit 0,5;";
-        String select = "select name,crank,score from college where (%d-crank)<=0 order by (%d-crank) desc limit 0,20;";
+        String Upper5School = "select name,prank,score from college where (prank-%d)<=0 order by (prank-%d) desc limit 0,5;";
+        String select = "select name,prank,score from college where (%d-prank)<=0 order by (%d-prank) desc limit 0,20;";
         List<Map<String, Object>> MyRank = j1.queryForList(String.format("select * from test where score>=%d", Score));
         ;
         int UserRank = 0;
@@ -63,8 +63,8 @@ public class RankQuery {
     }
 
     public static String[] SchoolRecommand(JdbcTemplate j,int Score) {
-        String Upper5School = "select name,crank,score from college order by (crank-%d) asc limit 0,5;";
-        String select = "select name,crank,score from college order by (%d-crank) desc limit 5,20;";
+        String Upper5School = "select name,prank,score from college order by (prank-%d) asc limit 0,5;";
+        String select = "select name,prank,score from college order by (%d-prank) desc limit 5,20;";
         List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from test where score>=%d", Score));
         ;
         int UserRank = 0;
