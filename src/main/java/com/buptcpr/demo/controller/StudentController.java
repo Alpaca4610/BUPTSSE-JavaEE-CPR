@@ -117,7 +117,12 @@ public class StudentController {
 
     @PostMapping("/getScore")
     @ResponseBody
-    public Result<List<Map<String, Integer>>> getTotalScore(@RequestParam String studentID){
-        return Result.success(studentService.getScore(studentID));
+    public Result<List<Map<String, Integer>>> getTotalScore(@RequestParam String studentID) {
+        List<Map<String, Integer>> score = studentService.getScore(studentID);
+        if (score == null) {
+            return Result.error("1", "学生不存在");
+        } else {
+            return Result.success(score);
+        }
     }
 }
