@@ -77,6 +77,11 @@ public class AdminService {
         
         for(Student student:studentList){
             WishSheet sheet = sheetRepository.findByStudentID(student.getStudentID());
+            if(sheet==null){
+                Student byStudentID = studentRepository.findByStudentID(student.getStudentID());
+                byStudentID.setRanked(1);
+                continue;
+            }
             College college1 = collegeRepository.findByCollegeID(sheet.getWishA());
             College college2 = collegeRepository.findByCollegeID(sheet.getWishB());
             College college3 = collegeRepository.findByCollegeID(sheet.getWishC());
