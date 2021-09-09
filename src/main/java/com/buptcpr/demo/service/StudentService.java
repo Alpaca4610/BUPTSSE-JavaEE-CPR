@@ -34,6 +34,7 @@ public class StudentService {
             student.setName(name);
             student.setPassword(md5Util.encode(password));
             student.setClassID(classID);
+            student.setRanked(false);
             System.out.println("studentID: " + studentID);
             studentRepository.save(student);
             return 0;
