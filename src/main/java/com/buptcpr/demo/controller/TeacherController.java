@@ -96,8 +96,8 @@ public class TeacherController {
 
     @PostMapping("/getName")
     @ResponseBody
-    public Result name(@RequestParam String TeacherID) {
-        List<Map> ret = teacherRepository.findNameByTeacherID(TeacherID);
+    public Result name(@RequestParam String id) {
+        List<Map> ret = teacherRepository.findNameByTeacherID(id);
         return Result.success(ret);
     }
 }

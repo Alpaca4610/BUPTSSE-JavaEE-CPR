@@ -144,8 +144,8 @@ public class StudentController {
 
     @PostMapping("/getName")
     @ResponseBody
-    public Result name(@RequestParam String studentID) {
-        List<Map> ret = studentRepository.findNameByStudentID(studentID);
+    public Result name(@RequestParam String id) {
+        List<Map> ret = studentRepository.findNameByStudentID(id);
         return Result.success(ret);
     }
 }
