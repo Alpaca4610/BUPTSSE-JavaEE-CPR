@@ -2,6 +2,7 @@ package com.buptcpr.demo.service;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.entity.College;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,9 @@ import java.util.Map;
 public class CollegeService {
     @Resource
     private CollegeRepository collegeRepository;
+
+    @Autowired
+    private CollegeService collegeService;
 
     //增
     @Transactional
@@ -35,14 +39,20 @@ public class CollegeService {
         collegeRepository.deleteByCollegeID(id);
     }
 
-    public int update(String id,String name, String kind,int tier,int score,int rank){
+    public int update(String id,String name, String kind,int tier,int score,int rank1, int rank2, int rank3, int rank4){
         College college = collegeRepository.findByCollegeID(id);
         if(college == null){
             return 1;
         }else{
+            Integer[] list=new Integer[4];
+            list[0]=rank1;
+            list[1]=rank2;
+            list[2]=rank3;
+            list[3]=rank4;
             college = new College();
             college.setCollegeID(id);
-            college.setCrank(rank);
+            college.setCrank(rank1);
+            college.setPrank(collegeService.Avg(list));
             college.setName(name);
             college.setKind(kind);
             college.setTier(tier);

@@ -51,9 +51,9 @@ public class CollegeController {
     // 修改学校
     @PostMapping("/update")
     @ResponseBody
-    public Result<College> update(String id,String name, String kind,int tier,int score,int rank){
+    public Result<College> update(String id,String name, String kind,int tier,int score,int rank1, int rank2, int rank3, int rank4){
         //修改的对象必须是持久化对象，所以先从数据库查询id为1的对象开始修改
-        int ret = collegeService.update(id,name,kind,tier,score,rank);
+        int ret = collegeService.update(id,name,kind,tier,score, rank1, rank2, rank3, rank4);
         if(ret == 0){ //成功
             return Result.success(null);
         }else { // 失败
