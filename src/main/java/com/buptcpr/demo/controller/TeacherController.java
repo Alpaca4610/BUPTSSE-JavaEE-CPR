@@ -56,12 +56,13 @@ public class TeacherController {
         }
     }
 
-    //
+    // 得到老师管理的
     @PostMapping(path = "/get_1_Rate")
     public @ResponseBody Result<Double> get1Rate(@RequestParam String id, @RequestParam int rank1Score){
         return Result.success(statisticsService.get1Rate(id, rank1Score));
     }
 
+    // 删老师
     @PostMapping(path="/delete")
     public @ResponseBody Result<String> teacherDelete(@RequestParam String id) {
         int delete = teacherService.delete(id);
@@ -72,8 +73,9 @@ public class TeacherController {
         }
     }
 
+    // 修改老师的, 密码
     @PostMapping(path="/update")
-    public @ResponseBody Result<Teacher> studentDelete(@RequestParam String id,@RequestParam String name, @RequestParam String password,@RequestParam String classID)
+    public @ResponseBody Result<Teacher> teacherUpdate(@RequestParam String id,@RequestParam String name, @RequestParam String password,@RequestParam String classID)
     {
         int update = teacherService.update(id, name, password, classID);
         if(update==1){
@@ -83,6 +85,7 @@ public class TeacherController {
         }
     }
 
+    // 查看这个老师管的所有学生
     @GetMapping("/all")
     @ResponseBody
     public Result<List<Teacher>> getStudent() {
