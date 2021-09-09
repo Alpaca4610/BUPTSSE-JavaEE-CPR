@@ -93,4 +93,11 @@ public class TeacherController {
         List<Teacher> ret = teacherRepository.findAll();
         return Result.success(ret);
     }
+
+    @PostMapping("/getName")
+    @ResponseBody
+    public Result name(@RequestParam String TeacherID) {
+        List<Map> ret = teacherRepository.findNameByTeacherID(TeacherID);
+        return Result.success(ret);
+    }
 }
