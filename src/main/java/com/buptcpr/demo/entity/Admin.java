@@ -20,4 +20,6 @@ public class Admin {
     //用户信息
     @NotBlank
     private String name;
+
+    private Boolean ranked=false;
 }

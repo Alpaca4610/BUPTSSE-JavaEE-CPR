@@ -1,10 +1,12 @@
 package com.buptcpr.demo.controller;
 
+import com.buptcpr.demo.DAO.AdminRepository;
 import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
 //import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
+import com.buptcpr.demo.service.AdminService;
 import com.buptcpr.demo.service.MD5Util;
 import com.buptcpr.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ public class StudentController {
     private CollegeRepository collegeRepository;
     @Autowired
     MD5Util md5Util;
+    private AdminService adminService;
 
     // 登录
     @PostMapping("/login")
@@ -124,5 +127,12 @@ public class StudentController {
         } else {
             return Result.success(score);
         }
+    }
+
+    @PostMapping("/get-my-college")
+    @ResponseBody
+    public Result getMyCollege(@RequestParam String studentID){
+        String myCollege = studentService.getMyCollege(studentID);
+        return Result.success(myCollege);
     }
 }

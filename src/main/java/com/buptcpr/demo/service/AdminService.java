@@ -72,7 +72,7 @@ public class AdminService {
         }
     }
 
-    public Result<String> ranking(){
+    public Result<String> ranking(String adminID){
         List<Student> studentList = studentRepository.findAll(Sort.by("score").descending());
         
         for(Student student:studentList){
@@ -97,6 +97,9 @@ public class AdminService {
 
             }
         }
+        Admin byadminID = adminRepository.findByadminID(adminID);
+        byadminID.setRanked(true);
+        adminRepository.save(byadminID);
         return Result.success("志愿结果统计完毕");
     }
 }

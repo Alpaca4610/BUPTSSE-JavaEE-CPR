@@ -86,4 +86,13 @@ public class StudentService {
     public List<Map<String, Integer>> getScore(String id){
         return  studentRepository.findAllScoreByStudentID(id);
     }
+
+    public String getMyCollege(String id){
+        String myCollegeByStudentID = studentRepository.findMyCollegeByStudentID(id);
+        if(myCollegeByStudentID==null){
+            return "fail";
+        }else{
+            return myCollegeByStudentID;
+        }
+    }
 }
