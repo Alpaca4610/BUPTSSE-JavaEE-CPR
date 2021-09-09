@@ -157,7 +157,6 @@ public class ExcelToDB {
     private void CreateTabel(JdbcTemplate j,String dir,String filename,Sheet st){
 
         Row fistRow=st.getRow(0);
-
         String execution="CREATE TABLE %s(%s);";
 
         String Body="";
@@ -175,6 +174,7 @@ public class ExcelToDB {
         try {
             j.execute(String.format("drop table %s;", filename));
         }catch(Exception e){}
+
 
         j.execute(String.format(execution,filename,Body.substring(0,Body.length()-1)));
         SaveValueTypeLog(TypeLogDir,filename);
