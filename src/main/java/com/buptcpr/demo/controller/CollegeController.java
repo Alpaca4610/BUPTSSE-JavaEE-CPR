@@ -1,6 +1,7 @@
 package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.CollegeRepository;
+import com.buptcpr.demo.DAO.SheetRepository;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.College;
 import com.buptcpr.demo.entity.Teacher;
@@ -28,6 +29,8 @@ public class CollegeController {
     private CollegeService collegeService;
     @Autowired
     private CollegeRepository collegeRepository;
+    @Autowired
+    private SheetRepository sheetRepository;
 
     @PostMapping ("/add")//增
     @ResponseBody
@@ -75,6 +78,7 @@ public class CollegeController {
         if (collegeRepository.findAll().isEmpty())
             return Result.error("1","数据库为空");
         collegeRepository.clearCount();
+        sheetRepository.deleteAll();
         return Result.success(null);
     }
 

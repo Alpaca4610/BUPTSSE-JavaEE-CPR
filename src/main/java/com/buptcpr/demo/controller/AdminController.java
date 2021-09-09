@@ -1,6 +1,7 @@
 package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.AdminRepository;
+import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Admin;
@@ -35,7 +36,7 @@ public class AdminController {
         if(i==1) {
             return Result.error("1","超级管理员已注册");
         }else{
-            return Result.success(null);
+            return Result.success(Jwt.createJWT(3600000));
         }
     }
 

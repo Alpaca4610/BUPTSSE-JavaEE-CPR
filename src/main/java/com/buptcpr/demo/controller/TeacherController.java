@@ -1,6 +1,7 @@
 package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.TeacherRepository;
+import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
 import com.buptcpr.demo.entity.Teacher;
@@ -33,7 +34,7 @@ public class TeacherController {
         if(!i) {
             return Result.error("1","用户名或密码错误");
         }else{
-            return Result.success(null);
+            return Result.success(Jwt.createJWT(3600000));
         }
     }
 
