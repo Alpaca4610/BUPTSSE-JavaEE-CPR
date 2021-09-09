@@ -96,10 +96,9 @@ public class AdminService {
                 student.setMyCollege(college3.getCollegeID());
 
             }
+            Student byStudentID = studentRepository.findByStudentID(student.getStudentID());
+            byStudentID.setRanked(true);
         }
-//        Admin byadminID = adminRepository.findByadminID(adminID);
-//        byadminID.setRanked(true);
-//        adminRepository.save(byadminID);
         return Result.success("志愿结果统计完毕");
     }
 }

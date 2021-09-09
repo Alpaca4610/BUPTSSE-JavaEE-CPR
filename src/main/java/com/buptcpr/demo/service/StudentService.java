@@ -88,10 +88,14 @@ public class StudentService {
     }
 
     public String getMyCollege(String id){
+        Boolean rankedByStudentID = studentRepository.findRankedByStudentID(id);
         String myCollegeByStudentID = studentRepository.findMyCollegeByStudentID(id);
-        if(myCollegeByStudentID==null){
-            return "fail";
+        if(rankedByStudentID==false){
+            return "not_yet";
         }else{
+            if(myCollegeByStudentID==null){
+                return "failed";
+            }else
             return myCollegeByStudentID;
         }
     }

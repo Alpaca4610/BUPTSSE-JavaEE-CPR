@@ -36,6 +36,7 @@ public class Student {
 
     private String myCollege;
 
+    private Boolean ranked;
 
     public interface Login{}
 

@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 //package com.buptcpr.demo.config;
 //
 //import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,7 @@
 //    }
 //}
 //
-=======
+
 package com.buptcpr.demo.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -42,4 +41,3 @@ public class CorsConfig extends WebMvcConfigurationSupport {
     }
 }
 
->>>>>>> Stashed changes

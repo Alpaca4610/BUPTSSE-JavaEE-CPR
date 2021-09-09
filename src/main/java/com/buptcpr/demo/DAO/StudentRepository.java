@@ -17,7 +17,10 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     List<Student> findAll();
     @Query(nativeQuery = true,value = "select chinese, math, english, science from student where studentID = ?1")
     List<Map<String, Integer>> findAllScoreByStudentID(String studentID);
-    @Query(nativeQuery = true,value = "select myCollege from student where studentID = ?1")
+    @Query(nativeQuery = true,value = "select my_college from student where studentID = ?1")
     String findMyCollegeByStudentID(String studentID);
+    @Query(nativeQuery = true,value = "select ranked from student where studentID = ?1")
+    Boolean findRankedByStudentID(String studentID);
+
 
 }
