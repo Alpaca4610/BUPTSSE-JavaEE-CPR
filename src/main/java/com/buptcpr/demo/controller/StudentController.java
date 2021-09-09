@@ -136,7 +136,7 @@ public class StudentController {
         if(myCollege.equals("not_yet")){
             return Result.error("1", myCollege);
         }else if(myCollege.equals("failed")){
-            return Result.error("1", myCollege);
+            return Result.success(myCollege);
         }else
             return Result.success(myCollege);
     }
