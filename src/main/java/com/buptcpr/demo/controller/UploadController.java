@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -22,6 +19,8 @@ import java.io.IOException;
  * @Modified Golden-2019211981
  */
 @Controller
+@CrossOrigin
+@RequestMapping("/excel")
 public class UploadController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
@@ -31,11 +30,6 @@ public class UploadController {
 
     @Autowired
     JdbcTemplate j;
-
-    @GetMapping("/upload")
-    public String upload() {
-        return "upload";
-    }
 
     @PostMapping("/upload")
     public @ResponseBody
@@ -50,6 +44,8 @@ public class UploadController {
         int addcopy=0;
         addcopy=NameDetect(this.getClass().getResource("/").getPath()+"/Excel/"+fileName);
 
+        if(dest.exists())
+            DeleteDir(dest);
         if(!dest.exists()){//如果文件夹不存在
             dest.mkdir();//创建文件夹
         }
@@ -71,14 +67,14 @@ public class UploadController {
             String[] child= dir.list();
 
             for(int i=0;i<child.length;i++) {
-                //System.out.print(child[i]);
-                try {
-                    new ExcelToDB().SaveToDB(j,child[i]);
-                }
-                catch(ExportFailException e)
-                {
-                    return Result.error("1",e.toString());
-                }
+                if(child[i].indexOf("_type")==-1) {
+                    try {
+                        new ExcelToDB().SaveToDB(j, child[i]);
+                    } catch (ExportFailException e) {
+                        return Result.error("1", e.toString());
+                    }
+                }else
+                    break;
             }
 
             return Result.success();
@@ -86,6 +82,16 @@ public class UploadController {
             LOGGER.error(e.toString(), e);
         }
         return Result.error("1","qwq");
+    }
+
+    private void DeleteDir(File dest) {
+        File dir=new File(directory);
+        String[] child= dir.list();
+        for(int i=0;i< child.length;i++)
+        {
+            File f=new File(directory+child[i]);
+            f.delete();
+        }
     }
 
     private int NameDetect(String s) {
