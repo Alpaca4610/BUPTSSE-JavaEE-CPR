@@ -34,7 +34,7 @@ public class StudentService {
             student.setName(name);
             student.setPassword(md5Util.encode(password));
             student.setClassID(classID);
-            student.setRanked(false);
+            student.setRanked(0);
             System.out.println("studentID: " + studentID);
             studentRepository.save(student);
             return 0;
@@ -89,9 +89,9 @@ public class StudentService {
     }
 
     public String getMyCollege(String id){
-        Boolean rankedByStudentID = studentRepository.findRankedByStudentID(id);
+        Integer rankedByStudentID = studentRepository.findRankedByStudentID(id);
         String myCollegeByStudentID = studentRepository.findMyCollegeByStudentID(id);
-        if(rankedByStudentID==false){
+        if(rankedByStudentID==0){
             return "not_yet";
         }else{
             if(myCollegeByStudentID==null){

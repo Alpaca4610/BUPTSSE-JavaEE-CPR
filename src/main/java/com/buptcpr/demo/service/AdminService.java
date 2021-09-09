@@ -97,7 +97,7 @@ public class AdminService {
 
             }
             Student byStudentID = studentRepository.findByStudentID(student.getStudentID());
-            byStudentID.setRanked(true);
+            byStudentID.setRanked(1);
         }
         return Result.success("志愿结果统计完毕");
     }

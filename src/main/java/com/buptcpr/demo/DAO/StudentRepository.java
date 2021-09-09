@@ -20,7 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     @Query(nativeQuery = true,value = "select my_college from student where studentID = ?1")
     String findMyCollegeByStudentID(String studentID);
     @Query(nativeQuery = true,value = "select ranked from student where studentID = ?1")
-    Boolean findRankedByStudentID(String studentID);
+    Integer findRankedByStudentID(String studentID);
 
 
 }
