@@ -141,4 +141,11 @@ public class StudentController {
         }else
             return Result.success(myCollege);
     }
+
+    @PostMapping("/getName")
+    @ResponseBody
+    public Result name(@RequestParam String studentID) {
+        List<Map> ret = studentRepository.findNameByStudentID(studentID);
+        return Result.success(ret);
+    }
 }

@@ -21,6 +21,6 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     String findMyCollegeByStudentID(String studentID);
     @Query(nativeQuery = true,value = "select ranked from student where studentID = ?1")
     Integer findRankedByStudentID(String studentID);
-
-
+    @Query(nativeQuery = true,value = "select name from student where studentID = ?1")
+    List<Map> findNameByStudentID(String studentID);
 }
