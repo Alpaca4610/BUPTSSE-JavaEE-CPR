@@ -21,22 +21,22 @@ public class PictureController {
 
     //存储图片到本地文件夹/images/ 并将url存入数据库
     //输入的pictureID就是图片的名字
-    @RequestMapping(value = "/savePic", method = RequestMethod.GET)
-    public String queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String pictureID){
+    @RequestMapping(value = "/savePic", method = RequestMethod.POST)
+    public Result queryBaseInfo(@RequestParam MultipartFile file , @RequestParam String pictureID){
         //String filename = pictureService1.fileUpload(file, Name);
         return pictureService1.savePhoto(file, pictureID);
         // return new CommonResult(200,"上传成功",filename);
     }
 
     //通过id获取图片url
-    @RequestMapping(value = "/getPic",method = RequestMethod.GET)
+    @RequestMapping(value = "/getPic",method = RequestMethod.POST)
     public @ResponseBody String GetImage(@RequestParam String  pictureID){
         return pictureService1.getImage(pictureID);
     }
 
     //根据id 修改图片信息
     //pictureID是图片名字
-    @RequestMapping(value = "/updatePic", method = RequestMethod.GET)
+    @RequestMapping(value = "/updatePic", method = RequestMethod.POST)
     public Result updatePic(@RequestParam MultipartFile file , @RequestParam String pictureID){
             pictureService1.update(file, pictureID);
 

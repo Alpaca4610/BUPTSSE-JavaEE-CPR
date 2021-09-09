@@ -1,6 +1,7 @@
 package com.buptcpr.demo.service;
 
 import com.buptcpr.demo.DAO.PictureRepository;
+import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Picture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,14 @@ public class PictureService {
     @Autowired
     private MD5Util md5Util;
 
-    public String savePhoto(MultipartFile file, String pictureID) {
+    public Result savePhoto(MultipartFile file, String pictureID) {
         Picture picture = new Picture();
         String filename = fileUpload(file, pictureID);
         picture.setUrl(filename);
         picture.setPictureID(pictureID);
         System.out.println("pictureName: " + pictureID);
         pictureRepository1.save(picture);
-        return "Saved";
+        return Result.success();
     }
 
     public String fileUpload(MultipartFile file, String pictureID) {

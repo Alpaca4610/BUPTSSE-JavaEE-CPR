@@ -27,7 +27,7 @@ public interface CollegeRepository extends JpaRepository<College, String> {
     List<Map> getIntervalList(int min, int max);
 
     @Modifying
-    @Query(nativeQuery = true,value = "update college set count = 0")
+    @Query(nativeQuery = true,value = "update college set count_selected = 0")
     void clearCount();
 
     College findByName(String name);
