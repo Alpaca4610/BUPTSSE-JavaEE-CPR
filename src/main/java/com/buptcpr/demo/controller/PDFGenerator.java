@@ -179,7 +179,7 @@ public class PDFGenerator {
 
 
             int CellHeight=20;
-            for(int i=0;i<Doamins.length;i++)
+            for(int i=0;i<Doamins.length-1;i++)
             {
                 cell = new PdfPCell(new Paragraph(mapping.get(Doamins[i]),
                         FontFactory.getFont("C:\\Windows\\Fonts\\simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED,10f, Font.NORMAL, BaseColor.BLACK)));
