@@ -67,7 +67,11 @@ public class RankQuery {
         String select = "select name,prank,score from college where (%d-prank)<=0 order by (%d-prank) desc limit 0,20;";
         List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from test where score>=%d", Score));
         ;
-        int UserRank = getActualRank(Score, MyRank);
+        int UserRank = 0;
+        for (Map<String, Object> map : MyRank)
+            for (String s : map.keySet()) {
+                UserRank = Integer.parseInt(map.get(s).toString());
+            }
         Map<String, Object> mr =new HashMap<>();
         try {
             mr = j.queryForMap(String.format("select * from test where score=%d", Score));
@@ -83,15 +87,6 @@ public class RankQuery {
         list.addAll(UpperSchool);
         list.addAll(schools);
         return SchoolRecApi.StrRes(list);
-    }
-    static Integer getActualRank(Integer Score,List<Map<String,Object>> MyRank)
-    {
-        int UserRank = 0;
-        for (Map<String, Object> map : MyRank)
-            for (String s : map.keySet()) {
-                UserRank = Integer.parseInt(map.get(s).toString());
-            }
-        return UserRank;
     }
 
 
