@@ -156,6 +156,8 @@ public class PDFGenerator {
         System.out.println("width:"+PageSize.A4.getWidth());
         System.out.println("height:"+PageSize.A4.getHeight());
 
+        values[4]=RankQuery.getActualRank(Integer.parseInt(values[2]),j.queryForList(String.format("select * from test where score>=%d", values[2]))).toString();
+
         try{
             PdfWriter w = PdfWriter.getInstance(doc, new FileOutputStream(this.getClass().getResource("/").getPath()+String.format("%s.pdf", fname)));
             doc.open();
@@ -211,7 +213,10 @@ public class PDFGenerator {
 
             t=new PdfPTable(1);
 
+            //
             RecommendSchool(new RankQuery().SchoolRecommand(j1,Integer.parseInt(values[2])),pcb);
+
+            //
             doc.close();
         }
         catch (Exception e){e.printStackTrace();}

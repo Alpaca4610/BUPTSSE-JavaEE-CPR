@@ -62,36 +62,36 @@ public class RankQuery {
         return new Result().success(list);
     }
 
-    public static String[] SchoolRecommand(JdbcTemplate j,int Score) {
-        String Upper5School = "select name,prank,score from college order by (prank-%d) asc limit 0,5;";
-        String select = "select name,prank,score from college order by (%d-prank) desc limit 5,20;";
+    public static String[] SchoolRecommand(JdbcTemplate j,Integer Score) {
+        String Upper5School = "select name,prank,score from college where (prank-%d)<=0 order by (prank-%d) desc limit 0,5;";
+        String select = "select name,prank,score from college where (%d-prank)<=0 order by (%d-prank) desc limit 0,20;";
         List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from test where score>=%d", Score));
         ;
-        int UserRank = 0;
-        for (Map<String, Object> map : MyRank)
-            for (String s : map.keySet()) {
-                UserRank = Integer.parseInt(map.get(s).toString());
-            }
-
+        int UserRank = getActualRank(Score, MyRank);
         Map<String, Object> mr =new HashMap<>();
         try {
             mr = j.queryForMap(String.format("select * from test where score=%d", Score));
         } catch (EmptyResultDataAccessException e) {
             UserRank++;
         }
-        Integer s=Score;
-        mr.clear();
-        mr.put(s.toString(),UserRank);
-        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j,String.format(Upper5School,UserRank));
-        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j,String.format(select,UserRank));
+        mr.put(Score.toString(),UserRank);
+        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j,String.format(Upper5School,UserRank,UserRank));
+        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j,String.format(select,UserRank,UserRank));
 
         List<Map<String,Object>> list=new ArrayList<>();
         list.add(mr);
         list.addAll(UpperSchool);
         list.addAll(schools);
-
-        LOGGER.info(String.format(select,Score));
         return SchoolRecApi.StrRes(list);
+    }
+    static Integer getActualRank(Integer Score,List<Map<String,Object>> MyRank)
+    {
+        int UserRank = 0;
+        for (Map<String, Object> map : MyRank)
+            for (String s : map.keySet()) {
+                UserRank = Integer.parseInt(map.get(s).toString());
+            }
+        return UserRank;
     }
 
 
