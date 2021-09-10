@@ -2,6 +2,7 @@ package com.buptcpr.demo.controller;
 
 import com.buptcpr.demo.DAO.AdminRepository;
 import com.buptcpr.demo.DAO.CollegeRepository;
+import com.buptcpr.demo.DAO.QueryAPI;
 import com.buptcpr.demo.DAO.StudentRepository;
 //import com.buptcpr.demo.common.Jwt;
 import com.buptcpr.demo.common.Jwt;
@@ -11,6 +12,7 @@ import com.buptcpr.demo.service.AdminService;
 import com.buptcpr.demo.service.MD5Util;
 import com.buptcpr.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,10 @@ import java.util.Map;
 @Controller
 @RequestMapping(path="/student")
 public class StudentController {
+
+
+    @Autowired
+    JdbcTemplate j;
 
     @Autowired
     private StudentService studentService;
@@ -115,6 +121,7 @@ public class StudentController {
         byStudentID.setMath(math);
         byStudentID.setScience(science);
         byStudentID.setScore(chinese+english+math+science);
+        byStudentID.setMyRank(RankQuery.getCrank(j,chinese+english+math+science));
         studentRepository.save(byStudentID);
         return Result.success("成绩上传成功");
     }
