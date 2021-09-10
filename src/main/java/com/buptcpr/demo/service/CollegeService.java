@@ -20,7 +20,7 @@ public class CollegeService {
 
     //增
     @Transactional
-    public College add(String id,String name,int score,int tier,int rank, int prank, String kind){
+    public College add(String id, String name, int score, int tier, int rank, int prank, String kind) {
         College college = new College();
         college.setScore(score);
         college.setName(name);
@@ -35,20 +35,20 @@ public class CollegeService {
 
     //delete
     @Transactional
-    public void delete(String id){//删
+    public void delete(String id) {//删
         collegeRepository.deleteByCollegeID(id);
     }
 
-    public int update(String id,String name, String kind,int tier,int score,int rank1, int rank2, int rank3, int rank4){
+    public int update(String id, String name, String kind, int tier, int score, int rank1, int rank2, int rank3, int rank4) {
         College college = collegeRepository.findByCollegeID(id);
-        if(college == null){
+        if (college == null) {
             return 1;
-        }else{
-            Integer[] list=new Integer[4];
-            list[0]=rank1;
-            list[1]=rank2;
-            list[2]=rank3;
-            list[3]=rank4;
+        } else {
+            Integer[] list = new Integer[4];
+            list[0] = rank1;
+            list[1] = rank2;
+            list[2] = rank3;
+            list[3] = rank4;
             college = new College();
             college.setCollegeID(id);
             college.setCrank(rank1);
@@ -63,31 +63,26 @@ public class CollegeService {
 
     }
 
-    public List<Map> getIntervalList(int min, int max){
+    public List<Map> getIntervalList(int min, int max) {
         return collegeRepository.getIntervalList(min, max);
     }
 
     public Integer Avg(Integer[] ScoreSet) {
-        int highest=0;
-        int Lowest=Integer.MAX_VALUE;
+        int highest = 0;
+        int Lowest = Integer.MAX_VALUE;
+        int res = 0;
 
-        for(Integer a:ScoreSet) {
-                if(highest<a)
-                    highest=a;
-                if(Lowest>a)
-                    Lowest=a;
-            }
-            int res=0;
-            int count=0;
-            for(Integer a:ScoreSet) {
-                if(Math.abs(a-highest)>0.001&&Math.abs(a-Lowest)>0.001) {
-                    res += a;
-                    count++;
-                }
-            }
-            res=(res/count);
-            return res;
+        for (Integer a : ScoreSet) {
+            res += a;
+            if (highest < a)
+                highest = a;
+            if (Lowest > a)
+                Lowest = a;
         }
+        res-=highest;
+        res-=Lowest;
+        return res/2;
+    }
 
 
 //    //查询

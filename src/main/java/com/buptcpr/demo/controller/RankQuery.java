@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -47,7 +44,7 @@ public class RankQuery {
         try {
             mr = j1.queryForMap(String.format("select * from test where score=%d", Score));
         } catch (EmptyResultDataAccessException e) {
-        UserRank++;
+            UserRank++;
         }
         mr.put(Score.toString(),UserRank);
         List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j1,String.format(Upper5School,UserRank,UserRank));
@@ -58,13 +55,17 @@ public class RankQuery {
         list.addAll(UpperSchool);
         list.addAll(schools);
 
-        LOGGER.info(String.format(select,UserRank,UserRank));
+        LOGGER.info(list.get(3).toString());
+
+
+
         return new Result().success(list);
     }
 
-    public static String[] SchoolRecommand(JdbcTemplate j,int Score) {
-        String Upper5School = "select name,prank,score from college order by (prank-%d) asc limit 0,5;";
-        String select = "select name,prank,score from college order by (%d-prank) desc limit 5,20;";
+    public static String[] SchoolRecommand(JdbcTemplate j,Integer Score) {
+
+        String Upper5School = "select name,prank,score from college where (prank-%d)<=0 order by (prank-%d) desc limit 0,5;";
+        String select = "select name,prank,score from college where (%d-prank)<=0 order by (%d-prank) desc limit 0,20;";
         List<Map<String, Object>> MyRank = j.queryForList(String.format("select * from test where score>=%d", Score));
         ;
         int UserRank = 0;
@@ -72,26 +73,36 @@ public class RankQuery {
             for (String s : map.keySet()) {
                 UserRank = Integer.parseInt(map.get(s).toString());
             }
-
         Map<String, Object> mr =new HashMap<>();
         try {
             mr = j.queryForMap(String.format("select * from test where score=%d", Score));
         } catch (EmptyResultDataAccessException e) {
             UserRank++;
         }
-        Integer s=Score;
-        mr.clear();
-        mr.put(s.toString(),UserRank);
-        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j,String.format(Upper5School,UserRank));
-        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j,String.format(select,UserRank));
+        mr.put(Score.toString(),UserRank);
+        List<Map<String,Object>> UpperSchool= SchoolRecApi.ListRes(j,String.format(Upper5School,UserRank,UserRank));
+        List<Map<String,Object>> schools=SchoolRecApi.ListRes(j,String.format(select,UserRank,UserRank));
 
         List<Map<String,Object>> list=new ArrayList<>();
         list.add(mr);
         list.addAll(UpperSchool);
         list.addAll(schools);
 
-        LOGGER.info(String.format(select,Score));
+
         return SchoolRecApi.StrRes(list);
+    }
+
+
+
+    public static int getCrank(JdbcTemplate j,Integer Score)
+    {
+        String s=Score.toString();
+        String sql="select crank from test where (score-%s)>=0 order by (score-%s) asc limit 0,1;";
+        String result="";
+        Map<String,Object> m=j.queryForMap(String.format(sql,s,s));
+        for(String a:m.keySet())
+            result+=m.get(a);
+        return Integer.parseInt(result);
     }
 
 

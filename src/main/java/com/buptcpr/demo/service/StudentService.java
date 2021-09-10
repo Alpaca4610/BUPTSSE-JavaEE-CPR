@@ -1,5 +1,6 @@
 package com.buptcpr.demo.service;
 
+import com.buptcpr.demo.DAO.CollegeRepository;
 import com.buptcpr.demo.DAO.StudentRepository;
 import com.buptcpr.demo.common.Result;
 import com.buptcpr.demo.entity.Student;
@@ -15,6 +16,8 @@ import java.util.*;
 public class StudentService {
     @Resource
     private StudentRepository studentRepository;
+    @Autowired
+    private CollegeRepository collegeRepository;
     @Autowired
     private MD5Util md5Util;
 
@@ -97,7 +100,7 @@ public class StudentService {
             if(myCollegeByStudentID==null){
                 return "failed";
             }else
-            return myCollegeByStudentID;
+            return collegeRepository.findByCollegeID(myCollegeByStudentID).getName();
         }
     }
 }
