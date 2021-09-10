@@ -41,9 +41,9 @@ public class AdminController {
     }
 
     @PostMapping(path="/login")
-    public @ResponseBody Result adminSignIn(@RequestParam String id, @RequestParam String password) {
+    public @ResponseBody Result<Admin> adminSignIn(@RequestParam String id, @RequestParam String password) {
         if(adminService.signIn(id, password)) {
-            return Result.success(Jwt.createJWT(3600000));
+            return Result.success(null);
         }else{
             return Result.error("1","用户名或密码错误");
         }
