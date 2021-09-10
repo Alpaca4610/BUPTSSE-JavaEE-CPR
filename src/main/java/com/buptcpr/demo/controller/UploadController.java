@@ -41,7 +41,8 @@ public class UploadController {
 
         String fileName = file.getOriginalFilename();
         File dest = new File(this.getClass().getResource("/").getPath()+"/Excel");
-        NameDetect(this.getClass().getResource("/").getPath()+"/Excel/"+fileName);
+        int addcopy=0;
+        addcopy=NameDetect(this.getClass().getResource("/").getPath()+"/Excel/"+fileName);
 
         if(dest.exists())
             DeleteDir(dest);
@@ -49,7 +50,7 @@ public class UploadController {
             dest.mkdir();//创建文件夹
         }
 
-        dest = new File(this.getClass().getResource("/").getPath()+"/Excel/" +fileName);
+        dest = new File(this.getClass().getResource("/").getPath()+"/Excel/" +strconcater(fileName,addcopy));
 
         /*
             也许这里需要一个记录器保存已上传的文件列表？
@@ -93,12 +94,25 @@ public class UploadController {
         }
     }
 
-    private void NameDetect(String s) {
+    private int NameDetect(String s) {
         int i=0;
-        File originf=new File(s);
-        if (originf.exists())
-        {
-            originf.delete();
-        }
+        if (new File(s).exists())
+            i++;
+        else
+            return i;
+        String[] names=s.split("\\.",0);
+        return i+NameDetect(names[0] + "_copy." +names[1]);
+    }
+
+    String strconcater (String s, int addcopy) throws Exception {
+        String[] names=s.split("\\.",0);
+        if(addcopy!=0) {
+            if (names.length == 2) {
+                s = names[0] + "_copy." +names[1];
+                return strconcater(s,addcopy-1);
+            } else
+                throw new Exception("文件名错误");
+        }else
+            return s;
     }
 }
