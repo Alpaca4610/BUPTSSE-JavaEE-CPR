@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>axios中文网|axios API 中文文档 | axios</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://axios-js.com/zh-cn/index.html">
+  <!-- Alternative links -->
+  
+    
+      <link rel="alternative" hreflang="en" href="http://axios-js.com/index.html">
+    
+      <link rel="alternative" hreflang="zh-cn" href="http://axios-js.com/zh-cn/index.html">
+    
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/icon/mstile-144x144.png">
+  <meta name="generator" content="Hexo 4.1.0">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  
+<link rel="stylesheet" href="/css/navy.css">
+
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="axios">
+  <!-- Open Graph -->
+  <meta name="description" content="Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="axios中文网|axios API 中文文档">
+<meta property="og:url" content="http://axios-js.com/zh-cn/index.html">
+<meta property="og:site_name" content="axios">
+<meta property="og:description" content="Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://axios-js.com/icon/les01.jpeg">
+<meta property="og:image" content="http://axios-js.com/icon/les02.jpeg">
+<meta property="og:image" content="http://axios-js.com/icon/les03.jpeg">
+<meta property="og:image" content="http://axios-js.com/icon/les04.jpeg">
+<meta property="article:published_time" content="2021-07-05T14:40:43.000Z">
+<meta property="article:modified_time" content="2021-07-05T14:40:43.000Z">
+<meta property="article:author" content="Hexo">
+<meta property="article:tag" content="axios 中文">
+<meta property="article:tag" content=" axios 中文文档">
+<meta property="article:tag" content=" axios API 中文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://axios-js.com/icon/les01.jpeg">
+  <!-- Analytics -->
+  
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1120304,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+<a title="Real Time Web Analytics" href="http://clicky.com/101192693" target="_blank" rel="noopener"><img src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101192693);</script>
+<script async src="//static.getclicky.com/js"></script>
+
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/zh-cn/" id="logo">axios</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/zh-cn/docs/" class="main-nav-link">文档</a><a href="/zh-cn/blogs/" class="main-nav-link">博客</a>
+      <a href="https://github.com/" target="_blank" rel="noopener" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <div id="lang-select-wrap">
+      <label id="lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+      <select id="lang-select" data-canonical="">
+        
+          <option value="en">undefined</option>
+        
+          <option value="zh-cn" selected>简体中文</option>
+        
+      </select>
+    </div>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <header id="banner" class="wrapper">
+  <div class="inner">
+    <h2 id="banner-title">易用、简洁且高效的http库</h2>
+    <div id="banner-start">
+      <span id="banner-start-command">npm install axios</span><a id="banner-start-link" href="docs/"><i class="fa fa-arrow-right"></i></a>
+    </div>
+    <div id="banner-share"><!-- GitHub star -->
+<a class="github-button" href="https://github.com/axios/axios" target="_blank" rel="noopener" data-icon="octicon-star" data-show-count="true" aria-label="Star axios on GitHub">Star</a>
+<!-- GitHub fork -->
+<a class="github-button" href="https://github.com/axios/axios/fork" target="_blank" rel="noopener" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork axios on GitHub">Fork</a><!-- Tweet button -->
+<!-- Twitter follow button -->
+<!-- Github Button -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Twitter share button -->
+</div>
+  </div>
+</header>
+<div id="content-wrap">
+  <div class="wrapper">
+    <div class="inner">
+      <div id="lagou-vip"><a href="https://t3.lagounews.com/RR30R1RTsA17A" target="_blank" rel="noopener">100门课在线学习</a></div><ul id="intro-feature-list"><li class="intro-feature-wrap"><div class="intro-feature"><div class="intro-feature-icon"><i class="fa fa-bolt"></i></div><h3 class="intro-feature-title">支持node端和浏览器端</h3><p class="intro-feature-desc">同样的API，node和浏览器全支持，平台切换无压力</p></div></li><li class="intro-feature-wrap"><div class="intro-feature"><div class="intro-feature-icon"><i class="fa fa-pencil"></i></div><h3 class="intro-feature-title">支持 Promise</h3><p class="intro-feature-desc">使用Promise管理异步，告别传统callback方式</p></div></li><li class="intro-feature-wrap"><div class="intro-feature"><div class="intro-feature-icon"><i class="fa fa-cloud-upload"></i></div><h3 class="intro-feature-title">丰富的配置项</h3><p class="intro-feature-desc">支持拦截器等高级配置</p></div></li><li class="intro-feature-wrap"><div class="intro-feature"><div class="intro-feature-icon"><i class="fa fa-cog"></i></div><h3 class="intro-feature-title">社区支持</h3><p class="intro-feature-desc">axios相关的npm包数量一直在增长</p></div></li></ul><ul class="booklist"><li class="book"><a href="https://mobile.yangkeduo.com/app.html?use_reload=1&amp;launch_url=duo_coupon_landing.html%3Fgoods_id%3D888854005%26pid%3D10429761_141453995%26cpsSign%3DCC_200520_10429761_141453995_bcb3615b0fc1c2eeb9e93ef8d3467c62%26duoduo_type%3D2&amp;campaign=ddjb&amp;cid=launch_dl_force_" target="_blank" rel="noopener">JavaScript高级程序设计</a></li><li class="book"><a href="https://mobile.yangkeduo.com/app.html?use_reload=1&amp;launch_url=duo_coupon_landing.html%3Fgoods_id%3D6913365198%26pid%3D10429761_141454200%26cpsSign%3DCC_200520_10429761_141454200_345ece5f7b523340c47e4863c42b30eb%26duoduo_type%3D2&amp;campaign=ddjb&amp;cid=launch_dl_force_" target="_blank" rel="noopener">JavaScript权威指南</a></li><li class="book"><a href="https://mobile.yangkeduo.com/app.html?use_reload=1&amp;launch_url=duo_coupon_landing.html%3Fgoods_id%3D66855225823%26pid%3D10429761_141340817%26cpsSign%3DCC_200520_10429761_141340817_e02dc0ce5b38190bdfd63cbda354d206%26duoduo_type%3D2&amp;campaign=ddjb&amp;cid=launch_dl_force_" target="_blank" rel="noopener">你不知道的JavaScript</a></li></ul><div class="recommand">以下课程十分推荐想往前端架构师方向精进的同学，月入5万的梦想总要有的！投资自己就是最好的投资！</div><div class="lessonlist"><div class="lession"><a href="https://t8.lagounews.com/FR17RsRBcHBD3 " target="_blank" rel="noopener"><img src="../icon/les01.jpeg" class="lesspic"/></a></div><div class="lession"><a href="https://t7.lagounews.com/FR62RRRkcH772" target="_blank" rel="noopener"><img src="../icon/les02.jpeg" class="lesspic"/></a></div><div class="lession"><a href="https://t6.lagounews.com/FRCFRKRAcHE94 " target="_blank" rel="noopener"><img src="../icon/les03.jpeg" class="lesspic"/></a></div><div class="lession"><a href="https://t8.lagounews.com/FRCARHRkcHF54" target="_blank" rel="noopener"><img src="../icon/les04.jpeg" class="lesspic"/></a></div></div>
+      <ul id="intro-cmd-wrap">
+        <li class="intro-cmd-item">npm install axios</li>
+      </ul>
+      <div id="intro-get-started-wrap">
+        <a href="zh-cn/docs/" id="intro-get-started-link">开始使用</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2021 axios中文网<br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div id="footer-links">
+      <a href="https://twitter.com/" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
+      <a href="https://github.com/" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/zh-cn/docs/" class="mobile-nav-link">文档</a><a href="/zh-cn/blogs/" class="mobile-nav-link">博客</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>简体中文</span></span>
+    <select id="mobile-lang-select" data-canonical="">
+      
+        <option value="en">undefined</option>
+      
+        <option value="zh-cn" selected>简体中文</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- build:js build/js/main.js -->
+
+<script src="/js/lang_select.js"></script>
+
+
+<script src="/js/toc.js"></script>
+
+
+<script src="/js/mobile_nav.js"></script>
+
+<!-- endbuild -->
+
+<!-- Algolia -->
+
+
+
+
+<div class="popup-container">
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/pure-min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css" />
+<style>
+    #magic-popup {
+        color: #000;
+        
+    }
+    .vultr-coupon {
+        margin-top: 20px
+    }
+    .popup-container {
+        visibility: hidden;
+        position: relative
+    }
+
+    .coupon {
+        font-size: 16px;
+    }
+    .desc {
+        margin-top: 10px;
+        color: #03a9f4;
+        font-size: 16px;
+    }
+    .reason {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+        width: 100%;
+        font-size: 12px;
+        color: red
+    }
+
+    .red-packet {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #magic-popup{
+        height: 200px
+    }
+
+    .campaign-tip {
+        font-size: 14px;
+        letter-spacing: 0
+    }
+</style>
+<div class="popup-container">
+<div id="magic-popup" class="magic-popup">
+    <div class="pure-g"> 
+            <a href="https://mobile.yangkeduo.com/duo_gift.html?pid=10429761_157248162&dis_t=1&cpsSign=CR_200918_10429761_157248162_6209d398d516b504f8842b74926501c5&duoduo_type=2"
+                class="red-packet"
+            >
+            <img width="150" src="https://res.cloudinary.com/dq9x329zv/image/upload/v1600435375/redpacket_n6cqu1.jpg">
+            
+            <span class="campaign-tip">拼多多新人专享红包！最高188元，限时领取！还有新人0元购，更多福利等你来拿~>></span>
+            </a>
+    </div>
+
+    <!-- >
+    <div class="pure-g">
+            <div class="pure-u-12-24">
+              <a class="pure-button pure-button-primary coupon" href="http://bit.ly/2PpdaHG" target="_blank" rel="noopener" class="btn btn-default btn-md" role="button">virmach特价vps</a>
+            </div>
+
+            <div class="pure-u-12-24">
+              <a class="pure-button pure-button-primary coupon" href="http://bit.ly/2NDPn4N" target="_blank" rel="noopener" class="btn btn-default btn-md" role="button">vultr新户送$100</a>
+            </div>
+                
+    </div>
+    <div class="desc">
+    vps可用来搭建博客，学习Linux，搭建个人网盘，私人git，
+    可以搭建ssr一键使用google,搜索资料更方便。以上支持支付宝付款。
+    </div>
+
+    <div class="reason">
+        广告费用用于支持本站服务器费用，希望大家理解
+    </div> 
+
+    <-->
+
+    
+    
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+<script type="text/javascript">
+var result = Cookies.get('popuped');
+if(result){
+
+} else {
+Cookies.set('popuped', '1', { expires: 7 })
+// Swal.fire({
+//   title: '<strong></strong>',
+//   icon: 'info',
+//   html: $('#magic-popup'),
+//   focusConfirm: false,
+//   confirmButtonText: '知道了'
+// })
+}
+
+
+</script>
+
+
+</body>
+</html>

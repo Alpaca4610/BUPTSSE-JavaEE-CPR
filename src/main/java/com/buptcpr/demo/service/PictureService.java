@@ -34,7 +34,7 @@ public class PictureService {
         if (file.isEmpty()) {
             return "空文件";
         }else {
-            String directory=this.getClass().getResource("/").getPath() + "/static/images/";
+            String directory=this.getClass().getResource("/").getPath() + "static/images/";
             File dir = new File(directory);
             String fileName = file.getOriginalFilename();  // 文件名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名

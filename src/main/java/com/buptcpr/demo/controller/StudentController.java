@@ -142,9 +142,9 @@ public class StudentController {
     public Result getMyCollege(@RequestParam String studentID){
         String myCollege = studentService.getMyCollege(studentID);
         if(myCollege.equals("not_yet")){
-            return Result.error("1", myCollege);
+            return Result.success("not_yet");
         }else if(myCollege.equals("failed")){
-            return Result.success(myCollege);
+            return Result.success("failed");
         }else
             return Result.success(myCollege);
     }
